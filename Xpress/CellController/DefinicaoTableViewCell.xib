@@ -21,21 +21,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJ6-oa-p99">
-                                <rect key="frame" x="16" y="16" width="288" height="20.5"/>
+                                <rect key="frame" x="16" y="5" width="288" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="XJ6-oa-p99" firstAttribute="leading" secondItem="AAC-R3-Utt" secondAttribute="leading" constant="16" id="CEW-s0-1IY"/>
                             <constraint firstAttribute="trailing" secondItem="XJ6-oa-p99" secondAttribute="trailing" constant="16" id="W1S-fB-y0p"/>
                             <constraint firstAttribute="height" constant="80" id="d6b-vr-vJ4"/>
-                            <constraint firstItem="XJ6-oa-p99" firstAttribute="top" secondItem="AAC-R3-Utt" secondAttribute="top" constant="16" id="hqT-Zg-1Gc"/>
+                            <constraint firstItem="XJ6-oa-p99" firstAttribute="top" secondItem="AAC-R3-Utt" secondAttribute="top" constant="5" id="hqT-Zg-1Gc"/>
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="AAC-R3-Utt" secondAttribute="bottom" id="Jrz-wy-bg9"/>
                     <constraint firstItem="AAC-R3-Utt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Oyz-uS-UtW"/>

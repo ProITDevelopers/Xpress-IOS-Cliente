@@ -37,7 +37,8 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
 
         // Do any additional setup after loading the view.
         print(produtoCompra)
-        
+        mostrarPopUpInternet()
+              verificarSessao()
         mapa.delegate = self
         mapa.showsUserLocation = true
         mapa.userTrackingMode = .follow
@@ -51,7 +52,7 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
                annotation.title = "My Location"
                annotation.subtitle = "Location of store"
                mapa.addAnnotation(annotation)
-        mostrarPopUpInternet()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {

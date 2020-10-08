@@ -35,7 +35,7 @@
                                     <constraint firstAttribute="height" constant="20" id="pNO-dl-mRm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="htp-lV-kZH">
@@ -78,7 +78,7 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nad-2f-EN5">
                                 <rect key="frame" x="162" y="95" width="30" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="60x-QW-tcf"/>
                                     <constraint firstAttribute="height" constant="30" id="rc4-Lb-kAT"/>
@@ -105,7 +105,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="100"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="A1S-pf-l2w"/>
                                     <constraint firstAttribute="height" constant="100" id="DK3-mo-dsy"/>
@@ -137,6 +137,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 <constraints>
                     <constraint firstItem="sUe-gL-tKg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1cB-e2-ofm"/>
                     <constraint firstAttribute="bottom" secondItem="sUe-gL-tKg" secondAttribute="bottom" id="5QK-qj-GZK"/>
@@ -144,6 +145,7 @@
                     <constraint firstItem="sUe-gL-tKg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="H4s-PY-P0D"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="carrinhoAddProduto" destination="Nad-2f-EN5" id="etV-Po-SyH"/>

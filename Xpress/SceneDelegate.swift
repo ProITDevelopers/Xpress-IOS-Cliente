@@ -63,11 +63,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         let date = Date()
                         let format = DateFormatter()
                         format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                        var formattedDate = format.string(from: date)
+                        let formattedDate = format.string(from: date)
                         print(formattedDate)
                         
                        // buscar o tokem na memoria do telefone
-                        let token = UserDefaults.standard.string(forKey: "token")
+                         _ = UserDefaults.standard.string(forKey: "token")
                         //data de expiracao
                         let dataexpiracao = UserDefaults.standard.string(forKey: "dataExpiracao")
                         //formatar data de expiracao
@@ -85,7 +85,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                  
                  
                  let token1 = UserDefaults.standard.string(forKey: "token")
-                        if token1 != nil && date < converteData {
+                        if token1 != nil && dataConvertida > formattedDate {
 
                          let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                             let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: StoryboardID.pricipal) as! PrincipalViewController

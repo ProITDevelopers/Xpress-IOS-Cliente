@@ -13,6 +13,7 @@ class SucessoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         DispatchQueue.main.asyncAfter(deadline: .now() +  2) {
             print("ola")
             self.navigationController?.popToRootViewController(animated: true)

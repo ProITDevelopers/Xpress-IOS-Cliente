@@ -31,14 +31,14 @@ class ListarEstabelecimentosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configuracaoNotification()
-        
+        mostrarPopUpInternet()
+         obterPerfil()
         // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "EstabelecimentoTableViewCell", bundle: nil), forCellReuseIdentifier: "cell1")
         obterEstabelecimentos()
         btnCarrinhoBarra()
-        mostrarPopUpInternet()
-        obterPerfil()
+       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,8 +80,10 @@ class ListarEstabelecimentosViewController: UIViewController {
                 
               let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/ListagemEstabelecimentoA"
            
-                let token = UserDefaults.standard.string(forKey: "token")
-                            
+                
+          self.terminarProgresso()
+        
+               let token = UserDefaults.standard.string(forKey: "token")
                       let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
                 
                 Alamofire.request(URL, method: .get, encoding: JSONEncoding.default, headers: headrs).responseString { response in
@@ -329,9 +331,10 @@ extension ListarEstabelecimentosViewController {
                                                  
                          
                          
-                         UserDefaults.standard.setValue(self.perfil[0].primeiroNome, forKey: "nomeCompleto")
+                         UserDefaults.standard.setValue(self.perfil[0].nomeCompleto, forKey: "nomeCompleto")
                           UserDefaults.standard.setValue(self.perfil[0].email, forKey: "emailUsuario")
-                        let nomeUsuario = UserDefaults.standard.string(forKey: "nomeCompleto")
+                        UserDefaults.standard.setValue(self.perfil[0].imagem, forKey: "imgUsuario")
+                        
                         self.mostrarNotificacao("Olá \(self.perfil[0].primeiroNome!)","Seja bem-vindo(a) ao Xpress!")
                       } catch {
                           print("erro inesperado: \(error)")

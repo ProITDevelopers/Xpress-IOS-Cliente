@@ -24,4 +24,5 @@ enum StoryboardID {
     static let recuperarPalavraPasse = "recuperarSenhaId"
     static let sucessoFotoPopUp = "sucessoFotoId"
     static let navigatioLogin = "inicioId"
+    static let recuperarSenha = "recuperarSenhaId"
 }

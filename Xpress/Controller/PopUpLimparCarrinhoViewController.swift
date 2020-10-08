@@ -12,7 +12,7 @@ import RealmSwift
  protocol atualizarCarrinhoDelegate {
     
     func didAtualizarCarrinho()
-   
+    func didverificarCarrinho()
 }
 
 
@@ -31,6 +31,7 @@ class PopUpLimparCarrinhoViewController: UIViewController {
     @IBAction func buttoLimpar(_ sender: UIButton) {
         limparCarrinho()
         delegate1?.didAtualizarCarrinho()
+        delegate1?.didverificarCarrinho()
         self.view.removeFromSuperview()
     }
     @IBAction func buttonCancelar(_ sender: UIButton) {

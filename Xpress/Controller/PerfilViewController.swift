@@ -29,9 +29,12 @@ class PerfilViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+       mostrarPopUpInternet()
+             verificarSessao()
+      
       mostrarButtonEditar()
        obterPerfil()
-        mostrarPopUpInternet()
+        
        
         // Do any additional setup after loading the view.
     }

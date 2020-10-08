@@ -22,7 +22,7 @@ class SucessoReferenciaViewController: UIViewController {
     var tipoPag = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+      self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         if tipoPag == 0 {
         referenciaLabel.text =  "Referência: \(resposta[0].codigo!)"
         entidadeLabel.text = "Entidade: \(resposta[0].entidade!)"

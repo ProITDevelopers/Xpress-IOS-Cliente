@@ -13,11 +13,7 @@ import MBProgressHUD
 import UserNotifications
 
 
-struct Token: Decodable {
-    var expiracao: String?
-    var tokenuser: String?
-    var role: String?
-}
+
 
 
 class ViewController: UIViewController {
@@ -32,8 +28,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         configuracaoNotification()
-        colocarImageTextField(textField: usuarioTextField, nome: "person")
-        colocarImageTextField(textField: palavraPasseTextField, nome: "lock")
+        usuarioTextField.setLeftView(image: UIImage(named: "perfil")!)
+        palavraPasseTextField.setLeftView(image: UIImage(named: "icons8-forgot-password-30")!)
+       
        mostrarPassWord(button: buttonVerPassword, textField: palavraPasseTextField)
         HideKeyboard()
         
@@ -123,7 +120,15 @@ class ViewController: UIViewController {
                              self.token = try jsonDecoder.decode(Token.self, from: response.data!)
                             UserDefaults.standard.setValue(self.token.tokenuser, forKey: "token")
                             UserDefaults.standard.setValue(self.token.expiracao, forKey: "dataExpiracao")
-                          
+                            print(self.token.tokenuser)
+                            
+                            let token = UserDefaults.standard.string(forKey: "token")
+                                             
+                            guard let usuario = token, usuario != "" else {
+                                                    print(token as Any)
+                                                    return
+                                     self.terminarProgresso()
+                            }
                             self.TransitarParaTelaPrincipal()
                                                       
                              
@@ -162,7 +167,9 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "irRecuperar1", sender: self)
     }
     @IBAction func ButtonRegistar(_ sender: UIButton) {
-        performSegue(withIdentifier: "irRegistar", sender: self)
+        
+        TransitarTela(idTela: "registarID")
+        
     }
 }
 

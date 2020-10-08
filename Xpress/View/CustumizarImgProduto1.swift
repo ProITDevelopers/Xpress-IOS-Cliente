@@ -1,15 +1,15 @@
 //
-//  CustumizarImgProduto.swift
+//  CustumizarImgProduto1.swift
 //  Xpress
 //
-//  Created by Adilson Ebo on 10/3/20.
+//  Created by Adilson Ebo on 10/6/20.
 //  Copyright © 2020 Proit-Consulting. All rights reserved.
 //
 
 import UIKit
 
 
-class CustumizarImgProduto: UIView {
+class CustumizarImgProduto1: UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,13 +39,12 @@ class CustumizarImgProduto: UIView {
         layer.shadowRadius = 10
         layer.shadowOpacity = 0.8
         layer.shadowOffset = CGSize(width: CGFloat(3), height: CGFloat(3))
-         layer.shadowOffset = CGSize(width: CGFloat(3), height: CGFloat(3))
-         if #available(iOS 13.0, *) {
-             layer.shadowColor = UIColor.secondarySystemBackground.cgColor
-         } else {
-             layer.shadowColor = UIColor.gray.cgColor
-             // Fallback on earlier versions
-         }
+        if #available(iOS 13.0, *) {
+            layer.shadowColor = UIColor.secondarySystemBackground.cgColor
+        } else {
+            layer.shadowColor = UIColor.gray.cgColor
+            // Fallback on earlier versions
+        }
 
     }
     
@@ -54,6 +53,7 @@ class CustumizarImgProduto: UIView {
         styleView()
     }
 }
+
 
 
 

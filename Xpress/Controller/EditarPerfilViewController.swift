@@ -45,10 +45,12 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+       verificarSessao()
+      
         verPickerProvincia()
         obterPerfil()
         HideKeyboard()
-        mostrarPopUpInternet()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,7 +62,7 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
     func verPickerProvincia(){
            picker.delegate = self
         provinciaTextField.inputView = picker
-           provinciaTextField.backgroundColor = .white
+            //provinciaTextField.backgroundColor = .white
        }
     
     @IBAction func buttonSalvarFoto(_ sender: UIButton) {
@@ -101,16 +103,12 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
     //MARK: - UIMagePickercontroller Delegate
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-            
             let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             imgPerfil.image = image
             selecionarFoto = true
-           
-             salvarFoto()
-            print(self.selecionarFoto)
-            picker.dismiss(animated: true, completion: nil)
             
+            picker.dismiss(animated: true, completion: nil)
+             salvarFoto()
         }
         
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -153,6 +151,8 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
     
     @IBAction func ButtonSalvar(_ sender: UIButton) {
         atualizarCliente()
+       
+       
     }
     
     // MARK: - Mostra todos os dados do perfil nos textField
@@ -441,7 +441,7 @@ extension EditarPerfilViewController {
            // let imageData =
            let imageData = image?.jpegData(compressionQuality: 0.2)
            let token = UserDefaults.standard.string(forKey: "token")
-           print(token as Any)
+          
            
            let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Content-Type" : "application/json"]
            
@@ -454,14 +454,20 @@ extension EditarPerfilViewController {
                
            case .success(let upload, _, _):
                upload.responseData(completionHandler: { response in
-                   print(response.response?.statusCode)
-                   
                    if response.response?.statusCode == 200 {
                        print("FOTO CARREGADA COM SUCESSO")
-                    self.showPopUpFuncao()
+                    print(self.selecionarFoto)
+                   
+                    self.showToast1(controller: self, message:"Fotografia salva com sucesso.", seconds: 2)
+                    DispatchQueue.main.asyncAfter(deadline: .now() +  1) {
+                            print("ola")
+                        self.navigationController?.popViewController(animated: true)
+                           
+                    }
                     
                    } else {
                        print("ERRO AO CARREGAR A FOTO")
+                    self.showToast1(controller: self, message:"Não foi possivel salvar a fotografia.", seconds: 2)
                    }
                })
                

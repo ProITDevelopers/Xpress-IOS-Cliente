@@ -20,13 +20,15 @@ class DetalhesFacturaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        mostrarPopUpInternet()
+              verificarSessao()
         // Do any additional setup after loading the view.
         itens = pedido.itens
         tblView.register(UINib.init(nibName: "ItemFacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellItem")
         tblView.register(UINib.init(nibName: "DetalhesFacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellDetalhe")
         tblView.register(UINib.init(nibName: "PagamentoReferenciaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellReferencia")
         
-        mostrarPopUpInternet()
+       
         
     }
     
@@ -73,7 +75,7 @@ extension DetalhesFacturaViewController: UITableViewDataSource, UITableViewDeleg
                               
                               
                               cell.metodoPagamentoLabel?.text = pedido.metododPagamento
-                              cell.totalLabel?.text = ("\(pedido.total),00 AKZ")
+                              cell.totalLabel?.text = ("\(pedido.total)0 AKZ")
                               let data = converterData(dataConverter:  pedido.dataPagamento)
                                cell.dataLabel?.text = ("Data: \(data)")
                 cell.entidadeLabel.text = pedido.entidade

@@ -22,6 +22,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H7V-Zg-dBP" customClass="CustumizarImgEstabelecimento" customModule="Xpress" customModuleProvider="target">
                                 <rect key="frame" x="8" y="16" width="120" height="100"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="9x4-sK-Y5U"/>
                                     <constraint firstAttribute="height" constant="100" id="PkQ-RS-z5i"/>
@@ -44,6 +45,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 <constraints>
                     <constraint firstItem="sp6-gL-OqL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="45v-8H-9kX"/>
                     <constraint firstItem="sp6-gL-OqL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="66u-6b-bkW"/>

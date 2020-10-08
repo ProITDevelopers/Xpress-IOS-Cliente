@@ -16,7 +16,10 @@ class RecuperarPavraPasse1ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-         colocarImageTextField(textField: telefoneTextField, nome: "phone")
+        
+        
+        telefoneTextField.setLeftView(image: UIImage(named: "phone")!)
+         
         HideKeyboard()
         mostrarPopUpInternet()
         // Do any additional setup after loading the view.
@@ -47,7 +50,7 @@ class RecuperarPavraPasse1ViewController: UIViewController {
                  }
         
             
-        
+         mostrarProgresso()
           
          // let parametros = ["id": contacto] as [String : Any]
         
@@ -61,11 +64,12 @@ class RecuperarPavraPasse1ViewController: UIViewController {
                          if response.response?.statusCode == 200 {
                              
                              print("Sucesso no envio do numero de telefone")
-                             
+                            self.terminarProgresso()
                              self.performSegue(withIdentifier: "irCodigo", sender: self)
                             self.telefoneTextField.text = ""
                              
                          } else  {
+                            self.terminarProgresso()
                              self.showToast(controller: self, message: "Nº telefone não existe", seconds: 3)
                              print(response)
                              print("codigo errado 1")
@@ -78,6 +82,7 @@ class RecuperarPavraPasse1ViewController: UIViewController {
                          let erro: JSON = JSON(response.result.value!)
                          print(erro)
                           print("codigo errado 2")
+                        self.terminarProgresso()
                          self.showToast(controller: self, message: "Não pode criar a conta agora tenta mais tarde!", seconds: 3)
                      }
                  }

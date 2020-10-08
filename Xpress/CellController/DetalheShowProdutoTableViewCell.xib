@@ -35,6 +35,7 @@
                                             <constraint firstAttribute="width" constant="30" id="C3G-ax-baZ"/>
                                             <constraint firstAttribute="height" constant="30" id="Xiq-OA-jz6"/>
                                         </constraints>
+                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <state key="normal" backgroundImage="carrinho"/>
                                         <connections>
                                             <action selector="buttonCarrinho:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Mew-lS-7m2"/>
@@ -59,7 +60,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstItem="ZKb-If-TeE" firstAttribute="top" secondItem="g63-bO-Y4U" secondAttribute="top" constant="16" id="1wn-yS-4kg"/>
                                     <constraint firstAttribute="height" constant="100" id="3c4-uP-VZr"/>
@@ -73,7 +74,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="D12-fz-OHw" firstAttribute="leading" secondItem="b3q-2Z-8r9" secondAttribute="leading" id="2xw-ga-srv"/>
                             <constraint firstAttribute="trailing" secondItem="g63-bO-Y4U" secondAttribute="trailing" constant="16" id="3tv-eR-1ev"/>
@@ -86,6 +87,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="b3q-2Z-8r9" secondAttribute="trailing" id="Nqe-dI-sP6"/>
                     <constraint firstItem="b3q-2Z-8r9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hST-ew-vou"/>

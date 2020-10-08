@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+
+struct Token: Decodable {
+    var expiracao: String?
+    var tokenuser: String?
+    var role: String?
+}
+
 struct Resposta: Codable {
     var message: String?
   

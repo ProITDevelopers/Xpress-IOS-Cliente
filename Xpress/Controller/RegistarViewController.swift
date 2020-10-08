@@ -35,6 +35,8 @@ class RegistarViewController: UIViewController, UIImagePickerControllerDelegate,
 
          fotoUsuario = imgUsuario.image!
         HideKeyboard()
+        
+        
         mostrarPassWord(button: buttonVerPassword, textField: palavraPasseTextFiled)
         mostrarPopUpInternet()
         // Do any additional setup after loading the view.
@@ -143,6 +145,9 @@ class RegistarViewController: UIViewController, UIImagePickerControllerDelegate,
         registarCliente()
     }
     
+    @IBAction func buttonCancelar(_ sender: UIButton) {
+        TransitarParaTelaLogin()
+    }
     
     
     

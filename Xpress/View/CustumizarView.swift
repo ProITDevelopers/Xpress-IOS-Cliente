@@ -35,12 +35,14 @@ class CustumizarView: UIView {
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         clipsToBounds = true
             
+            
         } else {
             
             let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: 5, height: 5))
             let maskLayer = CAShapeLayer()
             maskLayer.path = path.cgPath
             layer.mask = maskLayer
+            
             
         }
         

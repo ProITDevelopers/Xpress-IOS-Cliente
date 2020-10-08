@@ -1,27 +1,25 @@
 //
-//  Sucessu2ViewController.swift
+//  PopupErroPedidoViewController.swift
 //  Xpress
 //
-//  Created by Adilson Ebo on 10/3/20.
+//  Created by Adilson Ebo on 10/6/20.
 //  Copyright © 2020 Proit-Consulting. All rights reserved.
 //
 
 import UIKit
 
-class Sucessu2ViewController: UIViewController {
+class PopupErroPedidoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         // Do any additional setup after loading the view.
-        DispatchQueue.main.asyncAfter(deadline: .now() +  2) {
-            print("ola")
-            self.navigationController?.popToRootViewController(animated: true)
-        }
     }
     
-
+    @IBAction func buttonFechar(_ sender: UIButton) {
+        self.view.removeFromSuperview()
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -15,9 +15,11 @@ class RecuperarSenhaViewController: UIViewController {
     var telefone = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        colocarImageTextField(textField: telefoneLabel, nome: "phone")
+       mostrarPopUpInternet()
+       
+        telefoneLabel.setLeftView(image: UIImage(named: "phone")!)
         HideKeyboard()
-        mostrarPopUpInternet()
+       
         // Do any additional setup after loading the view.
     }
     
@@ -50,7 +52,7 @@ class RecuperarSenhaViewController: UIViewController {
                
                  
                 // let parametros = ["id": contacto] as [String : Any]
-               
+                mostrarProgresso()
                  
                  let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/SolicitarCodigoRecuperacao/\(contacto)"
                  telefone = contacto
@@ -61,11 +63,12 @@ class RecuperarSenhaViewController: UIViewController {
                                 if response.response?.statusCode == 200 {
                                     
                                     print("Sucesso no envio do numero de telefone")
-                                    
+                                    self.terminarProgresso()
                                     self.performSegue(withIdentifier: "irCodigo", sender: self)
                                     
                                     
                                 } else  {
+                                    self.terminarProgresso()
                                     self.showToast(controller: self, message: "Nº telefone não existe", seconds: 3)
                                     print(response)
                                     print("codigo errado 1")
@@ -77,6 +80,7 @@ class RecuperarSenhaViewController: UIViewController {
                             } else {
                                 let erro: JSON = JSON(response.result.value!)
                                 print(erro)
+                                self.terminarProgresso()
                                  print("codigo errado 2")
                                 self.showToast(controller: self, message: "Não pode criar a conta agora tenta mais tarde!", seconds: 3)
                             }

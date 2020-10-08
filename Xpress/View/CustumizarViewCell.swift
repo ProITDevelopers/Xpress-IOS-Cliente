@@ -7,7 +7,7 @@
 //
 
 import UIKit
-@available(iOS 13.0, *)
+
 class CustumizarViewCell: UIView {
     
     override init(frame: CGRect) {
@@ -27,15 +27,21 @@ class CustumizarViewCell: UIView {
     }
     
     
-    @available(iOS 13.0, *)
+    
     func styleView() {
         layer.cornerRadius = 10.0
                clipsToBounds = true
                 layer.masksToBounds = false
                layer.shadowRadius = 10
-               layer.shadowOpacity = 1.0
+        layer.shadowOpacity = 0.8
                layer.shadowOffset = CGSize(width: CGFloat(3), height: CGFloat(3))
-                layer.shadowColor = UIColor.systemGray5.cgColor
+               layer.shadowOffset = CGSize(width: CGFloat(3), height: CGFloat(3))
+                if #available(iOS 13.0, *) {
+                    layer.shadowColor = UIColor.secondarySystemBackground.cgColor
+                } else {
+                    layer.shadowColor = UIColor.gray.cgColor
+                    // Fallback on earlier versions
+                }
 
     }
     

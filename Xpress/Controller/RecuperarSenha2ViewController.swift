@@ -20,11 +20,16 @@ class RecuperarSenha2ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        colocarImageTextField(textField: codigoTextField, nome: "lock")
-         colocarImageTextField(textField: senhaTextField, nome: "lock")
-        mostrarPassWord(button: buttonPassword, textField: senhaTextField)
-        HideKeyboard()
         mostrarPopUpInternet()
+              verificarSessao()
+        codigoTextField.setLeftView(image: UIImage(named:"icons8-forgot-password-30")!)
+        senhaTextField.setLeftView(image: UIImage(named: "icons8-forgot-password-30")!)
+        mostrarPassWord(button: buttonPassword, textField: senhaTextField)
+        
+       
+        
+        HideKeyboard()
+       
         // Do any additional setup after loading the view.
     }
     
@@ -98,6 +103,8 @@ class RecuperarSenha2ViewController: UIViewController {
 extension RecuperarSenha2ViewController {
     
     func redifinirSenha(codigo: String, password: String) {
+        
+         mostrarProgresso()
            
            let parametros = ["codigoRecuperacao": codigo, "novaPassword": password] as [String : Any]
            let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/ReporSenha/\(telefone)"
@@ -108,12 +115,12 @@ extension RecuperarSenha2ViewController {
                if response.result.isSuccess{
                  
                    if response.response?.statusCode == 200 {
-                    
+                    self.terminarProgresso()
                     self.showPopUpSucessoSenha()
                        print("Senha atualizada com sucesso")
                      
                    } else  {
-                       
+                    self.terminarProgresso()
                        print(response.debugDescription)
                        self.showToast(controller: self, message: "Código incorrecto", seconds: 2)
                        print("erro codigo")
@@ -125,6 +132,7 @@ extension RecuperarSenha2ViewController {
                } else {
                    let erro: JSON = JSON(response.result.value!)
                    print(erro)
+                self.terminarProgresso()
                    self.showToast(controller: self, message: "Não é possivel alterar a palavra passe, tente mais tarde!", seconds: 3)
                }
            }

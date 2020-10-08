@@ -20,8 +20,9 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gpr-i9-rk6">
                         <rect key="frame" x="0.0" y="0.0" width="417" height="291"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2IY-ZN-s8m">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2IY-ZN-s8m" customClass="CustumizarImgProduto1" customModule="Xpress" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="417" height="260"/>
+                                <color key="backgroundColor" red="0.76946121769999998" green="0.80422014760000005" blue="0.81875404789999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="260" id="Vs0-EB-Z49"/>
                                 </constraints>
@@ -58,7 +59,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="2IY-ZN-s8m" firstAttribute="top" secondItem="Gpr-i9-rk6" secondAttribute="top" id="9cz-3I-BXw"/>
                             <constraint firstItem="L4A-NM-lAL" firstAttribute="leading" secondItem="Gpr-i9-rk6" secondAttribute="leading" constant="18" id="A90-b9-wiX"/>

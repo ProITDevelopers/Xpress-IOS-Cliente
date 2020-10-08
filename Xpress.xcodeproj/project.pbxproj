@@ -31,7 +31,6 @@
 		3F560C0C25221AE500767F1C /* PopUpSalvarEnderecoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F560C0B25221AE500767F1C /* PopUpSalvarEnderecoViewController.swift */; };
 		3F5660DB2518BEF5000506AD /* Estruturas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5660DA2518BEF5000506AD /* Estruturas.swift */; };
 		3F5795A225173ED900F0892C /* ExtensionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5795A125173ED800F0892C /* ExtensionController.swift */; };
-		3F58C203251C975C0050B434 /* ListarCategoriaProdutosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F58C202251C975C0050B434 /* ListarCategoriaProdutosViewController.swift */; };
 		3F58C206251C978F0050B434 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F58C204251C978F0050B434 /* TableViewCell.swift */; };
 		3F58C207251C978F0050B434 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F58C205251C978F0050B434 /* TableViewCell.xib */; };
 		3F58C20A251CBAA40050B434 /* ProdutoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F58C208251CBAA40050B434 /* ProdutoTableViewCell.swift */; };
@@ -63,7 +62,6 @@
 		3F913ED325168BA200EB5BC5 /* CustumizarImgPerfil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F913ED225168BA200EB5BC5 /* CustumizarImgPerfil.swift */; };
 		3F913ED525169ABD00EB5BC5 /* RecuperarPavraPasse1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F913ED425169ABD00EB5BC5 /* RecuperarPavraPasse1ViewController.swift */; };
 		3F913ED725169AFD00EB5BC5 /* RecuperarPalavraPasse2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F913ED625169AFD00EB5BC5 /* RecuperarPalavraPasse2ViewController.swift */; };
-		3F913ED92516B0C200EB5BC5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F913ED82516B0C200EB5BC5 /* MenuViewController.swift */; };
 		3FBA0AC92520BD7F00537BA2 /* CustumizarBtnCurto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBA0AC82520BD7F00537BA2 /* CustumizarBtnCurto.swift */; };
 		3FBA0ACB2520C28100537BA2 /* ProdutoShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBA0ACA2520C28100537BA2 /* ProdutoShowViewController.swift */; };
 		3FBA0ACE2520D9D100537BA2 /* ItemCarrinhoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBA0ACC2520D9D000537BA2 /* ItemCarrinhoTableViewCell.swift */; };
@@ -104,8 +102,11 @@
 		5B5DE87E25293FC00065820F /* ShowDetalheProdutoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5DE87C25293FC00065820F /* ShowDetalheProdutoTableViewCell.swift */; };
 		5B5DE87F25293FC00065820F /* ShowDetalheProdutoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B5DE87D25293FC00065820F /* ShowDetalheProdutoTableViewCell.xib */; };
 		5B5DE881252978AF0065820F /* CustumizarViewBtnCarrinho.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5DE880252978AF0065820F /* CustumizarViewBtnCarrinho.swift */; };
+		5B74EE4E252C70A400110601 /* CustumizarImgProduto1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B74EE4D252C70A400110601 /* CustumizarImgProduto1.swift */; };
+		5B74EE50252C7F6B00110601 /* PopupErroPedidoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B74EE4F252C7F6B00110601 /* PopupErroPedidoViewController.swift */; };
 		5B7979522529C03E006BD258 /* ShowPopUpInternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7979512529C03E006BD258 /* ShowPopUpInternetViewController.swift */; };
 		5B7979542529C31B006BD258 /* VerificarInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7979532529C31B006BD258 /* VerificarInternet.swift */; };
+		5BE0A750252E15AA00B730A6 /* ReiniciarSessaoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE0A74F252E15AA00B730A6 /* ReiniciarSessaoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,7 +135,6 @@
 		3F560C0B25221AE500767F1C /* PopUpSalvarEnderecoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpSalvarEnderecoViewController.swift; sourceTree = "<group>"; };
 		3F5660DA2518BEF5000506AD /* Estruturas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Estruturas.swift; sourceTree = "<group>"; };
 		3F5795A125173ED800F0892C /* ExtensionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionController.swift; sourceTree = "<group>"; };
-		3F58C202251C975C0050B434 /* ListarCategoriaProdutosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListarCategoriaProdutosViewController.swift; sourceTree = "<group>"; };
 		3F58C204251C978F0050B434 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		3F58C205251C978F0050B434 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		3F58C208251CBAA40050B434 /* ProdutoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdutoTableViewCell.swift; sourceTree = "<group>"; };
@@ -168,7 +168,6 @@
 		3F913ED225168BA200EB5BC5 /* CustumizarImgPerfil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustumizarImgPerfil.swift; sourceTree = "<group>"; };
 		3F913ED425169ABD00EB5BC5 /* RecuperarPavraPasse1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecuperarPavraPasse1ViewController.swift; sourceTree = "<group>"; };
 		3F913ED625169AFD00EB5BC5 /* RecuperarPalavraPasse2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecuperarPalavraPasse2ViewController.swift; sourceTree = "<group>"; };
-		3F913ED82516B0C200EB5BC5 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		3FBA0AC82520BD7F00537BA2 /* CustumizarBtnCurto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustumizarBtnCurto.swift; sourceTree = "<group>"; };
 		3FBA0ACA2520C28100537BA2 /* ProdutoShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProdutoShowViewController.swift; sourceTree = "<group>"; };
 		3FBA0ACC2520D9D000537BA2 /* ItemCarrinhoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCarrinhoTableViewCell.swift; sourceTree = "<group>"; };
@@ -209,8 +208,11 @@
 		5B5DE87C25293FC00065820F /* ShowDetalheProdutoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetalheProdutoTableViewCell.swift; sourceTree = "<group>"; };
 		5B5DE87D25293FC00065820F /* ShowDetalheProdutoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowDetalheProdutoTableViewCell.xib; sourceTree = "<group>"; };
 		5B5DE880252978AF0065820F /* CustumizarViewBtnCarrinho.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustumizarViewBtnCarrinho.swift; sourceTree = "<group>"; };
+		5B74EE4D252C70A400110601 /* CustumizarImgProduto1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustumizarImgProduto1.swift; sourceTree = "<group>"; };
+		5B74EE4F252C7F6B00110601 /* PopupErroPedidoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupErroPedidoViewController.swift; sourceTree = "<group>"; };
 		5B7979512529C03E006BD258 /* ShowPopUpInternetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPopUpInternetViewController.swift; sourceTree = "<group>"; };
 		5B7979532529C31B006BD258 /* VerificarInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificarInternet.swift; sourceTree = "<group>"; };
+		5BE0A74F252E15AA00B730A6 /* ReiniciarSessaoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReiniciarSessaoViewController.swift; sourceTree = "<group>"; };
 		99F0A56C65F5A56E033F8ADA /* Pods_Xpress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xpress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -242,6 +244,7 @@
 				5B5BB8F12527BB34009CC9AD /* CustumizarViewCell.swift */,
 				5B5DE86E252901670065820F /* CustumizarImgProduto.swift */,
 				5B5DE880252978AF0065820F /* CustumizarViewBtnCarrinho.swift */,
+				5B74EE4D252C70A400110601 /* CustumizarImgProduto1.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -253,12 +256,10 @@
 				3F4564492515076E00DD2BCD /* RegistarViewController.swift */,
 				3F913ED425169ABD00EB5BC5 /* RecuperarPavraPasse1ViewController.swift */,
 				3F913ED625169AFD00EB5BC5 /* RecuperarPalavraPasse2ViewController.swift */,
-				3F913ED82516B0C200EB5BC5 /* MenuViewController.swift */,
 				3F02AC2525176291007406F6 /* PrincipalViewController.swift */,
 				3F02AC272517AE75007406F6 /* SucessoViewController.swift */,
 				3F66F88F251BA1000020820F /* ListarEstabelecimentosViewController.swift */,
 				3F66F893251BE3910020820F /* ListarProdutosViewController.swift */,
-				3F58C202251C975C0050B434 /* ListarCategoriaProdutosViewController.swift */,
 				3F5547DE251E1B740000B02A /* PerfilViewController.swift */,
 				3F5BE622251FCD7C00591546 /* EditarPerfilViewController.swift */,
 				3FBA0ACA2520C28100537BA2 /* ProdutoShowViewController.swift */,
@@ -280,6 +281,8 @@
 				5B5DE872252922F90065820F /* RecuperarSenha2ViewController.swift */,
 				5B5DE8742529231B0065820F /* Sucessu2ViewController.swift */,
 				5B7979512529C03E006BD258 /* ShowPopUpInternetViewController.swift */,
+				5B74EE4F252C7F6B00110601 /* PopupErroPedidoViewController.swift */,
+				5BE0A74F252E15AA00B730A6 /* ReiniciarSessaoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -563,15 +566,16 @@
 				5B5BB4DC252651F1002D7795 /* FacturaTableViewCell.swift in Sources */,
 				3FBA4E7A251A38FD003126C9 /* Estabelecimento2CollectionViewCell.swift in Sources */,
 				3F63F365251D2A7E00C47CEA /* ItemsCarrinho.swift in Sources */,
+				5BE0A750252E15AA00B730A6 /* ReiniciarSessaoViewController.swift in Sources */,
 				3F5E2C55252322950049E4EC /* CheckoutViewController.swift in Sources */,
 				3F45644A2515076F00DD2BCD /* RegistarViewController.swift in Sources */,
 				3F5547DF251E1B740000B02A /* PerfilViewController.swift in Sources */,
 				5B5DE87E25293FC00065820F /* ShowDetalheProdutoTableViewCell.swift in Sources */,
-				3F913ED92516B0C200EB5BC5 /* MenuViewController.swift in Sources */,
 				3F5E2C6025232ABA0049E4EC /* ItensCheckTableViewCell.swift in Sources */,
 				3FBA4E732519F7CB003126C9 /* CustumizarImgEstabelecimento.swift in Sources */,
 				5B5DE8752529231B0065820F /* Sucessu2ViewController.swift in Sources */,
 				3F58E2E42522BD8C00D2A0D2 /* NavigationViewController1.swift in Sources */,
+				5B74EE50252C7F6B00110601 /* PopupErroPedidoViewController.swift in Sources */,
 				5B5DE873252922F90065820F /* RecuperarSenha2ViewController.swift in Sources */,
 				3FBA0AD72521360E00537BA2 /* MapaLocalEntregaViewController.swift in Sources */,
 				3F02AC2625176291007406F6 /* PrincipalViewController.swift in Sources */,
@@ -597,7 +601,6 @@
 				3F7B92812514C952005E9C6C /* AppDelegate.swift in Sources */,
 				5B5D435825275BD500ECF4A6 /* PagamentoReferenciaTableViewCell.swift in Sources */,
 				3F560C0C25221AE500767F1C /* PopUpSalvarEnderecoViewController.swift in Sources */,
-				3F58C203251C975C0050B434 /* ListarCategoriaProdutosViewController.swift in Sources */,
 				3F7B92832514C952005E9C6C /* SceneDelegate.swift in Sources */,
 				3FBA0ACE2520D9D100537BA2 /* ItemCarrinhoTableViewCell.swift in Sources */,
 				3F560C0A2522085A00767F1C /* PopUpConfirmarEnderecoViewController.swift in Sources */,
@@ -626,6 +629,7 @@
 				3F5660DB2518BEF5000506AD /* Estruturas.swift in Sources */,
 				3F02AC282517AE75007406F6 /* SucessoViewController.swift in Sources */,
 				3F3A80AD25239D8600308D68 /* SucessoMulticaixaViewController.swift in Sources */,
+				5B74EE4E252C70A400110601 /* CustumizarImgProduto1.swift in Sources */,
 				3F913ED125167B1000EB5BC5 /* CustumizarBotao.swift in Sources */,
 				3F58E2E82522BECF00D2A0D2 /* NavigationViewController3.swift in Sources */,
 				5B5BB4E825267AFE002D7795 /* ItemFacturaTableViewCell.swift in Sources */,
@@ -785,10 +789,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Proit-Consulting.Xpress";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Proit.Consulting.Xpress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -805,10 +809,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Proit-Consulting.Xpress";
+				PRODUCT_BUNDLE_IDENTIFIER = com.Proit.Consulting.Xpress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

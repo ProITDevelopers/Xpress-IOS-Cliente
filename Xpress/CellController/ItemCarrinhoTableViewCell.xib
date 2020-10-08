@@ -87,7 +87,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="130" height="100"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="KHL-Gj-BkD" firstAttribute="leading" secondItem="lf2-DL-4dS" secondAttribute="leading" id="Er5-QG-Oa1"/>
                                     <constraint firstAttribute="width" constant="130" id="GCQ-mL-19b"/>
@@ -117,6 +117,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 <constraints>
                     <constraint firstItem="eQ8-Nd-qOf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1sx-Sf-IdW"/>
                     <constraint firstItem="eQ8-Nd-qOf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Rvh-py-v1Q"/>

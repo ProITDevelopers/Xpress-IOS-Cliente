@@ -32,6 +32,8 @@ class ListarProdutosViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+         mostrarPopUpInternet()
+        verificarSessao()
         configuracaoNotification()
         //self.mostrarNotificacao("Seja bem vindo", "Adilson Ebo")
         print(estabelecimento.estabelecimentoID)
@@ -45,17 +47,19 @@ class ListarProdutosViewController: UIViewController {
         
         obterProdutos(idEstabelecimentoF: (estabelecimento.estabelecimentoID)!)
         contarItem(label: label)
-        mostrarPopUpInternet()
+       
        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+           mostrarPopUpInternet()
         obterProdutos(idEstabelecimentoF: (estabelecimento.estabelecimentoID)!)
         contarItem(label: label)
         tblView.reloadData()
-        mostrarPopUpInternet()
+     
+        configuracaoNotification()
     }
     
     
@@ -208,6 +212,11 @@ extension ListarProdutosViewController: UITableViewDataSource, UITableViewDelega
               label.backgroundColor = UIColor(red:52.0/255.0, green: 183.0/255.0, blue: 89.0/255.0, alpha: 1.0)
               //label.text = "80"
               contarItem(label: label)
+             if traitCollection.userInterfaceStyle == .dark {
+                cell.btnCarrinho.setImage(UIImage(named: "carrinho30.jpg"), for: .normal)
+             } else {
+                cell.btnCarrinho.setImage(UIImage(named: "carrinho.jpg"), for: .normal)
+             }
             
                 cell.btnCarrinho.addSubview(label)
           
@@ -252,8 +261,10 @@ extension ListarProdutosViewController: UITableViewDataSource, UITableViewDelega
                    
                    if mostrarQtdIten(idItem: produtos[indexPath.row - 1].idProduto!) == 0 {
                        cell.stackViewButton.isHidden = true
+                        cell.carrinhoAddProduto.isHidden = false
                    } else {
                        cell.carrinhoAddProduto.isHidden = true
+                     cell.stackViewButton.isHidden = false
                    }
                    cell.delegate = self
                   return cell

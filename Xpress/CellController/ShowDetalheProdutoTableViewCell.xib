@@ -114,7 +114,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="9yJ-Xc-SCA" firstAttribute="centerX" secondItem="XJl-vh-apB" secondAttribute="centerX" id="ADf-2X-SvV"/>
                             <constraint firstItem="8qD-98-Sqg" firstAttribute="leading" secondItem="XJl-vh-apB" secondAttribute="leading" constant="16" id="CdD-qN-Kgw"/>
@@ -136,6 +136,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 <constraints>
                     <constraint firstItem="XJl-vh-apB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="7pz-Ls-QSr"/>
                     <constraint firstAttribute="trailing" secondItem="XJl-vh-apB" secondAttribute="trailing" id="Dre-C9-bTE"/>

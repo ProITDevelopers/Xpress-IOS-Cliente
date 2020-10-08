@@ -38,6 +38,8 @@ class CheckoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        mostrarPopUpInternet()
+        verificarSessao()
         
         // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "ItensCheckTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCheck1")
@@ -187,7 +189,7 @@ extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
                                  //cell.imgProducto =  produtoCarrinho[indexPath.row - 1].
                                          
                                   
-                                 if  produtoCarrinho[indexPath.row - 1].imagemProduto == nil {
+                                 if  produtoCarrinho[indexPath.row - 1].imagemProduto == "" {
                                       
                                              cell.imgProduto.image = UIImage(named:"fota.jpg")
                                       
@@ -315,6 +317,7 @@ extension CheckoutViewController  {
         //   http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/
            func enviarItensPedidosReferencia() {
   
+            
                var itensFactura: [String:Any] = [:]
                var arrayItem = [[String:Any]]()
               // mudar array para dicionario ideStabelecimento
@@ -354,10 +357,17 @@ extension CheckoutViewController  {
                 let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/FacturaReferencia"
           
               
-               
+               mostrarProgresso()
                
                let token = UserDefaults.standard.string(forKey: "token")
               // print(token)
+            guard let usuario = token, usuario != "" else {
+                    print(token as Any)
+                    terminarProgresso()
+                   showPopUpErroPedido()
+                    return
+                   
+                }
                
                let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
           
@@ -378,19 +388,22 @@ extension CheckoutViewController  {
                                     if self.tipoCompra == 0 {
                                         self.limparCarrinho()
                                     }
-                                    self.performSegue(withIdentifier: "irSucessoId", sender: self)
-                                     print(response.response?.statusCode)
+                                    self.terminarProgresso()
+                                    self.showPopUpSucessoPedido()
+                                    // self.performSegue(withIdentifier: "irSucessoId", sender: self)
+                                    
                                   } catch {
-                                      print(response.response?.statusCode)
+                                     self.terminarProgresso()
+                                   
                                       print("erro inesperado: \(error)")
                                       self.showToast(controller: self, message: "Não foi possivel enviar o pedido!", seconds: 1)
                                   }
                                  
                               } else {
+                                   self.terminarProgresso()
+                                  self.showPopUpErroPedido()
                                   
-                                  self.showToast(controller: self, message: "Não foi possivel enviar o pedido!", seconds: 1)
-                                   print(response.response?.statusCode)
-                                  print("erro inesperado2: \(response.error)")
+                                print("erro inesperado2: \(response.error!)")
                               }
                           }
                
@@ -413,7 +426,7 @@ extension CheckoutViewController  {
                if tipoCompra == 1 {
                 
                     itensFactura.updateValue(produtoComprar.idProduto!, forKey: "produtoId")
-                    itensFactura.updateValue(produtoComprar.emStock!, forKey: "quantidade")
+                    itensFactura.updateValue(1, forKey: "quantidade")
                     itensFactura.updateValue("Obrigado", forKey: "observacoes")
                     itensFactura.updateValue(estabelecimentoId, forKey: "ideStabelecimento")
                     arrayItem.append(itensFactura)
@@ -446,9 +459,17 @@ extension CheckoutViewController  {
                if let jsonString = String(data: jsonData, encoding: .utf8) {
                    print(jsonString)
                }
+            mostrarProgresso()
              
                
                let token = UserDefaults.standard.string(forKey: "token")
+                guard let usuario = token, usuario != "" else {
+                    print(token as Any)
+                    terminarProgresso()
+                    showPopUpErroPedido()
+                    return
+                                  
+                }
               // print(token)
                
                let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
@@ -460,25 +481,27 @@ extension CheckoutViewController  {
                    if response.result.isSuccess{
                        
                        do {
-                           let jsonDecoder = JSONDecoder()
+                        _ = JSONDecoder()
                            
                           if self.tipoCompra == 0 {
                                self.limparCarrinho()
                            }
-                       self.performSegue(withIdentifier: "irSucessoId", sender: self)
-                        print(response.response?.statusCode)
+                       self.terminarProgresso()
+                       self.showPopUpSucessoPedido()
+                        print(response.response?.statusCode ?? "")
                 
                        } catch {
-                        print(response.response?.statusCode)
+                        print(response.response?.statusCode ?? "")
                            print("erro inesperado: \(error)")
+                          self.terminarProgresso()
                            self.showToast(controller: self, message: "Não foi possivel enviar o pedido!", seconds: 1)
                        }
                        
                       
                    } else {
-                       
-                       self.showToast(controller: self, message: "Não foi possivel enviar o pedido!", seconds: 1)
-                     print(response.response?.statusCode)
+                         self.terminarProgresso()
+                    self.showPopUpErroPedido()
+                    print(response.response?.statusCode ?? "")
                        //let erro: JSON = JSON(response.result.value!)
                        print("erro inesperado2: \(response.error!)")
                    }
@@ -491,3 +514,34 @@ extension CheckoutViewController  {
 }
 
 
+extension CheckoutViewController {
+    
+    func showPopUpSucessoPedido() {
+        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sucessoReferenciaId") as! SucessoReferenciaViewController
+        
+        self.addChild(popOverVC)
+        if tipoPagamento == "Referência" {
+             popOverVC.resposta = resposta
+        }
+       
+        if tipoPagamento == "Multicaixa" {
+            popOverVC.tipoPag = 1
+        }
+        
+        popOverVC.view.frame = self.view.frame
+        self.view.addSubview(popOverVC.view)
+        popOverVC.didMove(toParent: self)
+    }
+    
+    
+    func showPopUpErroPedido() {
+        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "erroPedidoId") as! PopupErroPedidoViewController
+        
+        popOverVC.view.frame = self.view.frame
+        self.view.addSubview(popOverVC.view)
+        popOverVC.didMove(toParent: self)
+    }
+    
+    
+    
+}

@@ -4,10 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Deseja informar a tua localização?</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Deseja informar a tua localização?</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -29,6 +25,14 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>porque nós podemos!</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Deseja informar a tua localização?</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Deseja informar a tua localização?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>porque nós podemos!</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -69,9 +73,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>porque nós podemos!</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>porque nós podemos!</string>
 </dict>
 </plist>

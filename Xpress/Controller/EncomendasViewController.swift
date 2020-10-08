@@ -23,6 +23,8 @@ class EncomendasViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        mostrarPopUpInternet()
+              verificarSessao()
         tblView.register(UINib.init(nibName: "FacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellFactura")
         // Do any additional setup after loading the view.
         obterFacturas( URL: "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/FacturasActualCliente")

@@ -29,6 +29,7 @@ class SairPopUpViewController: UIViewController {
          UserDefaults.standard.removeObject(forKey: "token")
          UserDefaults.standard.removeObject(forKey: "nomeCompleto")
          UserDefaults.standard.removeObject(forKey: "emailUsuario")
+         UserDefaults.standard.removeObject(forKey: "imgUsuario")
         TransitarParaTelaLogin()
        
     }

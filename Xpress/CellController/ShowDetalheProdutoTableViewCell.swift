@@ -53,13 +53,13 @@ class ShowDetalheProdutoTableViewCell: UITableViewCell {
     }
     @IBAction func buttonSubtrair(_ sender: UIButton) {
         SubtrairProdutoCarrinho()
-          delegate?.mostrarItensCarrinho()
+         
         
     }
     
     @IBAction func buttonAdicionar(_ sender: UIButton) {
         adicionarCarrinho()
-          delegate?.mostrarItensCarrinho()
+            //delegate?.mostrarItensCarrinho()
     }
     
     @IBAction func buttonadicionar2(_ sender: UIButton) {
@@ -197,7 +197,7 @@ extension ShowDetalheProdutoTableViewCell {
                                        print("Erro ao Eliminar o produto do carrinho, \(error)")
                                    }
                                     
-                               
+                                delegate?.mostrarItensCarrinho()
                            }
                            else {
                             let itemresto = itens[0].quantidade - 1

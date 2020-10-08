@@ -28,13 +28,15 @@ class ProdutoShowViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        mostrarPopUpInternet()
+              verificarSessao()
         print(produto)
         // Do any additional setup after loading the view.
         
         
         tblView.register(UINib.init(nibName: "ShowProdutoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellShowDetalhe1")
         tblView.register(UINib.init(nibName: "ShowDetalheProdutoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellShowDetalhe2")
-        mostrarPopUpInternet()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {

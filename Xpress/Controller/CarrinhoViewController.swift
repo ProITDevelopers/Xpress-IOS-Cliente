@@ -13,6 +13,8 @@ import SwiftyJSON
 import SDWebImage
 
 
+
+
 class CarrinhoViewController: UIViewController {
     
      
@@ -20,14 +22,20 @@ class CarrinhoViewController: UIViewController {
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var itemsLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
-    
+    @IBOutlet weak var viewInformacao: UIView!
+    @IBOutlet weak var btnConfirmar: UIButton!
+  
     var produtoCarrinho: Results<ItemsCarrinho>!
     var intensCompra = [ItensComprar]()
     let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mostrarPopUpInternet()
+        verificarSessao()
         getRealm()
+        verificarCarrinho()
         // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "ItemCarrinhoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCarrinho")
         atualizarTotalCarrinho()
@@ -39,6 +47,20 @@ class CarrinhoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mostrarPopUpInternet()
+        verificarCarrinho()
+    }
+    
+    
+    
+    func verificarCarrinho() {
+        if quantidadeIten() == 0 {
+            viewInformacao.isHidden = true
+            btnConfirmar.isHidden = true
+            showToast1(controller: self, message: "Carrinho está vazio!", seconds: 3)
+        } else {
+            viewInformacao.isHidden = false
+            btnConfirmar.isHidden = false
+        }
     }
     
     func atualizarTotalCarrinho() {
@@ -231,6 +253,9 @@ extension CarrinhoViewController: atualizarCarrinhoDelegate {
     func didAtualizarCarrinho() {
         atualizarTotalCarrinho()
         tblView.reloadData()
+    }
+    func didverificarCarrinho() {
+        verificarCarrinho()
     }
     
     

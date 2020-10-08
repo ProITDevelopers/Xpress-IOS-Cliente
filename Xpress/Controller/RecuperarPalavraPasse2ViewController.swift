@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+
 class RecuperarPalavraPasse2ViewController: UIViewController {
 
     @IBOutlet weak var palavraPasseTextField: UITextField!
@@ -18,9 +19,11 @@ class RecuperarPalavraPasse2ViewController: UIViewController {
      var buttonPassword = UIButton(type: .custom)
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        codigoTextField.setLeftView(image: UIImage(named:"icons8-forgot-password-30")!)
+        palavraPasseTextField.setLeftView(image: UIImage(named: "icons8-forgot-password-30")!)
 
-         colocarImageTextField(textField: codigoTextField, nome: "lock")
-         colocarImageTextField(textField: palavraPasseTextField, nome: "lock")
+         
         mostrarPassWord(button: buttonPassword, textField: palavraPasseTextField)
         HideKeyboard()
         print(telefone)
@@ -99,6 +102,7 @@ class RecuperarPalavraPasse2ViewController: UIViewController {
 extension RecuperarPalavraPasse2ViewController {
     
     func redifinirSenha(codigo: String, password: String) {
+         mostrarProgresso()
            
            let parametros = ["codigoRecuperacao": codigo, "novaPassword": password] as [String : Any]
            let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/ReporSenha/\(telefone)"
@@ -109,12 +113,12 @@ extension RecuperarPalavraPasse2ViewController {
                if response.result.isSuccess{
                  
                    if response.response?.statusCode == 200 {
-                    
-                    self.performSegue(withIdentifier: "irSucesso", sender: self)
-                       print("Senha atualizada com sucesso")
+                    self.terminarProgresso()
+                    self.showPopUpSucessoSenha()
+                     print("Senha atualizada com sucesso")
                      
                    } else  {
-                       
+                    self.terminarProgresso()
                        print(response.debugDescription)
                        self.showToast(controller: self, message: "Código incorrecto", seconds: 2)
                        print("erro codigo")
@@ -126,6 +130,7 @@ extension RecuperarPalavraPasse2ViewController {
                } else {
                    let erro: JSON = JSON(response.result.value!)
                    print(erro)
+                self.terminarProgresso()
                    self.showToast(controller: self, message: "Não é possivel alterar a palavra passe, tente mais tarde!", seconds: 3)
                }
            }
@@ -144,4 +149,14 @@ extension RecuperarPalavraPasse2ViewController {
         textField.rightView = button
         textField.rightViewMode = .always
     }
+    
+    func showPopUpSucessoSenha() {
+              let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sucessoSenhaID") as! SucessoViewController
+              
+              self.addChild(popOverVC)
+              popOverVC.view.frame = self.view.frame
+              self.view.addSubview(popOverVC.view)
+              popOverVC.didMove(toParent: self)
+          }
+    
 }
