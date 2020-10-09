@@ -151,7 +151,7 @@ extension ListarEstabelecimentosViewController: UITableViewDelegate, UITableView
           
             let url = searchEstabelecimentos[indexPath.row].logotipo
             if url != "Sem Imagem" && url != nil {
-                 cell.imgEstabelecimento.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                 cell.imgEstabelecimento.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
              cell.imgEstabelecimento.sd_setImage(with: URL(string: searchEstabelecimentos[indexPath.row].logotipo ?? ""), placeholderImage: UIImage(named: "placeholder.phg"))
             } else {
                 cell.imgEstabelecimento.image = UIImage(named:"fota.jpg")
@@ -177,7 +177,7 @@ extension ListarEstabelecimentosViewController: UITableViewDelegate, UITableView
             
             let url = estabelecimentos[indexPath.row].logotipo
             if url != "Sem Imagem" && url != nil {
-                 cell.imgEstabelecimento.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                 cell.imgEstabelecimento.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
              cell.imgEstabelecimento.sd_setImage(with: URL(string: estabelecimentos[indexPath.row].logotipo ?? ""), placeholderImage: UIImage(named: "placeholder.phg"))
             } else {
                 cell.imgEstabelecimento.image = UIImage(named:"fota.jpg")

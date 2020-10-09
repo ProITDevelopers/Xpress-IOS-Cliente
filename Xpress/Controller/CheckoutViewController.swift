@@ -176,7 +176,7 @@ extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
                                           
                             } else {
                         
-                                cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                                cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
                                 cell.imgProduto.sd_setImage(with: URL(string:  produtoComprar.imagemProduto!), placeholderImage: UIImage(named: "placeholder.phg"))
                                 }
                     
@@ -194,7 +194,7 @@ extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
                                              cell.imgProduto.image = UIImage(named:"fota.jpg")
                                       
                                   } else {
-                                      cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                                      cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
                                       cell.imgProduto.sd_setImage(with: URL(string:  produtoCarrinho[indexPath.row - 1].imagemProduto), placeholderImage: UIImage(named: "placeholder.phg"))
                                   }
                                  }

@@ -30,7 +30,7 @@ class PerfilViewController: UIViewController {
         super.viewDidLoad()
 
        mostrarPopUpInternet()
-             verificarSessao()
+           //  verificarSessao()
       
       mostrarButtonEditar()
        obterPerfil()
@@ -85,7 +85,7 @@ class PerfilViewController: UIViewController {
         imgPerfil.sd_imageIndicator = SDWebImageActivityIndicator.gray
         
         if url != "Sem Imagem" && url != nil {
-                   imgPerfil.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                   imgPerfil.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
                imgPerfil.sd_setImage(with: URL(string: url!), placeholderImage: UIImage(named: "placeholder.phg"))
                } else {
                     imgPerfil.image = UIImage(named:"fota.jpg")

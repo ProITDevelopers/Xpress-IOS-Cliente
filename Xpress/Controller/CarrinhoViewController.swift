@@ -102,6 +102,8 @@ class CarrinhoViewController: UIViewController {
          print("right button touched")
         if quantidadeIten() != 0 {
             showPopUpFuncao1()
+        } else {
+            showToast1(controller: self, message: "O carrinho está vazio!", seconds: 2)
         }
             
        }
@@ -207,6 +209,7 @@ extension CarrinhoViewController: UITableViewDelegate, UITableViewDataSource {
                {
                    cell.imgProduto.image = UIImage(named:"fota.jpg")
                } else {
+                cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
                    cell.imgProduto.sd_setImage(with: URL(string: produtoCarrinho[indexPath.row].imagemProduto ), placeholderImage: UIImage(named: "placeholder.phg"))
                }
                

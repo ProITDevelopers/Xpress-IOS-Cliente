@@ -223,7 +223,7 @@ extension ListarProdutosViewController: UITableViewDataSource, UITableViewDelega
              cell.delegate = self
              cell.estabelecimentoLabel.text = estabelecimento.nomeEstabelecimento
              cell.enderecoEstsLabel.text = estabelecimento.endereco
-                    
+                cell.imgCapaEstabelecimento.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
              cell.imgCapaEstabelecimento.sd_setImage(with: URL(string: estabelecimento.imagemCapa ?? ""), placeholderImage: UIImage(named: "placeholder.phg"))
              
              
@@ -251,7 +251,7 @@ extension ListarProdutosViewController: UITableViewDataSource, UITableViewDelega
                    
                    let url = produtos[indexPath.row - 1].imagemProduto
                               if url != "Sem Imagem" && url != nil {
-                               cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                               cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
                                cell.imgProduto.sd_setImage(with: URL(string: produtos[indexPath.row - 1].imagemProduto ?? ""), placeholderImage: UIImage(named: "placeholder.phg"))
                               } else {
                                   cell.imgProduto.image = UIImage(named:"fota.jpg")

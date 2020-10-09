@@ -38,7 +38,7 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
     let picker = UIPickerView()
    var selecionarFoto = false
     var genero = ""
-    
+    var fotografiaSelecionada = UIImage()
     
 
     override func viewDidLoad() {
@@ -68,6 +68,26 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
     @IBAction func buttonSalvarFoto(_ sender: UIButton) {
        
     }
+    
+    func mostrarButtonEditar() {
+           // button
+                       let rightButton = UIButton(frame: CGRect(x: 0, y: 0, width: 18, height: 16))
+                       rightButton.setBackgroundImage(UIImage(named: "icons8-checkmark-40"), for: .normal)
+                       rightButton.addTarget(self, action: #selector(rightButtonTouched), for: .touchUpInside)
+
+                      // rightButton.addSubview(label)
+                       
+                       // Bar button item
+                       let rightBarButtomItem = UIBarButtonItem(customView: rightButton)
+                       
+                       navigationItem.rightBarButtonItems  = [rightBarButtomItem]
+      }
+      
+
+      @objc func rightButtonTouched() {
+           print("right button touched")
+              salvarFoto()
+         }
     
     
     @IBAction func ButtonAlterarFoto(_ sender: UIButton) {
@@ -106,9 +126,10 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
             let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             imgPerfil.image = image
             selecionarFoto = true
-            
+            fotografiaSelecionada = image!
+            mostrarButtonEditar()
             picker.dismiss(animated: true, completion: nil)
-             salvarFoto()
+            
         }
         
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -165,7 +186,7 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
        
         
         if url != "Sem Imagem" && url != nil {
-            imgPerfil.sd_imageIndicator = SDWebImageActivityIndicator.gray
+            imgPerfil.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
         imgPerfil.sd_setImage(with: URL(string: url!), placeholderImage: UIImage(named: "placeholder.phg"))
         } else {
              imgPerfil.image = UIImage(named:"fota.jpg")
@@ -244,7 +265,7 @@ extension EditarPerfilViewController {
              let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/PerfilCliente"
            
             let token = UserDefaults.standard.string(forKey: "token")
-           print(token)
+        
         
         
          
@@ -252,9 +273,6 @@ extension EditarPerfilViewController {
            Alamofire.request(URL, method: .get, headers: headrs).responseJSON { response in
                     
                     if response.result.isSuccess{
-                        
-                        let perfilJSON = JSON(response.data!)
-                       
                        
                         do {
                             let jsonDecoder = JSONDecoder()
@@ -437,15 +455,14 @@ extension EditarPerfilViewController {
 extension EditarPerfilViewController {
     func salvarFoto() {
            
-        let image = imgPerfil.image
-           // let imageData =
-           let imageData = image?.jpegData(compressionQuality: 0.2)
+
+        let imageData = fotografiaSelecionada.jpegData(compressionQuality: 0.2)
            let token = UserDefaults.standard.string(forKey: "token")
           
            
            let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Content-Type" : "application/json"]
            
-           
+           mostrarProgresso()
            
            Alamofire.upload(multipartFormData: { (multipartFormData) in
                
@@ -456,22 +473,18 @@ extension EditarPerfilViewController {
                upload.responseData(completionHandler: { response in
                    if response.response?.statusCode == 200 {
                        print("FOTO CARREGADA COM SUCESSO")
-                    print(self.selecionarFoto)
                    
-                    self.showToast1(controller: self, message:"Fotografia salva com sucesso.", seconds: 2)
-                    DispatchQueue.main.asyncAfter(deadline: .now() +  1) {
-                            print("ola")
-                        self.navigationController?.popViewController(animated: true)
-                           
-                    }
-                    
+                    self.terminarProgresso()
+                    self.showPopUpFuncao()
                    } else {
+                     self.terminarProgresso()
                        print("ERRO AO CARREGAR A FOTO")
                     self.showToast1(controller: self, message:"Não foi possivel salvar a fotografia.", seconds: 2)
                    }
                })
                
            case .failure(let error):
+             self.terminarProgresso()
                print("Error in upload:\(error.localizedDescription)")
                }
                
