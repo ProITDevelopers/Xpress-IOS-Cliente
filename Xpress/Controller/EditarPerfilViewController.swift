@@ -4,7 +4,7 @@
 //
 //  Created by rpandrade2005 on 9/26/20.
 //  Copyright © 2020 Proit-Consulting. All rights reserved.
-////http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083
+////https://apivendas.xpressentregas.com
 
 import UIKit
 import Alamofire
@@ -262,7 +262,7 @@ extension EditarPerfilViewController {
         
        
         
-             let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/PerfilCliente"
+             let URL = "https://apivendas.xpressentregas.com/PerfilCliente"
            
             let token = UserDefaults.standard.string(forKey: "token")
         
@@ -290,9 +290,8 @@ extension EditarPerfilViewController {
                         }
 
                     } else {
-                        self.showToast(controller: self, message: "Erro verifica por favor.", seconds: 2)
+                       
                        print("Erro verifica por favor.")
-                       print(response.response?.statusCode)
                        print(response.debugDescription)
                         print(response)
                     }
@@ -397,7 +396,7 @@ extension EditarPerfilViewController {
                                          }
       
         
-        let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/UpdateDadosPessoaisCliente"
+     let URL = "https://apivendas.xpressentregas.com/UpdateDadosPessoaisCliente"
         
         var parametros = [String:String]()
        
@@ -467,7 +466,7 @@ extension EditarPerfilViewController {
            Alamofire.upload(multipartFormData: { (multipartFormData) in
                
                multipartFormData.append(imageData!, withName: "FotoCapa", fileName: "image.jpeg", mimeType: "image/jpeg")//FILEURL IN APPEND
-           }, usingThreshold: UInt64.init(), to: "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/AlterarFotoPerfilCliente", method: .post, headers: headrs) { (result) in switch result {
+           }, usingThreshold: UInt64.init(), to: "https://apivendas.xpressentregas.com/AlterarFotoPerfilCliente", method: .post, headers: headrs) { (result) in switch result {
                
            case .success(let upload, _, _):
                upload.responseData(completionHandler: { response in

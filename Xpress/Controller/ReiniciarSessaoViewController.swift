@@ -88,7 +88,7 @@ class ReiniciarSessaoViewController: UIViewController {
                // fazerLogin(usuario: usuario, senha: password)
                
               
-                let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/authenticate2"
+                let URL = "https://apivendas.xpressentregas.com/authenticate2"
                 
                 Alamofire.request(URL, method: .post, parameters: parametros, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in
                           
@@ -102,7 +102,7 @@ class ReiniciarSessaoViewController: UIViewController {
                                    self.token = try jsonDecoder.decode(Token.self, from: response.data!)
                                   UserDefaults.standard.setValue(self.token.tokenuser, forKey: "token")
                                   UserDefaults.standard.setValue(self.token.expiracao, forKey: "dataExpiracao")
-                                  print(self.token.tokenuser)
+                                 
                                   
                                   let token = UserDefaults.standard.string(forKey: "token")
                                                    

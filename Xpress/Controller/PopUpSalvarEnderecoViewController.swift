@@ -4,7 +4,7 @@
 //
 //  Created by rpandrade2005 on 9/28/20.
 //  Copyright © 2020 Proit-Consulting. All rights reserved.
-////http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083
+////https://apivendas.xpressentregas.com
 
 
 import UIKit
@@ -107,10 +107,10 @@ extension PopUpSalvarEnderecoViewController {
     
     func obterPerfil() {
           
-          let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/PerfilCliente"
+          let URL = "https://apivendas.xpressentregas.com/PerfilCliente"
           
           let token = UserDefaults.standard.string(forKey: "token")
-          print(token)
+        
           
           let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
           
@@ -118,7 +118,7 @@ extension PopUpSalvarEnderecoViewController {
               
               if response.result.isSuccess{
                   
-                  let perfilJSON = JSON(response.data!)
+                  
                 
                   
                   do {

@@ -36,7 +36,7 @@ class ListarProdutosViewController: UIViewController {
         verificarSessao()
         configuracaoNotification()
         //self.mostrarNotificacao("Seja bem vindo", "Adilson Ebo")
-        print(estabelecimento.estabelecimentoID)
+       
         idEstabelecimento = estabelecimento.estabelecimentoID
         // Do any additional setup after loading the view.
         
@@ -135,10 +135,9 @@ class ListarProdutosViewController: UIViewController {
 
     func obterProdutos(idEstabelecimentoF: Int ) {
            
-           let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/ListarProdutosEstab/\(idEstabelecimentoF)"
+           let URL = "https://apivendas.xpressentregas.com/ListarProdutosEstab/\(idEstabelecimentoF)"
            
            let token = UserDefaults.standard.string(forKey: "token")
-                  print(token)
            let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
            
            Alamofire.request(URL, method: .get, encoding: JSONEncoding.default, headers: headrs).responseString { response in
@@ -163,14 +162,12 @@ class ListarProdutosViewController: UIViewController {
                           }
                           
                           if response.response?.statusCode == 200 {
-                              print(response.response?.statusCode)
                               print("veja a lista")
                              // print(self.produtos[0].descricaoProdutoC)
                               
                               
                           } else {
                               print("Erro verifica por favor.")
-                              print(response.response?.statusCode)
                               print(response.debugDescription)
                           }
                       } else {

@@ -314,7 +314,7 @@ extension CheckoutViewController  {
     
     
     // FUNÇ\AO QUE ENVIA OS ITENS A COMPRAR
-        //   http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/
+        //  https://apivendas.xpressentregas.com
            func enviarItensPedidosReferencia() {
   
             
@@ -354,7 +354,7 @@ extension CheckoutViewController  {
                
                let parametros = ["localEncomenda": entrega, "itensFacturaos": arrayItem] as [String : Any]
                
-                let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/FacturaReferencia"
+                let URL = "https://apivendas.xpressentregas.com/FacturaReferencia"
           
               
                mostrarProgresso()
@@ -452,7 +452,7 @@ extension CheckoutViewController  {
                
                
                let parametros = ["itensFacturaos": arrayItem, "localEncomenda": entrega] as [String : Any]
-               let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/FacturaTpa"
+               let URL = "https://apivendas.xpressentregas.com/FacturaTpa"
                
                let jsonData = try! JSONSerialization.data(withJSONObject: parametros, options: .prettyPrinted)
 

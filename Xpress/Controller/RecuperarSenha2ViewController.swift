@@ -107,7 +107,7 @@ extension RecuperarSenha2ViewController {
          mostrarProgresso()
            
            let parametros = ["codigoRecuperacao": codigo, "novaPassword": password] as [String : Any]
-           let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/ReporSenha/\(telefone)"
+           let URL = "https://apivendas.xpressentregas.com/ReporSenha/\(telefone)"
            
            
            Alamofire.request(URL, method: .post, parameters: parametros, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in
@@ -153,7 +153,7 @@ extension RecuperarSenha2ViewController {
     }
     
     func showPopUpSucessoSenha() {
-           let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sucessoSenhaId") as! SairPopUpViewController
+           let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sucessoSenhaId") as! Sucessu2ViewController
            
            self.addChild(popOverVC)
            popOverVC.view.frame = self.view.frame

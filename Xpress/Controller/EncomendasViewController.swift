@@ -5,7 +5,7 @@
 //  Created by rpandrade2005 on 9/29/20.
 //  Copyright © 2020 Proit-Consulting. All rights reserved.
 //cellFactura
-//   http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/
+//   https://apivendas.xpressentregas.com
 import UIKit
 import Alamofire
 import SwiftyJSON
@@ -27,13 +27,13 @@ class EncomendasViewController: UIViewController {
               verificarSessao()
         tblView.register(UINib.init(nibName: "FacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellFactura")
         // Do any additional setup after loading the view.
-        obterFacturas( URL: "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/FacturasActualCliente")
+        obterFacturas( URL: "https://apivendas.xpressentregas.com/FacturasActualCliente")
         mostrarPopUpInternet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        obterFacturas( URL: "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/FacturasActualCliente")
+        obterFacturas( URL: "https://apivendas.xpressentregas.com/FacturasActualCliente")
         mostrarPopUpInternet()
     }
 
@@ -58,7 +58,7 @@ class EncomendasViewController: UIViewController {
            //let URL = "http://3.18.194.189/FacturasActualCliente"
            
            let token = UserDefaults.standard.string(forKey: "token")
-           print(token)
+           
            
            let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
            
@@ -82,7 +82,7 @@ class EncomendasViewController: UIViewController {
                    
                    
                    if response.response?.statusCode == 200 {
-                       print(response.response?.statusCode)
+                      
                        print("veja a lista")
                       // print("\(self.pedidos[0].clienteID ?? "" )")
                     
@@ -115,7 +115,7 @@ class EncomendasViewController: UIViewController {
                        
                    } else {
                        print("Erro verifica por favor.")
-                    print(response.response?.statusCode)
+                  
                        print(response.debugDescription)
                    }
                } else {

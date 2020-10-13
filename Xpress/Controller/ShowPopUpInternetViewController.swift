@@ -18,12 +18,9 @@ class ShowPopUpInternetViewController: UIViewController {
     
     @IBAction func buttonTentar(_ sender: UIButton) {
          
-        if VerificarInternet.Connection() {
+       
              self.view.removeFromSuperview()
-        } else {
-            print("nao esta conectado")
-           
-        }
+      
     }
     
     /*

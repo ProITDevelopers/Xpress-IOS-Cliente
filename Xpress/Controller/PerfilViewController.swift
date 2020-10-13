@@ -115,19 +115,14 @@ extension PerfilViewController {
         
        
         
-             let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/PerfilCliente"
+             let URL = "https://apivendas.xpressentregas.com/PerfilCliente"
            
             let token = UserDefaults.standard.string(forKey: "token")
-           print(token)
-         
            let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
            Alamofire.request(URL, method: .get, headers: headrs).responseJSON { response in
                     
                     if response.result.isSuccess{
                         
-                        let perfilJSON = JSON(response.data!)
-                       
-                       
                         do {
                             let jsonDecoder = JSONDecoder()
                             self.perfil = try jsonDecoder.decode([Perfil].self, from: response.data!)
@@ -144,9 +139,8 @@ extension PerfilViewController {
                         }
 
                     } else {
-                        self.showToast(controller: self, message: "Erro verifica por favor.", seconds: 3)
+                       
                        print("Erro verifica por favor.")
-                       print(response.response?.statusCode)
                        print(response.debugDescription)
                         print(response)
                     }

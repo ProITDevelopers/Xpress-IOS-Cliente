@@ -163,7 +163,7 @@ class CarrinhoViewController: UIViewController {
                 do {
                     try realm.write {
                         realm.delete(item)
-                                    
+                           verificarCarrinho()
                         }
                     } catch{
                     print("Erro ao Eliminar o produto, \(error)")

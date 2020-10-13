@@ -78,7 +78,7 @@ class ListarEstabelecimentosViewController: UIViewController {
 
     func obterEstabelecimentos() {
                 
-              let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/ListagemEstabelecimentoA"
+              let URL = "https://apivendas.xpressentregas.com/ListagemEstabelecimentoA"
            
                 
           self.terminarProgresso()
@@ -93,8 +93,6 @@ class ListarEstabelecimentosViewController: UIViewController {
                          self.estabelecimentos.removeAll()
                           do {
                            
-                            
-                             let estacionamentoJSON = JSON(response.data!)
                               let jsonDecoder = JSONDecoder()
                            self.estabelecimentos = try jsonDecoder.decode([Estabelecimento].self, from: response.data!)
                            
@@ -308,11 +306,10 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
 extension ListarEstabelecimentosViewController {
   func obterPerfil() {
          
-           let URL = "http://ec2-18-188-197-193.us-east-2.compute.amazonaws.com:8083/PerfilCliente"
+           let URL = "https://apivendas.xpressentregas.com/PerfilCliente"
          
           let token = UserDefaults.standard.string(forKey: "token")
-         print(token)
-       
+        
          let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
          Alamofire.request(URL, method: .get, headers: headrs).responseJSON { response in
                   
@@ -325,12 +322,9 @@ extension ListarEstabelecimentosViewController {
                      
                           let jsonDecoder = JSONDecoder()
                           self.perfil = try jsonDecoder.decode([Perfil].self, from: response.data!)
-                         print(response.response?.statusCode)
+                       
                       print("veja o perfil")
-                          print(self.perfil[0].nomeCompleto)
-                                                 
-                         
-                         
+                        
                          UserDefaults.standard.setValue(self.perfil[0].nomeCompleto, forKey: "nomeCompleto")
                           UserDefaults.standard.setValue(self.perfil[0].email, forKey: "emailUsuario")
                         UserDefaults.standard.setValue(self.perfil[0].imagem, forKey: "imgUsuario")
@@ -343,7 +337,6 @@ extension ListarEstabelecimentosViewController {
 
                   } else {
                      print("Erro verifica por favor.")
-                     print(response.response?.statusCode)
                      print(response.debugDescription)
                       print(response)
                   }
