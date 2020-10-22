@@ -55,7 +55,7 @@ class RecuperarPavraPasse1ViewController: UIViewController {
          // let parametros = ["id": contacto] as [String : Any]
         
           
-          let URL = "https://apivendas.xpressentregas.com/SolicitarCodigoRecuperacao/\(contacto)"
+          let URL = "https://apixpress.lengueno.com/SolicitarCodigoRecuperacao/\(contacto)"
           telefone = contacto
           
           Alamofire.request(URL, method: .put, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in

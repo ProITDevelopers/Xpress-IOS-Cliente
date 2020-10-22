@@ -253,7 +253,7 @@ extension RegistarViewController {
                                         
              let parametros = ["PrimeiroNome": nome, "UltimoNome": sobreNome, "ContactoMovel":telefone, "Sexo": genero, "Email":email, "Password": palavraPasse] as [String : String]
             
-       let URL = "https://apivendas.xpressentregas.com/cadastrarcliente"
+       let URL = "https://apixpress.lengueno.com/cadastrarcliente"
        
             
             if selecionouFoto == false {

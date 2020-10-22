@@ -32,9 +32,11 @@ class ListarProdutosViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-         mostrarPopUpInternet()
+        
+        mostrarPopUpInternet()
         verificarSessao()
         configuracaoNotification()
+        
         //self.mostrarNotificacao("Seja bem vindo", "Adilson Ebo")
        
         idEstabelecimento = estabelecimento.estabelecimentoID
@@ -135,15 +137,16 @@ class ListarProdutosViewController: UIViewController {
 
     func obterProdutos(idEstabelecimentoF: Int ) {
            
-           let URL = "https://apivendas.xpressentregas.com/ListarProdutosEstab/\(idEstabelecimentoF)"
+           let URL = "https://apixpress.lengueno.com/ListarProdutosEstab/\(idEstabelecimentoF)"
            
            let token = UserDefaults.standard.string(forKey: "token")
            let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
+           mostrarProgresso()
            
            Alamofire.request(URL, method: .get, encoding: JSONEncoding.default, headers: headrs).responseString { response in
                       
                       if response.result.isSuccess{
-                          
+                          self.terminarProgresso()
                           let produtoJSON = JSON(response.data!)
                           print(produtoJSON)
                           self.produtos.removeAll()
@@ -151,10 +154,8 @@ class ListarProdutosViewController: UIViewController {
                           do {
                               let jsonDecoder = JSONDecoder()
                               self.produtos = try jsonDecoder.decode([Produto].self, from: response.data!)
-                       
-                           
-                           
-                           
+ 
+                             
                               self.tblView.reloadData()
                               
                           } catch {
@@ -164,7 +165,7 @@ class ListarProdutosViewController: UIViewController {
                           if response.response?.statusCode == 200 {
                               print("veja a lista")
                              // print(self.produtos[0].descricaoProdutoC)
-                              
+                              self.terminarProgresso()
                               
                           } else {
                               print("Erro verifica por favor.")

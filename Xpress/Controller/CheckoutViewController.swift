@@ -354,7 +354,7 @@ extension CheckoutViewController  {
                
                let parametros = ["localEncomenda": entrega, "itensFacturaos": arrayItem] as [String : Any]
                
-                let URL = "https://apivendas.xpressentregas.com/FacturaReferencia"
+                let URL = "https://apixpress.lengueno.com/FacturaReferencia"
           
               
                mostrarProgresso()
@@ -452,7 +452,7 @@ extension CheckoutViewController  {
                
                
                let parametros = ["itensFacturaos": arrayItem, "localEncomenda": entrega] as [String : Any]
-               let URL = "https://apivendas.xpressentregas.com/FacturaTpa"
+               let URL = "https://apixpress.lengueno.com/FacturaTpa"
                
                let jsonData = try! JSONSerialization.data(withJSONObject: parametros, options: .prettyPrinted)
 

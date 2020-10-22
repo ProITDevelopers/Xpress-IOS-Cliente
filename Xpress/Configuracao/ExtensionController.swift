@@ -346,10 +346,12 @@ extension UIViewController {
                 
                 }
           let token1 = UserDefaults.standard.string(forKey: "token")
+       
            if token1 != nil && formattedDate > dataConvertida  {
             showPopUpSessao()
             print("terminou a sessao")
             }
+          
     }
     
 }

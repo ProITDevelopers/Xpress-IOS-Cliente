@@ -4,7 +4,7 @@
 //
 //  Created by rpandrade2005 on 9/28/20.
 //  Copyright © 2020 Proit-Consulting. All rights reserved.
-////https://apivendas.xpressentregas.com
+///https://apixpress.lengueno.com
 
 
 import UIKit
@@ -107,7 +107,7 @@ extension PopUpSalvarEnderecoViewController {
     
     func obterPerfil() {
           
-          let URL = "https://apivendas.xpressentregas.com/PerfilCliente"
+          let URL = "https://apixpress.lengueno.com/PerfilCliente"
           
           let token = UserDefaults.standard.string(forKey: "token")
         

@@ -46,7 +46,13 @@ class ProdutoShowViewController: UIViewController {
        
     }
     
+   func saltarCarrinho() {
+       
+       let carrinhoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: StoryboardID.carrinho) as! CarrinhoViewController
+            self.navigationController?.pushViewController(carrinhoVC, animated: true)
    
+              
+   }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -236,7 +242,7 @@ extension ProdutoShowViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension ProdutoShowViewController: AtualizarProdutoShowDelegate {
     func didComprarAgora() {
-        buttonComprarAgora()
+       irCarrinho()
     }
     
     func mostrarItensCarrinho() {

@@ -18,7 +18,7 @@ class DefinicaoViewController: UIViewController {
       
       let nomeUser = "Joao"//UserDefaults.standard.string(forKey: "nomeCompleto")
       let emailUser = UserDefaults.standard.string(forKey: "emailUsuario")
-     var data  = [["Meu perfil", "Sair"],["Alterar palavra-passe"], ["Express Entregas é um serviço de delivery que permite o usuário realizar os seus pedidos preferidos..."], ["1.0.0"], ["2020 Pro-IT Consulting"], ["Tem alguma dúvida? Estamos felizes em ajudar."] , ["Partilhe a nossa app com os seus amigos..."]]
+     var data  = [["Meu perfil", "Sair"],["Alterar palavra-passe"], ["Express Lengueno é um serviço de delivery que permite o usuário realizar os seus pedidos preferidos."], ["1.1.0"], ["Copyright © 2020 - HXA, Powered by Pro-IT Consulting"], ["Tem alguma dúvida? Estamos felizes em ajudar."] , ["Partilhe a nossa app com os seus amigos."]]
       
       let headerTitles  = ["Perifl","Segurança e login","Sobre Nós","Versão","Desenvolvedor","Enviar feedback","Partilhar"]
 

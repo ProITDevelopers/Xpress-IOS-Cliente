@@ -205,7 +205,7 @@ extension CarrinhoViewController: UITableViewDelegate, UITableViewDataSource {
                cell.precoProduto?.text = ("\(produtoCarrinho[indexPath.row].precoUnitario).00 AKZ x \(produtoCarrinho[indexPath.row].quantidade)")
                cell.quantidadeProduto?.text = ("\(produtoCarrinho[indexPath.row].quantidade)")
                
-               if produtoCarrinho[indexPath.row].imagemProduto == nil
+               if produtoCarrinho[indexPath.row].imagemProduto == ""
                {
                    cell.imgProduto.image = UIImage(named:"fota.jpg")
                } else {

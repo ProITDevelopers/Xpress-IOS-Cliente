@@ -4,7 +4,7 @@
 //
 //  Created by rpandrade2005 on 9/26/20.
 //  Copyright © 2020 Proit-Consulting. All rights reserved.
-////https://apivendas.xpressentregas.com
+////https://apixpress.lengueno.com
 
 import UIKit
 import Alamofire
@@ -50,6 +50,7 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
         verPickerProvincia()
         obterPerfil()
         HideKeyboard()
+        mostrarButtonEditar()
        
     }
     
@@ -86,8 +87,11 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
 
       @objc func rightButtonTouched() {
            print("right button touched")
+        if selecionarFoto == true {
               salvarFoto()
-         }
+        }
+        
+    }
     
     
     @IBAction func ButtonAlterarFoto(_ sender: UIButton) {
@@ -127,7 +131,7 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
             imgPerfil.image = image
             selecionarFoto = true
             fotografiaSelecionada = image!
-            mostrarButtonEditar()
+            
             picker.dismiss(animated: true, completion: nil)
             
         }
@@ -262,7 +266,7 @@ extension EditarPerfilViewController {
         
        
         
-             let URL = "https://apivendas.xpressentregas.com/PerfilCliente"
+             let URL = "https://apixpress.lengueno.com/PerfilCliente"
            
             let token = UserDefaults.standard.string(forKey: "token")
         
@@ -396,7 +400,7 @@ extension EditarPerfilViewController {
                                          }
       
         
-     let URL = "https://apivendas.xpressentregas.com/UpdateDadosPessoaisCliente"
+     let URL = "https://apixpress.lengueno.com/UpdateDadosPessoaisCliente"
         
         var parametros = [String:String]()
        
@@ -419,12 +423,13 @@ extension EditarPerfilViewController {
         
         Alamofire.request(URL, method: .put, parameters: parametros, encoding: JSONEncoding.default, headers: headrs).responseString { response in
             if response.result.isSuccess{
+                 self.terminarProgresso()
                 if response.response?.statusCode == 200 {
                     print(response.response?.statusCode ?? "")
                     print("Sucesso no registo")
                     self.showToast1(controller: self, message: "Salvo com sucesso!", seconds: 2)
                     self.obterPerfil()
-                    self.terminarProgresso()
+                   
                     DispatchQueue.main.asyncAfter(deadline: .now() +  1) {
                                    print("ola")
                                self.navigationController?.popViewController(animated: true)
@@ -466,14 +471,15 @@ extension EditarPerfilViewController {
            Alamofire.upload(multipartFormData: { (multipartFormData) in
                
                multipartFormData.append(imageData!, withName: "FotoCapa", fileName: "image.jpeg", mimeType: "image/jpeg")//FILEURL IN APPEND
-           }, usingThreshold: UInt64.init(), to: "https://apivendas.xpressentregas.com/AlterarFotoPerfilCliente", method: .post, headers: headrs) { (result) in switch result {
+           }, usingThreshold: UInt64.init(), to: "https://apixpress.lengueno.com/AlterarFotoPerfilCliente", method: .post, headers: headrs) { (result) in switch result {
                
            case .success(let upload, _, _):
                upload.responseData(completionHandler: { response in
                    if response.response?.statusCode == 200 {
+                     self.terminarProgresso()
                        print("FOTO CARREGADA COM SUCESSO")
                    
-                    self.terminarProgresso()
+                   
                     self.showPopUpFuncao()
                    } else {
                      self.terminarProgresso()

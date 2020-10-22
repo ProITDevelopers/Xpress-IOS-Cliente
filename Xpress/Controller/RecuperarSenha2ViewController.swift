@@ -107,7 +107,7 @@ extension RecuperarSenha2ViewController {
          mostrarProgresso()
            
            let parametros = ["codigoRecuperacao": codigo, "novaPassword": password] as [String : Any]
-           let URL = "https://apivendas.xpressentregas.com/ReporSenha/\(telefone)"
+           let URL = "https://apixpress.lengueno.com/ReporSenha/\(telefone)"
            
            
            Alamofire.request(URL, method: .post, parameters: parametros, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in

@@ -78,7 +78,7 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nad-2f-EN5">
                                 <rect key="frame" x="162" y="95" width="30" height="30"/>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="60x-QW-tcf"/>
                                     <constraint firstAttribute="height" constant="30" id="rc4-Lb-kAT"/>
@@ -95,7 +95,7 @@
                                     <constraint firstAttribute="height" constant="20" id="Ds1-uW-RFL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <color key="textColor" red="0.20392156859999999" green="0.71825484149999996" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.10980392160000001" green="0.53333333329999999" blue="0.39607843139999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JSZ-4Z-zU8" customClass="CustumizarImgProduto" customModule="Xpress" customModuleProvider="target">

@@ -115,7 +115,7 @@ extension PerfilViewController {
         
        
         
-             let URL = "https://apivendas.xpressentregas.com/PerfilCliente"
+             let URL = "https://apixpress.lengueno.com/PerfilCliente"
            
             let token = UserDefaults.standard.string(forKey: "token")
            let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]

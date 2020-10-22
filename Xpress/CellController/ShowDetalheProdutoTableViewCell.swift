@@ -74,6 +74,7 @@ class ShowDetalheProdutoTableViewCell: UITableViewCell {
         
     }
     @IBAction func buttonComprar(_ sender: UIButton) {
+          adicionarCarrinho()
         delegate?.didComprarAgora()
     }
     

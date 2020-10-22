@@ -85,7 +85,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                  
                  
                  let token1 = UserDefaults.standard.string(forKey: "token")
-                        if token1 != nil && dataConvertida > formattedDate {
+                        if token1 != nil && formattedDate > dataConvertida  {
 
                          let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                             let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: StoryboardID.pricipal) as! PrincipalViewController

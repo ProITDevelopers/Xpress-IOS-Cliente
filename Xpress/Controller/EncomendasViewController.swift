@@ -5,7 +5,7 @@
 //  Created by rpandrade2005 on 9/29/20.
 //  Copyright © 2020 Proit-Consulting. All rights reserved.
 //cellFactura
-//   https://apivendas.xpressentregas.com
+//   https://apixpress.lengueno.com
 import UIKit
 import Alamofire
 import SwiftyJSON
@@ -15,6 +15,7 @@ import SDWebImage
 class EncomendasViewController: UIViewController {
     
     @IBOutlet weak var tblView: UITableView!
+//    @IBOutlet weak var seguimento: UISegmentedControl!
     
       var pedidos = [FacturaActual]()
        var pedidos1 = [FacturaActual1]()
@@ -27,13 +28,13 @@ class EncomendasViewController: UIViewController {
               verificarSessao()
         tblView.register(UINib.init(nibName: "FacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellFactura")
         // Do any additional setup after loading the view.
-        obterFacturas( URL: "https://apivendas.xpressentregas.com/FacturasActualCliente")
+        obterFacturas( URL: "https://apixpress.lengueno.com/FacturasActualCliente")
         mostrarPopUpInternet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        obterFacturas( URL: "https://apivendas.xpressentregas.com/FacturasActualCliente")
+        obterFacturas( URL: "https://apixpress.lengueno.com/FacturasActualCliente")
         mostrarPopUpInternet()
     }
 
@@ -52,6 +53,24 @@ class EncomendasViewController: UIViewController {
         }
     }
     
+//    @IBAction func seguimentoController(_ sender: Any) {
+//
+//        let getIndex = seguimento.selectedSegmentIndex
+//               print(getIndex)
+//
+//               switch getIndex {
+//               case 0:
+//                   obterFacturas(URL: "https://apixpress.lengueno.com/FacturasActualCliente")
+//               case 1:
+//                   obterFacturas(URL: "https://apixpress.lengueno.com/api/listagemFactura/v1/cliente/FacturaAcaminho")
+//               case 2:
+//                   obterFacturas(URL: "https://apixpress.lengueno.com/api/listagemFactura/v1/cliente/FacturaEntregue")
+//                case 3:
+//                obterFacturas(URL: "https://apixpress.lengueno.com/HistoricoFacturasCliente")
+//               default:
+//                   print("Erro nenhuma selecionada!")
+//               }
+//    }
     
     func obterFacturas( URL: String) {
            
@@ -59,7 +78,7 @@ class EncomendasViewController: UIViewController {
            
            let token = UserDefaults.standard.string(forKey: "token")
            
-           
+           mostrarProgresso()
            let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
            
            Alamofire.request(URL, method: .get, headers: headrs).responseJSON { response in
@@ -73,52 +92,59 @@ class EncomendasViewController: UIViewController {
                    do {
                        let jsonDecoder = JSONDecoder()
                        self.pedidos = try jsonDecoder.decode([FacturaActual].self, from: response.data!)
+                    self.terminarProgresso()
+                    
+                    
+                    
+                    
+                     if response.response?.statusCode == 200 {
+                      
+                         print("veja a lista")
+                        // print("\(self.pedidos[0].clienteID ?? "" )")
+                      
+                         if self.pedidos.count > 0 {
+                             
+                             
+                         self.pedidos.reverse()
+                         for item in self.pedidos {
+                             
+                         let pedido = FacturaActual1()
+                              pedido.open = false
+                             pedido.clienteID = item.clienteID
+                             pedido.metododPagamento = item.metododPagamento
+                             pedido.horaEntregueMotoboy = item.horaEntregueMotoboy
+                             pedido.horaRecebidoCliente = item.horaRecebidoCliente
+                             pedido.estado = item.estado
+                             pedido.estadoPagamento = item.estadoPagamento
+                             pedido.idFactura = item.idFactura
+                             pedido.dataPagamento = item.dataPagamento
+                             pedido.dataPedido = item.dataPedido
+                             pedido.itens = item.itens
+                             pedido.total = item.total
+                             self.pedidos1.append(pedido)
+                         }
+                         }
+                         
+                       
+                     } else {
+                         print("Erro verifica por favor.")
+                    self.terminarProgresso()
+                         print(response.debugDescription)
+                     }
+
+                    
+                    
                        self.tblView.reloadData()
                    
                    } catch {
+                    self.terminarProgresso()
                        print("erro inesperado1: \(error)")
                    }
                    
                    
                    
-                   if response.response?.statusCode == 200 {
-                      
-                       print("veja a lista")
-                      // print("\(self.pedidos[0].clienteID ?? "" )")
-                    
-                       if self.pedidos.count > 0 {
-                           
-                           
-                       self.pedidos.reverse()
-                       for item in self.pedidos {
-                           
-                       let pedido = FacturaActual1()
-                            pedido.open = false
-                           pedido.clienteID = item.clienteID
-                           pedido.metododPagamento = item.metododPagamento
-                           pedido.horaEntregueMotoboy = item.horaEntregueMotoboy
-                           pedido.horaRecebidoCliente = item.horaRecebidoCliente
-                           pedido.estado = item.estado
-                           pedido.estadoPagamento = item.estadoPagamento
-                           pedido.idFactura = item.idFactura
-                           pedido.dataPagamento = item.dataPagamento
-                           pedido.dataPedido = item.dataPedido
-                           pedido.itens = item.itens
-                           pedido.total = item.total
-                           self.pedidos1.append(pedido)
-                       }
-                       }
-                       
-                       for item in self.pedidos1 {
-                           print(item)
-                       }
-                       
-                   } else {
-                       print("Erro verifica por favor.")
-                  
-                       print(response.debugDescription)
-                   }
                } else {
+                self.terminarProgresso()
                    print(response.result)
                }
            }

@@ -19,17 +19,50 @@ class ReiniciarSessaoViewController: UIViewController {
     @IBOutlet weak var senhaLabel: UITextField!
     @IBOutlet weak var imgUsuario: UIImageView!
     var token = Token()
-   
+    var buttonVerPassword = UIButton(type: .custom)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
          self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         mostrarPerfil()
+        senhaLabel.setLeftView(image: UIImage(named: "icons8-forgot-password-30")!)
+        mostrarPassWord(button: buttonVerPassword, textField: senhaLabel)
         // Do any additional setup after loading the view.
     }
     
     
+
+        
+        func mostrarPassWord(button: UIButton, textField: UITextField) {
+               button.setImage(UIImage(named: "passwordV"), for: .normal)
+               button.imageEdgeInsets = UIEdgeInsets(top: 5, left: -24, bottom: 5, right: 15)
+               button.frame = CGRect(x: textField.frame.size.width - 25, y: CGFloat(5), width: CGFloat(15), height: CGFloat(25))
+               button.addTarget(self, action: #selector(self.ButtonPasswordShow), for: .touchUpInside)
+               
+               textField.rightView = button
+               textField.rightViewMode = .always
+           }
+        
+        
+        
+           
+ 
+    
+    @objc func ButtonPasswordShow(){
+
+           if(buttonVerPassword.isSelected == true) {
+                      buttonVerPassword.setImage(UIImage(named: "passwordV"), for: .normal)
+               senhaLabel.isSecureTextEntry = true
+                  } else {
+                     buttonVerPassword.setImage(UIImage(named: "passwordIv"), for: .normal)
+                senhaLabel.isSecureTextEntry = false
+                  }
+                  
+                  buttonVerPassword.isSelected = !buttonVerPassword.isSelected
+           
+          
+       }
     func mostrarPerfil() {
         let imagemUsuario = UserDefaults.standard.string(forKey: "imgUsuario")
         
@@ -88,7 +121,7 @@ class ReiniciarSessaoViewController: UIViewController {
                // fazerLogin(usuario: usuario, senha: password)
                
               
-                let URL = "https://apivendas.xpressentregas.com/authenticate2"
+                let URL = "https://apixpress.lengueno.com/authenticate2"
                 
                 Alamofire.request(URL, method: .post, parameters: parametros, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in
                           
@@ -134,7 +167,7 @@ class ReiniciarSessaoViewController: UIViewController {
                                  // codigo que gera a UIAlertController (aviso de erro ao fazer login)
                             
                               self.terminarProgresso()
-                                self.showToast(controller: self, message: "O dispositivo não esta conectado a nenhuma rede 3G OU WI-FI..", seconds: 3)
+                                self.showToast(controller: self, message: "Não foi possivel iniciar a sessão tente mais tarde!", seconds: 3)
                                 print(response.error as Any)
                                
                            }

@@ -75,7 +75,7 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
                       //localizacaoEntrega.addAnnotation(annotation)
                       latitude = ("\(looCoord.latitude)")
                       longitude = ("\(looCoord.longitude)")
-                      
+       
                       print("Lat: \(latitude), Long: \(longitude)")
                       mapa.removeAnnotations(mapa.annotations)
                       mapa.addAnnotation(annotation)

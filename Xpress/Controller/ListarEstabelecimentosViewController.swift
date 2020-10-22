@@ -12,8 +12,26 @@ import SwiftyJSON
 import SDWebImage
 import RealmSwift
 import UserNotifications
+import SwiftSignalRClient
 
-class ListarEstabelecimentosViewController: UIViewController {
+
+class ListarEstabelecimentosViewController: UIViewController, HubConnectionDelegate {
+    
+    
+    
+    // metodos do SwiftSignalR (HubConnectionDelegate)
+    func connectionDidOpen(hubConnection: HubConnection) {
+        print(hubConnection)
+    }
+    
+    func connectionDidFailToOpen(error: Error) {
+        print("Erro: \(error)")
+    }
+    
+    func connectionDidClose(error: Error?) {
+         print("Erro: \(error)")
+    }
+    
     
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -26,6 +44,9 @@ class ListarEstabelecimentosViewController: UIViewController {
     var searching = false
     var label = UILabel()
      var perfil = [Perfil]()
+    //Dados para a notificacao
+    private let serverUrl = "https://apixpress.lengueno.com/eventhub"
+     let token = UserDefaults.standard.string(forKey: "token")
     
     
     override func viewDidLoad() {
@@ -37,6 +58,45 @@ class ListarEstabelecimentosViewController: UIViewController {
         tblView.register(UINib.init(nibName: "EstabelecimentoTableViewCell", bundle: nil), forCellReuseIdentifier: "cell1")
         obterEstabelecimentos()
         btnCarrinhoBarra()
+        
+        
+        // mostrar notificacoes SinalR
+        // metodos do SignalR
+               let connection = HubConnectionBuilder(url: URL(string: self.serverUrl)!).withHttpConnectionOptions(configureHttpOptions: { (options)  in
+                         options.accessTokenProvider =  {
+                             return self.token
+                             
+                     }
+                     }).withLogging(minLogLevel: .debug)
+                     .build()
+                 
+                 // Event handler2
+                 
+//                 connection.on(method: "/eventHub") {(user: String, message: String) in
+//                     print(connection)
+//                     print(" \(user): \(message)")
+//                   // self.mostrarNotificacao(user, message)
+//
+//                    // print(HubConnection.self)
+//                 }
+//
+//
+//        connection.on(method: "UpdatedUserList") {(ConnectionId: String, users: String) in
+//                     print(connection)
+//                   print("\(ConnectionId): \(users)")
+//                  //self.mostrarNotificacao(ConnectionId, users)
+//
+//               }
+               connection.on(method: "ReceiveMessage"){( message: String) in
+                   print(connection)
+                  print("\(message)")
+                 self.mostrarNotificacao(message, message)
+                  
+               }
+               
+                connection.delegate = self
+                 connection.start()
+               configuracaoNotification()
        
         
     }
@@ -78,10 +138,10 @@ class ListarEstabelecimentosViewController: UIViewController {
 
     func obterEstabelecimentos() {
                 
-              let URL = "https://apivendas.xpressentregas.com/ListagemEstabelecimentoA"
+              let URL = "https://apixpress.lengueno.com/ListagemEstabelecimentoA"
            
-                
-          self.terminarProgresso()
+                mostrarProgresso()
+          
         
                let token = UserDefaults.standard.string(forKey: "token")
                       let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
@@ -90,6 +150,7 @@ class ListarEstabelecimentosViewController: UIViewController {
                       
                       if response.result.isSuccess{
 
+                        self.terminarProgresso()
                          self.estabelecimentos.removeAll()
                           do {
                            
@@ -104,6 +165,7 @@ class ListarEstabelecimentosViewController: UIViewController {
                           }
                         
                       } else {
+                        self.terminarProgresso()
                         print("Erro verifica por favor.")
                         print(response.response?.statusCode as Any)
                         print(response.debugDescription)
@@ -193,8 +255,14 @@ extension ListarEstabelecimentosViewController: UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         estabelecimento = estabelecimentos[indexPath.row]
-        performSegue(withIdentifier: "irProdutos", sender: self)
+        if estabelecimentos[indexPath.row].estadoEstabelecimento == "Aberto" {
+             performSegue(withIdentifier: "irProdutos", sender: self)
+        } else {
+            showToast1(controller: self, message: "O estabelecimento encontra-se fechado.", seconds: 2)
+        }
+       
     }
     
     
@@ -306,7 +374,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
 extension ListarEstabelecimentosViewController {
   func obterPerfil() {
          
-           let URL = "https://apivendas.xpressentregas.com/PerfilCliente"
+           let URL = "https://apixpress.lengueno.com/PerfilCliente"
          
           let token = UserDefaults.standard.string(forKey: "token")
         
