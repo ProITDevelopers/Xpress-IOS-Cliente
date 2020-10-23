@@ -25,7 +25,7 @@ class RegistarViewController: UIViewController, UIImagePickerControllerDelegate,
    
     
      var fotoUsuario = UIImage()
-     var genero = ""
+     var genero = "M"
     var resposta = Resposta()
     var selecionouFoto = false
     var buttonVerPassword = UIButton(type: .custom)
@@ -291,7 +291,7 @@ extension RegistarViewController {
                                     print(response.result)
                                     print("Sucesso: \(jsonDecoder)")
                                     self.terminarProgresso()
-                                    self.showToast(controller: self, message: "\(jsonDecoder)", seconds: 2)
+                                    self.showToast(controller: self, message: "Sucesso no registo", seconds: 2)
                                      DispatchQueue.main.asyncAfter(deadline: .now() +  1) {
                                                
                                                self.TransitarParaTelaLogin()
@@ -310,7 +310,7 @@ extension RegistarViewController {
                                         
                                                     print("erro inesperado 1: \(self.resposta.message ?? "")")
                                                     print(response.response?.statusCode as Any)
-                                                    self.showToast(controller: self, message: "aqui \(self.resposta.message!)", seconds: 5)
+                                                    self.showToast(controller: self, message: "\(self.resposta.message!) não pode ser registrado", seconds: 5)
                                                     
                                                             
                                             } catch {
@@ -364,7 +364,7 @@ extension RegistarViewController {
                                     print(response.result)
                                     print("Sucesso: \(jsonDecoder)")
                                     self.terminarProgresso()
-                                    self.showToast(controller: self, message: "\(jsonDecoder)", seconds: 2)
+                                    self.showToast(controller: self, message: "Sucesso no registo", seconds: 2)
                                      DispatchQueue.main.asyncAfter(deadline: .now() +  1) {
                                                
                                                self.TransitarParaTelaLogin()
@@ -372,18 +372,18 @@ extension RegistarViewController {
                                     
                                                                                                                
                                 } else {
-                                    
+                                    self.terminarProgresso()
                                     //erro quando insirimos algum dado que ja existe
                                             do {
                                                 
-                                                self.terminarProgresso()
+                                                
                                                     print(response.result)
                                                         
                                                     self.resposta = try jsonDecoder.decode(Resposta.self, from: response.data!)
                                         
                                                     print("erro inesperado 1: \(self.resposta.message ?? "")")
                                                     print(response.response?.statusCode as Any)
-                                                    self.showToast(controller: self, message: "aqui \(self.resposta.message!)", seconds: 5)
+                                                    self.showToast(controller: self, message: "\(self.resposta.message!) não pode ser registrado", seconds: 5)
                                                     
                                                             
                                             } catch {
