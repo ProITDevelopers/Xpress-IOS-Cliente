@@ -128,7 +128,7 @@ extension ItemCarrinhoTableViewCell {
                      
                          quantidadeProduto.text =   "\(item.quantidade)"
                      }
-                     print(Realm.Configuration.defaultConfiguration.fileURL)
+//                     print(Realm.Configuration.defaultConfiguration.fileURL)
                  // showToast( message: "adicionado", seconds: 3)
                  } catch let error {
                      print(error)
@@ -193,7 +193,7 @@ extension ItemCarrinhoTableViewCell {
                            }
                              
                          }
-                         print(Realm.Configuration.defaultConfiguration.fileURL)
+//                         print(Realm.Configuration.defaultConfiguration.fileURL)
                          //showToast(message: "adicionado", seconds: 1)
                      } catch let error {
                          print(error)

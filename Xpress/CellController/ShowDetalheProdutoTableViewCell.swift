@@ -148,7 +148,7 @@ extension ShowDetalheProdutoTableViewCell {
                    
                     qtdLabel.text = "\(mostrarQtdIten(idItem: idProduto!))"
                    }
-                   print(Realm.Configuration.defaultConfiguration.fileURL)
+//                   print(Realm.Configuration.defaultConfiguration.fileURL)
                // showToast( message: "adicionado", seconds: 3)
                } catch let error {
                    print(error)
@@ -184,7 +184,7 @@ extension ShowDetalheProdutoTableViewCell {
                                
                               
                                do {
-                                   let itemresto = itens[0].quantidade - 1
+                                _ = itens[0].quantidade - 1
                                        try realm.write {
                                            realm.delete(itens[0])
                                    
@@ -214,7 +214,7 @@ extension ShowDetalheProdutoTableViewCell {
                            }
                              
                          }
-                         print(Realm.Configuration.defaultConfiguration.fileURL)
+//                         print(Realm.Configuration.defaultConfiguration.fileURL)
                          //showToast(message: "adicionado", seconds: 1)
                      } catch let error {
                          print(error)

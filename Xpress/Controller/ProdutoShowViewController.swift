@@ -152,7 +152,7 @@ extension ProdutoShowViewController {
                         
                           
                         }
-                        print(Realm.Configuration.defaultConfiguration.fileURL)
+//                        print(Realm.Configuration.defaultConfiguration.fileURL)
                     // showToast( message: "adicionado", seconds: 3)
                     } catch let error {
                         print(error)

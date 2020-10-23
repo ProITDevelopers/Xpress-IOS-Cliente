@@ -150,7 +150,7 @@ extension ProdutoTableViewCell {
                    
                        qtdProduto.text =   "\(item.quantidade)"
                    }
-                   print(Realm.Configuration.defaultConfiguration.fileURL)
+//                   print(Realm.Configuration.defaultConfiguration.fileURL)
                // showToast( message: "adicionado", seconds: 3)
                } catch let error {
                    print(error)
@@ -214,7 +214,7 @@ extension ProdutoTableViewCell {
                            }
                              
                          }
-                         print(Realm.Configuration.defaultConfiguration.fileURL)
+//                         print(Realm.Configuration.defaultConfiguration.fileURL)
                          //showToast(message: "adicionado", seconds: 1)
                      } catch let error {
                          print(error)
