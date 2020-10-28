@@ -91,6 +91,7 @@
 		5B5BB8F42527F0DC009CC9AD /* PopUpSucessoFotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5BB8F32527F0DC009CC9AD /* PopUpSucessoFotoViewController.swift */; };
 		5B5D435825275BD500ECF4A6 /* PagamentoReferenciaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D435625275BD400ECF4A6 /* PagamentoReferenciaTableViewCell.swift */; };
 		5B5D435925275BD500ECF4A6 /* PagamentoReferenciaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B5D435725275BD400ECF4A6 /* PagamentoReferenciaTableViewCell.xib */; };
+		5B5D9D992549FD32004D1C64 /* CustumizarViewText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D9D982549FD32004D1C64 /* CustumizarViewText.swift */; };
 		5B5DE86C2528EB960065820F /* DetalheShowProdutoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5DE86A2528EB960065820F /* DetalheShowProdutoTableViewCell.swift */; };
 		5B5DE86D2528EB960065820F /* DetalheShowProdutoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B5DE86B2528EB960065820F /* DetalheShowProdutoTableViewCell.xib */; };
 		5B5DE86F252901680065820F /* CustumizarImgProduto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5DE86E252901670065820F /* CustumizarImgProduto.swift */; };
@@ -106,6 +107,7 @@
 		5B74EE50252C7F6B00110601 /* PopupErroPedidoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B74EE4F252C7F6B00110601 /* PopupErroPedidoViewController.swift */; };
 		5B7979522529C03E006BD258 /* ShowPopUpInternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7979512529C03E006BD258 /* ShowPopUpInternetViewController.swift */; };
 		5B7979542529C31B006BD258 /* VerificarInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7979532529C31B006BD258 /* VerificarInternet.swift */; };
+		5BCC65F32547007800528154 /* PoupUpLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCC65F22547007800528154 /* PoupUpLoginViewController.swift */; };
 		5BE0A750252E15AA00B730A6 /* ReiniciarSessaoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE0A74F252E15AA00B730A6 /* ReiniciarSessaoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -197,6 +199,7 @@
 		5B5BB8F32527F0DC009CC9AD /* PopUpSucessoFotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpSucessoFotoViewController.swift; sourceTree = "<group>"; };
 		5B5D435625275BD400ECF4A6 /* PagamentoReferenciaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagamentoReferenciaTableViewCell.swift; sourceTree = "<group>"; };
 		5B5D435725275BD400ECF4A6 /* PagamentoReferenciaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PagamentoReferenciaTableViewCell.xib; sourceTree = "<group>"; };
+		5B5D9D982549FD32004D1C64 /* CustumizarViewText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustumizarViewText.swift; sourceTree = "<group>"; };
 		5B5DE86A2528EB960065820F /* DetalheShowProdutoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalheShowProdutoTableViewCell.swift; sourceTree = "<group>"; };
 		5B5DE86B2528EB960065820F /* DetalheShowProdutoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetalheShowProdutoTableViewCell.xib; sourceTree = "<group>"; };
 		5B5DE86E252901670065820F /* CustumizarImgProduto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustumizarImgProduto.swift; sourceTree = "<group>"; };
@@ -212,6 +215,7 @@
 		5B74EE4F252C7F6B00110601 /* PopupErroPedidoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupErroPedidoViewController.swift; sourceTree = "<group>"; };
 		5B7979512529C03E006BD258 /* ShowPopUpInternetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPopUpInternetViewController.swift; sourceTree = "<group>"; };
 		5B7979532529C31B006BD258 /* VerificarInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificarInternet.swift; sourceTree = "<group>"; };
+		5BCC65F22547007800528154 /* PoupUpLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoupUpLoginViewController.swift; sourceTree = "<group>"; };
 		5BE0A74F252E15AA00B730A6 /* ReiniciarSessaoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReiniciarSessaoViewController.swift; sourceTree = "<group>"; };
 		99F0A56C65F5A56E033F8ADA /* Pods_Xpress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xpress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -245,6 +249,7 @@
 				5B5DE86E252901670065820F /* CustumizarImgProduto.swift */,
 				5B5DE880252978AF0065820F /* CustumizarViewBtnCarrinho.swift */,
 				5B74EE4D252C70A400110601 /* CustumizarImgProduto1.swift */,
+				5B5D9D982549FD32004D1C64 /* CustumizarViewText.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -283,6 +288,7 @@
 				5B7979512529C03E006BD258 /* ShowPopUpInternetViewController.swift */,
 				5B74EE4F252C7F6B00110601 /* PopupErroPedidoViewController.swift */,
 				5BE0A74F252E15AA00B730A6 /* ReiniciarSessaoViewController.swift */,
+				5BCC65F22547007800528154 /* PoupUpLoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -609,6 +615,7 @@
 				3F47244B2523E627008BB31A /* DefinicaoTableViewCell.swift in Sources */,
 				5B5DE871252922D80065820F /* RecuperarSenhaViewController.swift in Sources */,
 				3F47244F2523E63F008BB31A /* PerfilTableViewCell.swift in Sources */,
+				5B5D9D992549FD32004D1C64 /* CustumizarViewText.swift in Sources */,
 				3F913ED725169AFD00EB5BC5 /* RecuperarPalavraPasse2ViewController.swift in Sources */,
 				3FBA0AD52521339B00537BA2 /* PopUpPagamentoViewController.swift in Sources */,
 				3F66F890251BA1010020820F /* ListarEstabelecimentosViewController.swift in Sources */,
@@ -618,6 +625,7 @@
 				5B5BB4E4252676D2002D7795 /* DetalhesFacturaTableViewCell.swift in Sources */,
 				3FBA0ACB2520C28100537BA2 /* ProdutoShowViewController.swift in Sources */,
 				3F5547DD251E19E10000B02A /* ExtensionUsuario.swift in Sources */,
+				5BCC65F32547007800528154 /* PoupUpLoginViewController.swift in Sources */,
 				5B7979542529C31B006BD258 /* VerificarInternet.swift in Sources */,
 				5B5BB4EB25267D70002D7795 /* DetalhesFacturaViewController.swift in Sources */,
 				3F66F894251BE3910020820F /* ListarProdutosViewController.swift in Sources */,

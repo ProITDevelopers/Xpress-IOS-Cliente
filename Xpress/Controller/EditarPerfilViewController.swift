@@ -475,7 +475,9 @@ extension EditarPerfilViewController {
                
            case .success(let upload, _, _):
                upload.responseData(completionHandler: { response in
+                
                    if response.response?.statusCode == 200 {
+                    print(response.response?.statusCode)
                      self.terminarProgresso()
                        print("FOTO CARREGADA COM SUCESSO")
                    
@@ -483,6 +485,7 @@ extension EditarPerfilViewController {
                     self.showPopUpFuncao()
                    } else {
                      self.terminarProgresso()
+                    print(response.response?.statusCode)
                        print("ERRO AO CARREGAR A FOTO")
                     self.showToast1(controller: self, message:"Não foi possivel salvar a fotografia.", seconds: 2)
                    }

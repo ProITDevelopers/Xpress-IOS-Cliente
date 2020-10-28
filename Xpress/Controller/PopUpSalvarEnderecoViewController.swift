@@ -16,9 +16,16 @@ import Alamofire
    //   func dados(telef: String, ref: String)
     
  // }
-
-class PopUpSalvarEnderecoViewController: UIViewController {
+protocol atualizarBotaoDelegate {
     
+    func didAtualizarBotao()
+   
+   
+}
+
+
+class PopUpSalvarEnderecoViewController: UIViewController, UITextFieldDelegate {
+    var delegate5: atualizarBotaoDelegate?
     var endereco = ""
     var longitude = ""
     var latitude = ""
@@ -31,7 +38,8 @@ class PopUpSalvarEnderecoViewController: UIViewController {
     
     var perfil = [Perfil]()
     @IBOutlet weak var telemovelLabel: UITextField!
-    @IBOutlet weak var referenciaLabel: UITextField!
+    @IBOutlet weak var referenciaLabel: UITextView!
+    //    @IBOutlet weak var referenciaLabel: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,14 +47,21 @@ class PopUpSalvarEnderecoViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         print(endereco)
+         HideKeyboard()
         referenciaLabel.text = endereco
         // Do any additional setup after loading the view.
     }
+   
+    
+   
+    
+
     @IBAction func buttonBuscarNumero(_ sender: UIButton) {
         obterPerfil()
     }
     
     @IBAction func buttonCancelar(_ sender: UIButton) {
+         delegate5?.didAtualizarBotao()
          self.view.removeFromSuperview()
     }
     

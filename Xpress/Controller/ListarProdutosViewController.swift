@@ -140,7 +140,7 @@ class ListarProdutosViewController: UIViewController {
            let URL = "https://apixpress.lengueno.com/ListarProdutosEstab/\(idEstabelecimentoF)"
            
            let token = UserDefaults.standard.string(forKey: "token")
-           let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
+           let headrs: HTTPHeaders = ["Accept": "application/json", "Content-Type" : "application/json"]
            mostrarProgresso()
            
            Alamofire.request(URL, method: .get, encoding: JSONEncoding.default, headers: headrs).responseString { response in

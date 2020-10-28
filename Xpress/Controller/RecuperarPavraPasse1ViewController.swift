@@ -100,5 +100,9 @@ class RecuperarPavraPasse1ViewController: UIViewController {
                }
     }
     
-
+    @IBAction func ButtonCancelar(_ sender: UIButton) {
+         TransitarParaTelaLogin()
+    }
+    
+    
 }

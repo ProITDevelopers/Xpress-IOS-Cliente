@@ -308,6 +308,15 @@ extension UITextField {
 
 extension UIViewController {
     
+    func showPopUpLogin() {
+           
+             let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginPoupUpId") as! PoupUpLoginViewController
+             
+             self.addChild(popOverVC)
+             popOverVC.view.frame = self.view.frame
+             self.view.addSubview(popOverVC.view)
+             popOverVC.didMove(toParent: self)
+         }
     
     func showPopUpSessao() {
         
@@ -347,7 +356,7 @@ extension UIViewController {
                 }
           let token1 = UserDefaults.standard.string(forKey: "token")
        
-           if token1 != nil && formattedDate > dataConvertida  {
+           if token1 != nil  && token1 != "convidado" && formattedDate > dataConvertida  {
             showPopUpSessao()
             print("terminou a sessao")
             }

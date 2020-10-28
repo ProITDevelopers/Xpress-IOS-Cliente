@@ -63,7 +63,20 @@ class CheckoutViewController: UIViewController {
     }
     
     @IBAction func buttonEnviarPedido(_ sender: UIButton) {
-        chamarEnviarPedido()
+       verificaToken()
+    }
+    
+    func verificaToken(){
+      let token = UserDefaults.standard.string(forKey: "token")
+        if token!.isEmpty {
+         
+            self.showPopUpTelaLoguin()
+         
+        } else {
+            
+               chamarEnviarPedido()
+            
+        }
     }
     
     
@@ -542,6 +555,14 @@ extension CheckoutViewController {
         popOverVC.didMove(toParent: self)
     }
     
-    
+    func showPopUpTelaLoguin() {
+              let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginPoupUpId") as! PoupUpLoginViewController
+                        
+                        self.addChild(popOverVC)
+                        popOverVC.telaOrigem = 5
+                        popOverVC.view.frame = self.view.frame
+                        self.view.addSubview(popOverVC.view)
+                        popOverVC.didMove(toParent: self)
+          }
     
 }

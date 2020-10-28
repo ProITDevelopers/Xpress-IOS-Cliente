@@ -24,7 +24,7 @@ class ReiniciarSessaoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+          self.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         mostrarPerfil()
         senhaLabel.setLeftView(image: UIImage(named: "icons8-forgot-password-30")!)
         mostrarPassWord(button: buttonVerPassword, textField: senhaLabel)

@@ -15,29 +15,74 @@ import SDWebImage
 class EncomendasViewController: UIViewController {
     
     @IBOutlet weak var tblView: UITableView!
-//    @IBOutlet weak var seguimento: UISegmentedControl!
+    @IBOutlet weak var btnLogin: UIButton!
     
+    //    @IBOutlet weak var seguimento: UISegmentedControl!
+     
       var pedidos = [FacturaActual]()
        var pedidos1 = [FacturaActual1]()
   var pedidoD = FacturaActual()
+     var token = UserDefaults.standard.string(forKey: "token")
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        mostrarPopUpInternet()
+//        verificarSessao()
+//        tblView.register(UINib.init(nibName: "FacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellFactura")
+//        // Do any additional setup after loading the view.
+//        
+//        mostrarEncomendas()
+//        
+//    }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        mostrarPopUpInternet()
-              verificarSessao()
-        tblView.register(UINib.init(nibName: "FacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellFactura")
-        // Do any additional setup after loading the view.
-        obterFacturas( URL: "https://apixpress.lengueno.com/FacturasActualCliente")
-        mostrarPopUpInternet()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//         mostrarPopUpInternet()
+//         verificarSessao()
+//         mostrarEncomendas()
+//    }
+    
+   
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        obterFacturas( URL: "https://apixpress.lengueno.com/FacturasActualCliente")
         mostrarPopUpInternet()
+        verificarSessao()
+       tblView.register(UINib.init(nibName: "FacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellFactura")
+        mostrarEncomendas()
+
     }
 
+   func mostrarEncomendas() {
+           token = UserDefaults.standard.string(forKey: "token")
+                 pedidos.removeAll()
+                 tblView.reloadData()
+                 if token!.isEmpty {
+                    btnLogin.isHidden = false
+                    
+                 } else {
+                     btnLogin.isHidden = true
+                    obterFacturas( URL: "https://apixpress.lengueno.com/FacturasActualCliente")
+
+
+                 }
+      }
+      
+    @IBAction func ButtonLogin(_ sender: UIButton) {
+         showPopUpTelaLoguin()
+    }
+    
+   func showPopUpTelaLoguin() {
+             let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginPoupUpId") as! PoupUpLoginViewController
+                       
+                       self.addChild(popOverVC)
+                       popOverVC.telaOrigem = 1
+                       popOverVC.delegate2 = self
+                       popOverVC.view.frame = self.view.frame
+                       self.view.addSubview(popOverVC.view)
+                       popOverVC.didMove(toParent: self)
+         }
+    
     
     // MARK: - Navigation
 
@@ -76,7 +121,7 @@ class EncomendasViewController: UIViewController {
            
            //let URL = "http://3.18.194.189/FacturasActualCliente"
            
-           let token = UserDefaults.standard.string(forKey: "token")
+         
            
            mostrarProgresso()
            let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
@@ -203,7 +248,12 @@ extension EncomendasViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-
+extension EncomendasViewController: atualizarTokenDelegate {
+    func didAtualizarEncomendas() {
+       mostrarEncomendas()
+    }
+   
+}
 
 
 

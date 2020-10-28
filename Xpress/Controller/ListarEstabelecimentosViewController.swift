@@ -53,7 +53,7 @@ class ListarEstabelecimentosViewController: UIViewController, HubConnectionDeleg
         super.viewDidLoad()
         
         mostrarPopUpInternet()
-         obterPerfil()
+//         obterPerfil()
         // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "EstabelecimentoTableViewCell", bundle: nil), forCellReuseIdentifier: "cell1")
         obterEstabelecimentos()
@@ -144,7 +144,8 @@ class ListarEstabelecimentosViewController: UIViewController, HubConnectionDeleg
           
         
                let token = UserDefaults.standard.string(forKey: "token")
-                      let headrs: HTTPHeaders = ["Authorization": "Bearer \(token!)", "Accept": "application/json", "Content-Type" : "application/json"]
+        
+                      let headrs: HTTPHeaders = ["Accept": "application/json", "Content-Type" : "application/json"]
                 
                 Alamofire.request(URL, method: .get, encoding: JSONEncoding.default, headers: headrs).responseString { response in
                       
@@ -286,6 +287,8 @@ extension ListarEstabelecimentosViewController {
         self.navigationController?.pushViewController(carrinhoVC, animated: true)
     }
     
+   
+    
     func btnCarrinhoBarra() {
         label = UILabel(frame: CGRect(x: 15, y: -5, width: 25, height: 25))
               label.layer.borderColor = UIColor.clear.cgColor
@@ -300,16 +303,19 @@ extension ListarEstabelecimentosViewController {
               contarItem(label: label)
                                  
                 // button
-                let rightButton = UIButton(frame: CGRect(x: 0, y: 0, width: 18, height: 16))
+                let rightButton = UIButton(frame: CGRect(x: 30, y: 0, width: 18, height: 16))
                 rightButton.setBackgroundImage(UIImage(named: "carrinho30"), for: .normal)
                                  rightButton.addTarget(self, action: #selector(rightButtonTouched), for: .touchUpInside)
+      
 
                if contarItem1() > 0 {
                     rightButton.addSubview(label)
                }
+        
                // Bar button item
                let rightBarButtomItem = UIBarButtonItem(customView: rightButton)
-                                 
+               
+        
                navigationItem.rightBarButtonItems  = [rightBarButtomItem]
     }
 }

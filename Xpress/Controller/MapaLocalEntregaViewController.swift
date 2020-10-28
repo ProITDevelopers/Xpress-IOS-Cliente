@@ -30,6 +30,8 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
     var estabelecimentoId = 0
      var vv = ""
     var endereco1 = ""
+    var verifica = true
+    
     @IBOutlet weak var mapa: MKMapView!
     
     override func viewDidLoad() {
@@ -60,7 +62,21 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
         print(telemovel)
         print(referencia)
         mostrarPopUpInternet()
-    }    
+       
+    }
+    
+    func verificaToken(){
+         let token = UserDefaults.standard.string(forKey: "token")
+           if token!.isEmpty {
+            
+               self.showPopUpTelaLoguin()
+            
+           } else {
+               
+                 self.showPopUpFuncao()
+               
+           }
+       }
     
     @IBAction func piAdd(_ sender: Any) {
         
@@ -107,20 +123,24 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func buttonMinhaLocalizacao(_ sender: UIButton) {
+        print(verifica)
+        if verifica == true {
+            if latitudeM == 0.0 && longitudeM == 0.0 {
+                showToast(controller: self, message:  "Não foi possivel pegar a localização!", seconds: 3)
+                
+            } else {
+                latitude = ("\(latitudeM)")
+                longitude = ("\(longitudeM)")
+                mostrarEndereco(latitude: Double("\(latitude)")!, withLongitude: Double("\(longitude)")!)
+                print("lat: \(latitude)  log:\(longitude)")
+                print("endereco: \(referencia)")
+                
+            }
+            
+          
+        }
+       verifica = false
         
-        if latitudeM == 0.0 && longitudeM == 0.0 {
-                   
-                       showToast(controller: self, message:  "Não foi possivel pegar a localização!", seconds: 3)
-                        print("a localização esta vazia")
-                    }else {
-                        latitude = ("\(latitudeM)")
-                            longitude = ("\(longitudeM)")
-                        mostrarEndereco(latitude: Double("\(latitude)")!, withLongitude: Double("\(longitude)")!)
-                        print("lat: \(latitude)  log:\(longitude)")
-                        print("endereco: \(referencia)")
-               
-                 
-                        }
     }
     
     
@@ -246,7 +266,8 @@ extension MapaLocalEntregaViewController {
                     
                     print(addressString)
                     self.referencia = addressString
-                      self.showPopUpFuncao()
+                    self.verificaToken()
+                    
                 }
         })
         
@@ -261,9 +282,11 @@ extension MapaLocalEntregaViewController {
            let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: StoryboardID.popUpSalvarEndereco) as! PopUpSalvarEnderecoViewController
            self.addChild(popOverVC)
         
+           popOverVC.delegate5 = self
            popOverVC.endereco = referencia
            popOverVC.longitude = longitude
            popOverVC.latitude = latitude
+       
         if produtoCompra.idProduto != nil {
                 popOverVC.produtoComprar = produtoCompra
             popOverVC.estabelecimentoId = estabelecimentoId
@@ -289,6 +312,17 @@ extension MapaLocalEntregaViewController {
               self.view.addSubview(popOverVC.view)
               popOverVC.didMove(toParent: self)
           }
+    
+    func showPopUpTelaLoguin() {
+           let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginPoupUpId") as! PoupUpLoginViewController
+           
+           self.addChild(popOverVC)
+           popOverVC.telaOrigem = 4
+           popOverVC.delegate4 = self
+           popOverVC.view.frame = self.view.frame
+           self.view.addSubview(popOverVC.view)
+           popOverVC.didMove(toParent: self)
+       }
 }
 
 
@@ -323,3 +357,30 @@ extension MapaLocalEntregaViewController {
   //  }
     
 //}
+
+extension MapaLocalEntregaViewController: atualizarBotaoDelegate {
+   
+    func didAtualizarBotao() {
+        verifica = true
+    }
+ 
+}
+
+
+extension MapaLocalEntregaViewController: atualizarBotaoDelegate2 {
+   
+    func didAtualizarBotao2() {
+         verifica = true
+    }
+    
+   
+ 
+}
+
+extension MapaLocalEntregaViewController: atualizarVerificarDelegate {
+    func didAtualizarVerificarMap() {
+        verifica = true
+    }
+    
+}
+

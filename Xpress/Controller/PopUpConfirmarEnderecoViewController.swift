@@ -8,8 +8,10 @@
 
 import UIKit
 
+ 
+
 class PopUpConfirmarEnderecoViewController: UIViewController {
-    
+     
     var endereco = ""
     @IBOutlet weak var enderecoLabel: UILabel!
     
@@ -22,8 +24,9 @@ class PopUpConfirmarEnderecoViewController: UIViewController {
     
 
     @IBAction func buttonSim(_ sender: UIButton) {
-      
+       
         self.view.removeFromSuperview()
+      
         
     }
     @IBAction func buttonNao(_ sender: UIButton) {

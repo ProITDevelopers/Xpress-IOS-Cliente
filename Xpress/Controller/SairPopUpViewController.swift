@@ -9,7 +9,16 @@
 import UIKit
 import RealmSwift
 
+
+protocol atualizarVerificarDelegate {
+   
+   func didAtualizarVerificarMap()
+}
+
 class SairPopUpViewController: UIViewController {
+    
+    var delegate: atualizarVerificarDelegate?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +34,13 @@ class SairPopUpViewController: UIViewController {
         try! realm.write {
             realm.deleteAll()
         }
-        
-         UserDefaults.standard.removeObject(forKey: "token")
+         delegate?.didAtualizarVerificarMap()
+         UserDefaults.standard.setValue("", forKey: "token")
          UserDefaults.standard.removeObject(forKey: "nomeCompleto")
          UserDefaults.standard.removeObject(forKey: "emailUsuario")
          UserDefaults.standard.removeObject(forKey: "imgUsuario")
-        TransitarParaTelaLogin()
-       
+         //TransitarParaTelaLogin()
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func buttonNao(_ sender: UIButton) {

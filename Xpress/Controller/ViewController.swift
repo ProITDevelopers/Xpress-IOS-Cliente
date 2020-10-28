@@ -20,9 +20,9 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var usuarioTextField: UITextField!
     @IBOutlet weak var palavraPasseTextField: UITextField!
-    
-    var token = Token()
     var buttonVerPassword = UIButton(type: .custom)
+    var token = Token()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,9 +129,10 @@ class ViewController: UIViewController {
                                 return
                                   
                             }
+                    
                             self.TransitarParaTelaPrincipal()
                                                       
-                             
+                              
                          } catch {
                           
                       
@@ -160,11 +161,16 @@ class ViewController: UIViewController {
           
     }
     
-
+    @IBAction func ButtonEntrarConvidado(_ sender: UIButton) {
+        UserDefaults.standard.setValue("", forKey: "token")
+        self.TransitarParaTelaPrincipal()
+    }
+    
     
     @IBAction func ButtonEsqueceuPalavraPasse(_ sender: UIButton) {
-        
-        performSegue(withIdentifier: "irRecuperar1", sender: self)
+        let carrinhoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "recuperarID") as! RecuperarPavraPasse1ViewController
+        self.navigationController?.pushViewController(carrinhoVC, animated: true)
+   
     }
     @IBAction func ButtonRegistar(_ sender: UIButton) {
         

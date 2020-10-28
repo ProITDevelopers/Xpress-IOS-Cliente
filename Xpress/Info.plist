@@ -26,13 +26,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>porque nós podemos!</string>
+	<string>Your camera will be used to make photographs that you have used in your profile and for the best functioning of the application.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Deseja informar a tua localização?</string>
+	<string>Your current location will be shown on the map and used to obtain the delivery location of the order and better application functioning.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Deseja informar a tua localização?</string>
+	<string>Your current location will be shown on the map and used to obtain the delivery location of the order and better application functioning.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>porque nós podemos!</string>
+	<string>Your gallery will be used to select photographs that you have used in your profile and for the best functioning of the application.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

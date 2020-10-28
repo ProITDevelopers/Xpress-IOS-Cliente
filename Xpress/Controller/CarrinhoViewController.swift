@@ -28,6 +28,8 @@ class CarrinhoViewController: UIViewController {
     var produtoCarrinho: Results<ItemsCarrinho>!
     var intensCompra = [ItensComprar]()
     let realm = try! Realm()
+    var token = UserDefaults.standard.string(forKey: "token")
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,12 +50,23 @@ class CarrinhoViewController: UIViewController {
         super.viewWillAppear(animated)
         mostrarPopUpInternet()
         verificarCarrinho()
+       
     }
     
-    
+    func showPopUpTelaLoguin() {
+        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginPoupUpId") as! PoupUpLoginViewController
+        
+        self.addChild(popOverVC)
+        popOverVC.telaOrigem = 3
+        popOverVC.delegate3 = self
+        popOverVC.view.frame = self.view.frame
+        self.view.addSubview(popOverVC.view)
+        popOverVC.didMove(toParent: self)
+    }
     
     func verificarCarrinho() {
         if quantidadeIten() == 0 {
+             tblView.reloadData()
             viewInformacao.isHidden = true
             btnConfirmar.isHidden = true
             showToast1(controller: self, message: "Carrinho está vazio!", seconds: 3)
@@ -69,13 +82,34 @@ class CarrinhoViewController: UIViewController {
     }
     
     @IBAction func buttonConfirmar(_ sender: UIButton) {
+        
+        token = UserDefaults.standard.string(forKey: "token")
         if quantidadeIten() != 0 {
-            performSegue(withIdentifier: "irMapa", sender: self)
+            
+            verificaToken()
+            
         } else {
+           
             showToast(controller: self, message: "Carrinho está vazio!", seconds: 1)
         }
         
     }
+    
+        
+    
+    func verificaToken(){
+        if token!.isEmpty {
+         
+            self.showPopUpTelaLoguin()
+         
+        } else {
+            
+             performSegue(withIdentifier: "irMapa", sender: self)
+            
+        }
+    }
+    
+    
      // MARK: - Busca dos dados do carrinho
     func getRealm() {
        
@@ -224,14 +258,30 @@ extension CarrinhoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        
          if editingStyle == .delete {
 
-            eliminarItemCarrinho(posicaoItem: indexPath.row)
+                    if let item = produtoCarrinho?[indexPath.row] {
+                        do {
+                            try realm.write {
+                                realm.delete(item)
+        //                        totalValorPagar.text = "00.0AKZ"
+        //                        labeTotalItens.text = " 0 Itens"
+                            }
+                        } catch{
+                            print("Erro ao Eliminar o produto, \(error)")
+                        }
+                    }
                     //produtoCarrinho[indexP
-                     atualizarTotalCarrinho()
+                   
+                    atualizarTotalCarrinho()
                     tableView.deleteRows(at: [indexPath], with: .automatic)
                     //tableView.reloadData()
-                }
+        
+        
+        }
+       
     }
     
 }
@@ -261,5 +311,15 @@ extension CarrinhoViewController: atualizarCarrinhoDelegate {
         verificarCarrinho()
     }
     
+    
+}
+
+extension CarrinhoViewController: atualizarTokenDelegate2 {
+    
+    func didAtualizarCarrinho2() {
+        atualizarTotalCarrinho()
+        tblView.reloadData()
+        print("atualizado com sucesso!")
+    }
     
 }

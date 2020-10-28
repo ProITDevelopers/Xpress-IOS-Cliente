@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
         irPaginaInicial()
     }
 
@@ -85,14 +86,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                  
                  
                  let token1 = UserDefaults.standard.string(forKey: "token")
-                        if token1 != nil && formattedDate > dataConvertida  {
+                 if (token1 != nil && formattedDate > dataConvertida) || token1 == "convidado"  {
 
                          let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                             let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: StoryboardID.pricipal) as! PrincipalViewController
                          
                          window!.rootViewController = homeViewController
                         }
-                
+       
       }
 
 }

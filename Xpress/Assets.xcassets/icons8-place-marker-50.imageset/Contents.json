@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "icons8-place-marker-50.png",
+      "filename" : "pin violeta.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "pin violeta@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "pin violeta@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

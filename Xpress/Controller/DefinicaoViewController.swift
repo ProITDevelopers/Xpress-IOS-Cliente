@@ -15,7 +15,7 @@ import SDWebImage
 class DefinicaoViewController: UIViewController {
     
     var perfil = [Perfil]()
-      
+       var token = UserDefaults.standard.string(forKey: "token")
       let nomeUser = "Joao"//UserDefaults.standard.string(forKey: "nomeCompleto")
       let emailUser = UserDefaults.standard.string(forKey: "emailUsuario")
      var data  = [["Meu perfil", "Sair"],["Alterar palavra-passe"], ["Express Lengueno é um serviço de delivery que permite o usuário realizar os seus pedidos preferidos."], ["1.1.0"], ["Copyright © 2020 - HXA, Powered by Pro-IT Consulting"], ["Tem alguma dúvida? Estamos felizes em ajudar."] , ["Partilhe a nossa app com os seus amigos."]]
@@ -27,10 +27,19 @@ class DefinicaoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        token = UserDefaults.standard.string(forKey: "token")
         tblView.register(UINib.init(nibName: "SairTableViewCell", bundle: nil), forCellReuseIdentifier: "cellSair")
                tblView.register(UINib.init(nibName: "DefinicaoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellDefinicao")
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mostrarPopUpInternet()
+       
+        
+    }
+
     
 
     /*
@@ -129,18 +138,35 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if indexPath.section == 0 && indexPath.row == 0 {
+             token = UserDefaults.standard.string(forKey: "token")
+            if token!.isEmpty {
+                
+                 self.showPopUpTelaLoguin()
+            } else {
+                 performSegue(withIdentifier: "perfilID", sender: nil)
+               
+              
+            }
             
-             performSegue(withIdentifier: "perfilID", sender: nil)
-            
-               }
+        }
+        
         if indexPath.section == 0 && indexPath.row == 1 {
-           showPopUpSair()
+             token = UserDefaults.standard.string(forKey: "token")
+            if !token!.isEmpty {
+               showPopUpSair()
+            }
+            
+            
+                   
+          
         }
         
         if indexPath.section == 1 && indexPath.row == 0 {
-                  
-             performSegue(withIdentifier: "irSenha", sender: self)
+                  let carrinhoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "recuperarSenhaId") as! RecuperarSenhaViewController
+                  self.navigationController?.pushViewController(carrinhoVC, animated: true)
+            
         }
         
        
@@ -157,4 +183,13 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
         popOverVC.didMove(toParent: self)
     }
     
+     func showPopUpTelaLoguin() {
+           let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginPoupUpId") as! PoupUpLoginViewController
+           
+           self.addChild(popOverVC)
+           popOverVC.telaOrigem = 2
+           popOverVC.view.frame = self.view.frame
+           self.view.addSubview(popOverVC.view)
+           popOverVC.didMove(toParent: self)
+       }
 }

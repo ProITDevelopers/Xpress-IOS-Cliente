@@ -22,13 +22,12 @@ class RegistarViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var palavraPasseTextFiled: UITextField!
     
-   
+    var buttonVerPassword = UIButton(type: .custom)
     
      var fotoUsuario = UIImage()
      var genero = "M"
     var resposta = Resposta()
     var selecionouFoto = false
-    var buttonVerPassword = UIButton(type: .custom)
     
     override func viewDidLoad() {
         super.viewDidLoad()
