@@ -58,10 +58,12 @@ class EncomendasViewController: UIViewController {
                  pedidos.removeAll()
                  tblView.reloadData()
                  if token!.isEmpty {
+                     tblView.separatorStyle = .none
                     btnLogin.isHidden = false
                     
                  } else {
                      btnLogin.isHidden = true
+                    tblView.separatorStyle = .singleLine
                     obterFacturas( URL: "https://apixpress.lengueno.com/FacturasActualCliente")
 
 
