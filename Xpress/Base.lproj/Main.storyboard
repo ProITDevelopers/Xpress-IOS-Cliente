@@ -1508,6 +1508,7 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="LSR-qU-TrV">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="Sf4-Nv-54c" id="niZ-DQ-e2u"/>
@@ -1580,37 +1581,21 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="  Telemovel receptor" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OXQ-UJ-eCR" customClass="CustumizarTextField" customModule="Xpress" customModuleProvider="target">
-                                        <rect key="frame" x="15" y="191.00000000000003" width="320" height="50"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zdW-XF-l8l" customClass="CustumizarViewText" customModule="Xpress" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="191.00000000000003" width="318" height="51"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="J5v-fk-Aqq"/>
+                                            <constraint firstAttribute="height" constant="51" id="aKf-Z2-RUT"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="tel"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderInactiveColor">
-                                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderActiveColor">
-                                                <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
-                                                <color key="value" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
-                                                <color key="value" red="1" green="0.40000000000000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
+                                        <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bnM-mY-Wsg" customClass="CustumizarViewText" customModule="Xpress" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="264" width="318" height="50"/>
+                                        <rect key="frame" x="16" y="262" width="318" height="52"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Kh-yc-wzA">
@@ -1662,25 +1647,26 @@
                                     <constraint firstItem="bjj-Vz-Yrt" firstAttribute="leading" secondItem="EPB-6m-6fc" secondAttribute="leading" constant="30" id="2F5-sQ-U1T"/>
                                     <constraint firstItem="bnM-mY-Wsg" firstAttribute="leading" secondItem="utx-fV-ZSU" secondAttribute="leading" id="4qw-MH-6TG"/>
                                     <constraint firstItem="lqW-rl-G9T" firstAttribute="leading" secondItem="EPB-6m-6fc" secondAttribute="leading" constant="15" id="8wM-Ao-DT4"/>
-                                    <constraint firstItem="OXQ-UJ-eCR" firstAttribute="leading" secondItem="EPB-6m-6fc" secondAttribute="leading" constant="15" id="BCG-Fu-uSX"/>
                                     <constraint firstItem="utx-fV-ZSU" firstAttribute="top" secondItem="bjj-Vz-Yrt" secondAttribute="bottom" constant="20" id="D9Q-0A-L7W"/>
                                     <constraint firstItem="bjj-Vz-Yrt" firstAttribute="top" secondItem="EPB-6m-6fc" secondAttribute="top" constant="20" id="FKA-U0-q5M"/>
                                     <constraint firstItem="lqW-rl-G9T" firstAttribute="top" secondItem="9Kh-yc-wzA" secondAttribute="bottom" constant="46" id="Gkf-yZ-5hx"/>
                                     <constraint firstAttribute="bottom" secondItem="lqW-rl-G9T" secondAttribute="bottom" constant="37" id="JWh-jf-S13"/>
                                     <constraint firstAttribute="width" constant="350" id="K3V-GT-LBU"/>
-                                    <constraint firstAttribute="trailing" secondItem="OXQ-UJ-eCR" secondAttribute="trailing" constant="15" id="MTo-c3-tfj"/>
                                     <constraint firstAttribute="trailing" secondItem="lqW-rl-G9T" secondAttribute="trailing" constant="15" id="PQV-TM-w3L"/>
                                     <constraint firstAttribute="height" constant="489" id="StS-oQ-vMd"/>
+                                    <constraint firstItem="zdW-XF-l8l" firstAttribute="leading" secondItem="EPB-6m-6fc" secondAttribute="leading" constant="16" id="TN3-GZ-psA"/>
                                     <constraint firstItem="utx-fV-ZSU" firstAttribute="leading" secondItem="EPB-6m-6fc" secondAttribute="leading" constant="16" id="YYx-TL-YUs"/>
                                     <constraint firstAttribute="trailing" secondItem="9Kh-yc-wzA" secondAttribute="trailing" constant="15" id="cfX-Tb-DPi"/>
+                                    <constraint firstItem="zdW-XF-l8l" firstAttribute="top" secondItem="utx-fV-ZSU" secondAttribute="bottom" constant="20" id="eG0-02-bMd"/>
                                     <constraint firstAttribute="trailing" secondItem="utx-fV-ZSU" secondAttribute="trailing" constant="16" id="eVI-d1-daq"/>
+                                    <constraint firstItem="bnM-mY-Wsg" firstAttribute="top" secondItem="zdW-XF-l8l" secondAttribute="bottom" constant="20" id="evw-2G-vSw"/>
+                                    <constraint firstAttribute="trailing" secondItem="zdW-XF-l8l" secondAttribute="trailing" constant="16" id="gVV-l0-nIb"/>
                                     <constraint firstItem="9Kh-yc-wzA" firstAttribute="leading" secondItem="EPB-6m-6fc" secondAttribute="leading" constant="15" id="jiQ-n2-foi"/>
                                     <constraint firstItem="9Kh-yc-wzA" firstAttribute="centerX" secondItem="bnM-mY-Wsg" secondAttribute="centerX" id="kFI-fI-4DM"/>
                                     <constraint firstItem="9Kh-yc-wzA" firstAttribute="top" secondItem="bnM-mY-Wsg" secondAttribute="bottom" constant="12" id="l90-ls-6j8"/>
-                                    <constraint firstItem="bnM-mY-Wsg" firstAttribute="top" secondItem="OXQ-UJ-eCR" secondAttribute="bottom" constant="22.999999999999972" id="mDi-bl-Cvi"/>
-                                    <constraint firstItem="OXQ-UJ-eCR" firstAttribute="top" secondItem="utx-fV-ZSU" secondAttribute="bottom" constant="20" id="mKe-BG-3rx"/>
                                     <constraint firstItem="lqW-rl-G9T" firstAttribute="centerX" secondItem="bnM-mY-Wsg" secondAttribute="centerX" id="seK-xE-Bt7"/>
                                     <constraint firstAttribute="trailing" secondItem="bjj-Vz-Yrt" secondAttribute="trailing" constant="30" id="ufw-IL-7My"/>
+                                    <constraint firstItem="zdW-XF-l8l" firstAttribute="centerX" secondItem="utx-fV-ZSU" secondAttribute="centerX" id="zan-Rd-wiE"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1693,7 +1679,7 @@
                     </view>
                     <connections>
                         <outlet property="referenciaLabel" destination="bnM-mY-Wsg" id="MJD-o5-Sfu"/>
-                        <outlet property="telemovelLabel" destination="OXQ-UJ-eCR" id="g0Q-4l-CcN"/>
+                        <outlet property="telemovelLabel" destination="zdW-XF-l8l" id="1Gj-TF-sLd"/>
                         <segue destination="6u7-Ds-mQT" kind="show" identifier="irTipoPagamentoId" id="Udm-y5-Dqi"/>
                     </connections>
                 </viewController>

@@ -37,8 +37,9 @@ class PopUpSalvarEnderecoViewController: UIViewController, UITextFieldDelegate {
     
     
     var perfil = [Perfil]()
-    @IBOutlet weak var telemovelLabel: UITextField!
+//    @IBOutlet weak var telemovelLabel: UITextField!
     @IBOutlet weak var referenciaLabel: UITextView!
+    @IBOutlet weak var telemovelLabel: UITextView!
     //    @IBOutlet weak var referenciaLabel: UITextField!
     
     override func viewDidLoad() {
