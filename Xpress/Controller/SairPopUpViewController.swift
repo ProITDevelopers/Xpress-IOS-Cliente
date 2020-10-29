@@ -40,7 +40,7 @@ class SairPopUpViewController: UIViewController {
          UserDefaults.standard.removeObject(forKey: "emailUsuario")
          UserDefaults.standard.removeObject(forKey: "imgUsuario")
          //TransitarParaTelaLogin()
-        self.navigationController?.popToRootViewController(animated: true)
+        TransitarParaTelaPrincipal()
     }
     
     @IBAction func buttonNao(_ sender: UIButton) {

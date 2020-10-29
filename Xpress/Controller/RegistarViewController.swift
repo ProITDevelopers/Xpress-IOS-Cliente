@@ -145,7 +145,7 @@ class RegistarViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func buttonCancelar(_ sender: UIButton) {
-        TransitarParaTelaLogin()
+        TransitarParaTelaPrincipal()
     }
     
     
@@ -293,7 +293,7 @@ extension RegistarViewController {
                                     self.showToast(controller: self, message: "Sucesso no registo", seconds: 2)
                                      DispatchQueue.main.asyncAfter(deadline: .now() +  1) {
                                                
-                                               self.TransitarParaTelaLogin()
+                                               self.TransitarParaTelaPrincipal()
                                            }
                                     
                                                                                                                
@@ -366,7 +366,7 @@ extension RegistarViewController {
                                     self.showToast(controller: self, message: "Sucesso no registo", seconds: 2)
                                      DispatchQueue.main.asyncAfter(deadline: .now() +  1) {
                                                
-                                               self.TransitarParaTelaLogin()
+                                               self.TransitarParaTelaPrincipal()
                                            }
                                     
                                                                                                                
