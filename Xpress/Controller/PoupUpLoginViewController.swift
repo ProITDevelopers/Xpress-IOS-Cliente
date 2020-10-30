@@ -163,7 +163,7 @@ class PoupUpLoginViewController: UIViewController {
                                 }
                                 if self.telaOrigem == 2{
                                     
-                                     self.view.removeFromSuperview()
+                                    self.TransitarParaTelaPrincipal()
                                 }
                                 
                                 if self.telaOrigem == 3 {

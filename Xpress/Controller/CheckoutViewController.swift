@@ -39,7 +39,7 @@ class CheckoutViewController: UIViewController {
         super.viewDidLoad()
 
         mostrarPopUpInternet()
-        verificarSessao()
+      
         
         // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "ItensCheckTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCheck1")

@@ -45,8 +45,7 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-       verificarSessao()
-      
+     
         verPickerProvincia()
         obterPerfil()
         HideKeyboard()

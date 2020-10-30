@@ -35,7 +35,7 @@ class CarrinhoViewController: UIViewController {
         super.viewDidLoad()
         
         mostrarPopUpInternet()
-        verificarSessao()
+       
         getRealm()
         verificarCarrinho()
         // Do any additional setup after loading the view.

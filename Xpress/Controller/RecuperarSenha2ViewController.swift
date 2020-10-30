@@ -21,7 +21,7 @@ class RecuperarSenha2ViewController: UIViewController {
         super.viewDidLoad()
 
         mostrarPopUpInternet()
-              verificarSessao()
+               
         codigoTextField.setLeftView(image: UIImage(named:"icons8-forgot-password-30")!)
         senhaTextField.setLeftView(image: UIImage(named: "icons8-forgot-password-30")!)
         mostrarPassWord(button: buttonPassword, textField: senhaTextField)

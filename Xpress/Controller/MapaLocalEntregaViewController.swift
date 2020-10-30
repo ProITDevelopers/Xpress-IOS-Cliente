@@ -40,7 +40,7 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
         // Do any additional setup after loading the view.
         print(produtoCompra)
         mostrarPopUpInternet()
-              verificarSessao()
+           
         mapa.delegate = self
         mapa.showsUserLocation = true
         mapa.userTrackingMode = .follow

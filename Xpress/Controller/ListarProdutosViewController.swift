@@ -34,7 +34,6 @@ class ListarProdutosViewController: UIViewController {
         super.viewDidLoad()
         
         mostrarPopUpInternet()
-        verificarSessao()
         configuracaoNotification()
         
         //self.mostrarNotificacao("Seja bem vindo", "Adilson Ebo")

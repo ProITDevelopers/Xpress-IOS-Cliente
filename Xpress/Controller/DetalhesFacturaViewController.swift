@@ -21,7 +21,7 @@ class DetalhesFacturaViewController: UIViewController {
         super.viewDidLoad()
 
         mostrarPopUpInternet()
-              verificarSessao()
+             
         // Do any additional setup after loading the view.
         itens = pedido.itens
         tblView.register(UINib.init(nibName: "ItemFacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellItem")

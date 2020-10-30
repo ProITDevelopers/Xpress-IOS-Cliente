@@ -17,7 +17,7 @@ class Sucessu2ViewController: UIViewController {
         // Do any additional setup after loading the view.
         DispatchQueue.main.asyncAfter(deadline: .now() +  2) {
             print("ola")
-            self.navigationController?.popToRootViewController(animated: true)
+             self.TransitarParaTelaPrincipal()
         }
     }
     

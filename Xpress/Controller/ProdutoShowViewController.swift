@@ -29,7 +29,7 @@ class ProdutoShowViewController: UIViewController {
         super.viewDidLoad()
 
         mostrarPopUpInternet()
-              verificarSessao()
+            
         print(produto)
         // Do any additional setup after loading the view.
         

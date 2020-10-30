@@ -14,30 +14,38 @@ import SDWebImage
 
 class DefinicaoViewController: UIViewController {
     
-    var perfil = [Perfil]()
+      var perfil = [Perfil]()
+      var estado = ""
        var token = UserDefaults.standard.string(forKey: "token")
       let nomeUser = "Joao"//UserDefaults.standard.string(forKey: "nomeCompleto")
       let emailUser = UserDefaults.standard.string(forKey: "emailUsuario")
-     var data  = [["Meu perfil", "Sair"],["Alterar palavra-passe"], ["Express Lengueno é um serviço de delivery que permite o usuário realizar os seus pedidos preferidos."], ["1.2"], ["Copyright © 2020 - HXA, Powered by Pro-IT Consulting"], ["Tem alguma dúvida? Estamos felizes em ajudar."] , ["Partilhe a nossa app com os seus amigos."]]
-      
-      let headerTitles  = ["Perifl","Segurança e login","Sobre Nós","Versão","Desenvolvedor","Enviar feedback","Partilhar"]
+     var data  = [["Opções de Perfil"], ["Express Lengueno é um serviço de delivery que permite o usuário realizar os seus pedidos preferidos."], ["1.2"], ["Copyright © 2020 - HXA, Powered by Pro-IT Consulting"], ["Tem alguma dúvida? Estamos felizes em ajudar."] , ["Partilhe a nossa app com os seus amigos."]]
+    
+     
+      let headerTitles  = ["Perifl e Segurança","Sobre Nós","Versão","Desenvolvedor","Enviar feedback","Partilhar"]
 
+   
+    
     @IBOutlet weak var tblView: UITableView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        token = UserDefaults.standard.string(forKey: "token")
-        tblView.register(UINib.init(nibName: "SairTableViewCell", bundle: nil), forCellReuseIdentifier: "cellSair")
-               tblView.register(UINib.init(nibName: "DefinicaoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellDefinicao")
-        // Do any additional setup after loading the view.
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        token = UserDefaults.standard.string(forKey: "token")
+//
+//        tblView.register(UINib.init(nibName: "SairTableViewCell", bundle: nil), forCellReuseIdentifier: "cellSair")
+//               tblView.register(UINib.init(nibName: "DefinicaoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellDefinicao")
+//        // Do any additional setup after loading the view.
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mostrarPopUpInternet()
        
+        mostrarPopUpInternet()
         
+        tblView.register(UINib.init(nibName: "SairTableViewCell", bundle: nil), forCellReuseIdentifier: "cellSair")
+        tblView.register(UINib.init(nibName: "DefinicaoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellDefinicao")
+        tblView.reloadData()
     }
 
     
@@ -60,7 +68,10 @@ extension DefinicaoViewController: UITableViewDataSource, UITableViewDelegate {
 
 
 func numberOfSections(in tableView: UITableView) -> Int {
-    return data.count
+    
+   
+         return data.count
+   
 
 }
 
@@ -78,8 +89,10 @@ func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -
 
 func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
    
-    return  data[section].count
    
+   
+           return  data[section].count
+    
    
 }
     
@@ -102,12 +115,11 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellSair", for: indexPath) as! SairTableViewCell
 
-
-        let text = data[indexPath.section][indexPath.row]
         
-        cell.detalheLabel.text = text
-        cell.imgDetalhe.image =  UIImage(named:"perfil.png")
-
+                  let text = data[indexPath.section][indexPath.row]
+            cell.detalheLabel.text = text
+                   cell.imgDetalhe.image =  UIImage(named:"perfil.png")
+          
         return cell
         
     } else
@@ -115,23 +127,21 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
         if indexPath.section == 0 && indexPath.row == 1 {
                let cell = tableView.dequeueReusableCell(withIdentifier: "cellSair", for: indexPath) as! SairTableViewCell
 
-
-               let text = data[indexPath.section][indexPath.row]
-               
-            cell.detalheLabel.text = text
-               cell.imgDetalhe.image =  UIImage(named:"sair.png")
-
-               return cell
+           
+                 let text = data[indexPath.section][indexPath.row]
+                     
+                  cell.detalheLabel.text = text
+                     cell.imgDetalhe.image =  UIImage(named:"sair.png")
+            return cell
            } else {
   
      let cell = tableView.dequeueReusableCell(withIdentifier: "cellDefinicao", for: indexPath) as! DefinicaoTableViewCell
 
-
-    let text = data[indexPath.section][indexPath.row]
-    
-            cell.detalhesLabel1.text = text
-
-    return cell
+            let text = data[indexPath.section][indexPath.row]
+                 cell.detalhesLabel1.text = text
+                
+          
+            return cell
     }
     
     }
@@ -142,54 +152,40 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
         if indexPath.section == 0 && indexPath.row == 0 {
              token = UserDefaults.standard.string(forKey: "token")
             if token!.isEmpty {
-                
-                 self.showPopUpTelaLoguin()
+                 saltarTableLogin()
+                 
             } else {
-                 performSegue(withIdentifier: "perfilID", sender: nil)
+
+                saltarTableSair()
+               
+                //performSegue(withIdentifier: "perfilID", sender: nil)
                
               
             }
             
         }
-        
-        if indexPath.section == 0 && indexPath.row == 1 {
-             token = UserDefaults.standard.string(forKey: "token")
-            if !token!.isEmpty {
-               showPopUpSair()
-            }
-            
-            
-                   
-          
-        }
-        
-        if indexPath.section == 1 && indexPath.row == 0 {
-                  let carrinhoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "recuperarSenhaId") as! RecuperarSenhaViewController
-                  self.navigationController?.pushViewController(carrinhoVC, animated: true)
-            
-        }
-        
-       
-        
+
         
     }
     
-    func showPopUpSair() {
-        let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "popUpSairId") as! SairPopUpViewController
+    
+    
+    
+    
+    
+    func saltarTableSair() {
         
-        self.addChild(popOverVC)
-        popOverVC.view.frame = self.view.frame
-        self.view.addSubview(popOverVC.view)
-        popOverVC.didMove(toParent: self)
+        let carrinhoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tableSairID") as! TableViewSairViewController
+             self.navigationController?.pushViewController(carrinhoVC, animated: true)
+    
+               
     }
     
-     func showPopUpTelaLoguin() {
-           let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginPoupUpId") as! PoupUpLoginViewController
-           
-           self.addChild(popOverVC)
-           popOverVC.telaOrigem = 2
-           popOverVC.view.frame = self.view.frame
-           self.view.addSubview(popOverVC.view)
-           popOverVC.didMove(toParent: self)
-       }
+    func saltarTableLogin() {
+        
+        let carrinhoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tableLoginID") as! TableViewLoginViewController
+             self.navigationController?.pushViewController(carrinhoVC, animated: true)
+    
+               
+    }
 }

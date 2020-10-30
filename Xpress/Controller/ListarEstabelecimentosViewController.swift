@@ -53,6 +53,7 @@ class ListarEstabelecimentosViewController: UIViewController, HubConnectionDeleg
         super.viewDidLoad()
         
         mostrarPopUpInternet()
+        verificarSessao()
 //         obterPerfil()
         // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "EstabelecimentoTableViewCell", bundle: nil), forCellReuseIdentifier: "cell1")
