@@ -82,8 +82,13 @@ class RecuperarPalavraPasse2ViewController: UIViewController {
                             
                         }
         
-        
-               redifinirSenha(codigo: codigo, password: senha)
+        if VerificarInternet.Connection() {
+                   redifinirSenha(codigo: codigo, password: senha)
+               } else {
+                   print("nao esta conectado")
+                  showPopUpInternet()
+               }
+               
        
     }
     

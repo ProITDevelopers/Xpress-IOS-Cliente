@@ -39,7 +39,12 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
 
         // Do any additional setup after loading the view.
         print(produtoCompra)
-        mostrarPopUpInternet()
+        if VerificarInternet.Connection() {
+             
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
            
         mapa.delegate = self
         mapa.showsUserLocation = true
@@ -61,7 +66,12 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
         super.viewWillAppear(animated)
         print(telemovel)
         print(referencia)
-        mostrarPopUpInternet()
+        if VerificarInternet.Connection() {
+             
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
        
     }
     

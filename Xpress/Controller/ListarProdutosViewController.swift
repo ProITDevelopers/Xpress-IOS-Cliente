@@ -32,35 +32,40 @@ class ListarProdutosViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        mostrarPopUpInternet()
-        configuracaoNotification()
-        
-        //self.mostrarNotificacao("Seja bem vindo", "Adilson Ebo")
-       
-        idEstabelecimento = estabelecimento.estabelecimentoID
         // Do any additional setup after loading the view.
         
         tblView.register(UINib.init(nibName: "ProdutoTableViewCell", bundle: nil), forCellReuseIdentifier: "CellProdudo")
         
-        
         tblView.register(UINib.init(nibName: "DetalheShowProdutoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellEstab")
-        
-        obterProdutos(idEstabelecimentoF: (estabelecimento.estabelecimentoID)!)
+         idEstabelecimento = estabelecimento.estabelecimentoID
+        if VerificarInternet.Connection() {
+             obterProdutos(idEstabelecimentoF: (estabelecimento.estabelecimentoID)!)
+            
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
+        configuracaoNotification()
         contarItem(label: label)
-       
-       
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-           mostrarPopUpInternet()
-        obterProdutos(idEstabelecimentoF: (estabelecimento.estabelecimentoID)!)
+           
+        
+        if VerificarInternet.Connection() {
+            obterProdutos(idEstabelecimentoF: (estabelecimento.estabelecimentoID)!)
+            tblView.reloadData()
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
+        
         contarItem(label: label)
-        tblView.reloadData()
+        
      
-        configuracaoNotification()
+       
     }
     
     

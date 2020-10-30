@@ -29,12 +29,14 @@ class PerfilViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       mostrarPopUpInternet()
-           //  verificarSessao()
-      
       mostrarButtonEditar()
-       obterPerfil()
-        
+      
+        if VerificarInternet.Connection() {
+            obterPerfil()
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
        
         // Do any additional setup after loading the view.
     }
@@ -42,8 +44,13 @@ class PerfilViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mostrarButtonEditar()
-        obterPerfil()
-        mostrarPopUpInternet()
+       
+       if VerificarInternet.Connection() {
+                  obterPerfil()
+              } else {
+                  print("nao esta conectado")
+                 showPopUpInternet()
+              }
     }
     
     

@@ -140,8 +140,13 @@ class RegistarViewController: UIViewController, UIImagePickerControllerDelegate,
         }
     
     @IBAction func ButtonRegistar(_ sender: UIButton) {
-        
-        registarCliente()
+        if VerificarInternet.Connection() {
+             registarCliente()
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
+       
     }
     
     @IBAction func buttonCancelar(_ sender: UIButton) {

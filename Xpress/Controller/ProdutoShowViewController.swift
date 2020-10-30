@@ -28,7 +28,12 @@ class ProdutoShowViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mostrarPopUpInternet()
+        if VerificarInternet.Connection() {
+             
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
             
         print(produto)
         // Do any additional setup after loading the view.
@@ -42,7 +47,12 @@ class ProdutoShowViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tblView.reloadData()
-        mostrarPopUpInternet()
+        if VerificarInternet.Connection() {
+             
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
        
     }
     

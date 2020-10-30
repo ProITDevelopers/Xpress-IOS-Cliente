@@ -38,13 +38,14 @@ class CheckoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mostrarPopUpInternet()
-      
-        
         // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "ItensCheckTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCheck1")
         
         tblView.register(UINib.init(nibName: "InfoPedidoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCheck2")
+        
+      
+        
+        
         //carregar o array de itens
         if produtoComprar.idProduto != nil {
             
@@ -54,16 +55,27 @@ class CheckoutViewController: UIViewController {
        
          itensLabel?.text = "  \(quantidadeIten()) Items"
         totalPagarLabel?.text = "Total: \(quantidadePagar())0 AKZ"
-        mostrarPopUpInternet()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mostrarPopUpInternet()
+        if VerificarInternet.Connection() {
+             
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
     }
     
     @IBAction func buttonEnviarPedido(_ sender: UIButton) {
-       verificaToken()
+        if VerificarInternet.Connection() {
+              verificaToken()
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
+      
     }
     
     func verificaToken(){

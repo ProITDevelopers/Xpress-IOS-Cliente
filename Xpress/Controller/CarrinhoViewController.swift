@@ -34,7 +34,12 @@ class CarrinhoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mostrarPopUpInternet()
+        if VerificarInternet.Connection() {
+             
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
        
         getRealm()
         verificarCarrinho()
@@ -42,13 +47,18 @@ class CarrinhoViewController: UIViewController {
         tblView.register(UINib.init(nibName: "ItemCarrinhoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCarrinho")
         atualizarTotalCarrinho()
         mostrarButtonDelete()
-        mostrarPopUpInternet()
+      
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mostrarPopUpInternet()
+       if VerificarInternet.Connection() {
+            
+       } else {
+           print("nao esta conectado")
+          showPopUpInternet()
+       }
         verificarCarrinho()
        
     }

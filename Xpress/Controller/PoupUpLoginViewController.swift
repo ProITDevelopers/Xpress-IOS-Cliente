@@ -122,9 +122,103 @@ class PoupUpLoginViewController: UIViewController {
                      print(verificacao)
                     parametros = ["telefone": usuario, "password": password]
                }
+        
+        
+        
+        if VerificarInternet.Connection() {
+            
+             mostrarProgresso()
+            let URL = "https://apixpress.lengueno.com/authenticate2"
+                         
+                         Alamofire.request(URL, method: .post, parameters: parametros, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in
+                                   
+                                     
+                                    if response.result.isSuccess{
+                                        self.terminarProgresso()
+                                   
+                                        
+                                        do {
+                                            let jsonDecoder = JSONDecoder()
+                                            self.token = try jsonDecoder.decode(Token.self, from: response.data!)
+                                           
+                                        UserDefaults.standard.setValue(self.token.tokenuser, forKey: "token")
+                                          UserDefaults.standard.setValue(self.token.expiracao, forKey: "dataExpiracao")
+                                           
+                                           let token = UserDefaults.standard.string(forKey: "token")
+                                                            
+                                           guard let usuario = token, usuario != "convidado" else {
+                                               
+                                               return
+                                                 
+                                           }
+                                        
+                                          
+                                          if self.telaOrigem == 1 {
+                                              self.delegate2?.didAtualizarEncomendas()
+                                             self.view.removeFromSuperview()
+                                          }
+                                          if self.telaOrigem == 2{
+                                              
+                                              self.TransitarParaTelaPrincipal()
+                                          }
+                                          
+                                          if self.telaOrigem == 3 {
+                                              self.delegate3?.didAtualizarCarrinho2()
+                                               self.view.removeFromSuperview()
+                                          }
+                                          
+                                          if self.telaOrigem == 4 {
+                                              
+                                              self.delegate4?.didAtualizarBotao2()
+                                              self.view.removeFromSuperview()
+                                          }
+                                          
+                                          if self.telaOrigem == 5 {
+                                              
+                                              self.navigationController?.popToRootViewController(animated: true)
+                                          }
+                                          
+                                             
+                                              
+                                            
+                                        } catch {
+                                         
+                                     
+                                           //erro na autenticacao
+                                           self.terminarProgresso()
+                                         self.showToast(controller: self, message: response.result.value!, seconds: 2)
+                                          
+                                            print("erro inesperado1: \(error)")
+                                        }
+                            
+                                       
+                                     
+
+                                        
+                                    } else {
+                                       
+                                         // print(response.response?.statusCode )
+                                          // codigo que gera a UIAlertController (aviso de erro ao fazer login)
+                                     
+                                       self.terminarProgresso()
+                                         self.showToast(controller: self, message: "O dispositivo não esta conectado a nenhuma rede 3G OU WI-FI..", seconds: 3)
+                                         print(response.error as Any)
+                                        
+                                    }
+                                }
+            
+            
+            
+            
+        } else {
+            print("nao esta conectado")
+            self.showToast(controller: self, message: "O dispositivo não esta conectado a nenhuma rede 3G OU WI-FI..", seconds: 3)
+            
+        }
+        
                
                //utilizando o MBProgressHUD para mostrar o processamento
-               mostrarProgresso()
+              
                
                
                
@@ -132,84 +226,7 @@ class PoupUpLoginViewController: UIViewController {
               // fazerLogin(usuario: usuario, senha: password)
               
              
-               let URL = "https://apixpress.lengueno.com/authenticate2"
-               
-               Alamofire.request(URL, method: .post, parameters: parametros, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in
-                         
-                           
-                          if response.result.isSuccess{
-                              self.terminarProgresso()
-                         
-                              
-                              do {
-                                  let jsonDecoder = JSONDecoder()
-                                  self.token = try jsonDecoder.decode(Token.self, from: response.data!)
-                                 
-                              UserDefaults.standard.setValue(self.token.tokenuser, forKey: "token")
-                                UserDefaults.standard.setValue(self.token.expiracao, forKey: "dataExpiracao")
-                                 
-                                 let token = UserDefaults.standard.string(forKey: "token")
-                                                  
-                                 guard let usuario = token, usuario != "convidado" else {
-                                     
-                                     return
-                                       
-                                 }
-                              
-                                
-                                if self.telaOrigem == 1 {
-                                    self.delegate2?.didAtualizarEncomendas()
-                                   self.view.removeFromSuperview()
-                                }
-                                if self.telaOrigem == 2{
-                                    
-                                    self.TransitarParaTelaPrincipal()
-                                }
-                                
-                                if self.telaOrigem == 3 {
-                                    self.delegate3?.didAtualizarCarrinho2()
-                                     self.view.removeFromSuperview()
-                                }
-                                
-                                if self.telaOrigem == 4 {
-                                    
-                                    self.delegate4?.didAtualizarBotao2()
-                                    self.view.removeFromSuperview()
-                                }
-                                
-                                if self.telaOrigem == 5 {
-                                    
-                                    self.navigationController?.popToRootViewController(animated: true)
-                                }
-                                
-                                   
-                                    
-                                  
-                              } catch {
-                               
-                           
-                                 //erro na autenticacao
-                                 self.terminarProgresso()
-                               self.showToast(controller: self, message: response.result.value!, seconds: 2)
-                                
-                                  print("erro inesperado1: \(error)")
-                              }
-                  
-                             
-                           
-
-                              
-                          } else {
-                             
-                               // print(response.response?.statusCode )
-                                // codigo que gera a UIAlertController (aviso de erro ao fazer login)
-                           
-                             self.terminarProgresso()
-                               self.showToast(controller: self, message: "O dispositivo não esta conectado a nenhuma rede 3G OU WI-FI..", seconds: 3)
-                               print(response.error as Any)
-                              
-                          }
-                      }
+             
                
     }
     @IBAction func ButtonRegistar(_ sender: UIButton) {

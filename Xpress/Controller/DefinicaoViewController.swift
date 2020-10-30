@@ -41,11 +41,18 @@ class DefinicaoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        
-        mostrarPopUpInternet()
-        
         tblView.register(UINib.init(nibName: "SairTableViewCell", bundle: nil), forCellReuseIdentifier: "cellSair")
         tblView.register(UINib.init(nibName: "DefinicaoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellDefinicao")
         tblView.reloadData()
+        
+        if VerificarInternet.Connection() {
+                     
+               } else {
+                   print("nao esta conectado")
+                  showPopUpInternet()
+               }
+        
+        
     }
 
     

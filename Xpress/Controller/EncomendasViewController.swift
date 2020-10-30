@@ -46,10 +46,14 @@ class EncomendasViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mostrarPopUpInternet()
-        verificarSessao()
-       tblView.register(UINib.init(nibName: "FacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellFactura")
-        mostrarEncomendas()
+       verificarSessao()
+             tblView.register(UINib.init(nibName: "FacturaTableViewCell", bundle: nil), forCellReuseIdentifier: "cellFactura")
+        if VerificarInternet.Connection() {
+               mostrarEncomendas()
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
 
     }
 

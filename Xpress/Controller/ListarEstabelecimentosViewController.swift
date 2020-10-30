@@ -52,62 +52,50 @@ class ListarEstabelecimentosViewController: UIViewController, HubConnectionDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mostrarPopUpInternet()
-        verificarSessao()
-//         obterPerfil()
-        // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "EstabelecimentoTableViewCell", bundle: nil), forCellReuseIdentifier: "cell1")
-        obterEstabelecimentos()
-        btnCarrinhoBarra()
-        
-        
-        // mostrar notificacoes SinalR
-        // metodos do SignalR
-               let connection = HubConnectionBuilder(url: URL(string: self.serverUrl)!).withHttpConnectionOptions(configureHttpOptions: { (options)  in
-                         options.accessTokenProvider =  {
-                             return self.token
-                             
-                     }
-                     }).withLogging(minLogLevel: .debug)
-                     .build()
-                 
-                 // Event handler2
-                 
-//                 connection.on(method: "/eventHub") {(user: String, message: String) in
-//                     print(connection)
-//                     print(" \(user): \(message)")
-//                   // self.mostrarNotificacao(user, message)
-//
-//                    // print(HubConnection.self)
-//                 }
-//
-//
-//        connection.on(method: "UpdatedUserList") {(ConnectionId: String, users: String) in
-//                     print(connection)
-//                   print("\(ConnectionId): \(users)")
-//                  //self.mostrarNotificacao(ConnectionId, users)
-//
-//               }
-               connection.on(method: "ReceiveMessage"){( message: String) in
-                   print(connection)
-                  print("\(message)")
-                 self.mostrarNotificacao(message, message)
-                  
-               }
                
-                connection.delegate = self
-                 connection.start()
-               configuracaoNotification()
-       
-        
+               btnCarrinhoBarra()
+        if VerificarInternet.Connection() {
+             verificarSessao()
+            obterEstabelecimentos()
+             // mostrar notificacoes SinalR
+                   // metodos do SignalR
+                          let connection = HubConnectionBuilder(url: URL(string: self.serverUrl)!).withHttpConnectionOptions(configureHttpOptions: { (options)  in
+                                    options.accessTokenProvider =  {
+                                        return self.token
+                                        
+                                }
+                                }).withLogging(minLogLevel: .debug)
+                                .build()
+                            
+            
+                          connection.on(method: "ReceiveMessage"){( message: String) in
+                              print(connection)
+                             print("\(message)")
+                            self.mostrarNotificacao(message, message)
+                             
+                          }
+                          
+                           connection.delegate = self
+                            connection.start()
+                          configuracaoNotification()
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
+  
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        obterEstabelecimentos()
-        btnCarrinhoBarra()
-        mostrarPopUpInternet()
-         
+        
+        if VerificarInternet.Connection() {
+                   obterEstabelecimentos()
+                    btnCarrinhoBarra()
+               } else {
+                   print("nao esta conectado")
+                  showPopUpInternet()
+               }     
     }
     
 

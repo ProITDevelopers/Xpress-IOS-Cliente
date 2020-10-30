@@ -15,7 +15,7 @@ class RecuperarSenhaViewController: UIViewController {
     var telefone = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-       mostrarPopUpInternet()
+     
        
         telefoneLabel.setLeftView(image: UIImage(named: "phone")!)
         HideKeyboard()
@@ -27,7 +27,7 @@ class RecuperarSenhaViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         telefoneLabel.text = ""
-        mostrarPopUpInternet()
+       
     }
     
     @IBAction func buttonEnviar(_ sender: UIButton) {
@@ -50,41 +50,50 @@ class RecuperarSenhaViewController: UIViewController {
                
                    
                
+        if VerificarInternet.Connection() {
+                         
+            // let parametros = ["id": contacto] as [String : Any]
+                          mostrarProgresso()
+                           
+                           let URL = "https://apixpress.lengueno.com/SolicitarCodigoRecuperacao/\(contacto)"
+                           telefone = contacto
+                           
+                           Alamofire.request(URL, method: .put, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in
+                                      if response.result.isSuccess{
+                                          
+                                          if response.response?.statusCode == 200 {
+                                              
+                                              print("Sucesso no envio do numero de telefone")
+                                              self.terminarProgresso()
+                                              self.performSegue(withIdentifier: "irCodigo", sender: self)
+                                              
+                                              
+                                          } else  {
+                                              self.terminarProgresso()
+                                              self.showToast(controller: self, message: "Nº telefone não existe", seconds: 3)
+                                              print(response)
+                                              print("codigo errado 1")
+                                          
+                                          }
+                                          
+                                          //print(response.response?.statusCode)
+                                          //print("Sucesso no autenticaçao")
+                                      } else {
+                                          let erro: JSON = JSON(response.result.value!)
+                                          print(erro)
+                                          self.terminarProgresso()
+                                           print("codigo errado 2")
+                                          self.showToast(controller: self, message: "Não pode criar a conta agora tenta mais tarde!", seconds: 3)
+                                      }
+                                  }
+            
+                      } else {
+                          print("nao esta conectado")
+                         showPopUpInternet()
+                      }
+        
                  
-                // let parametros = ["id": contacto] as [String : Any]
-                mostrarProgresso()
-                 
-                 let URL = "https://apixpress.lengueno.com/SolicitarCodigoRecuperacao/\(contacto)"
-                 telefone = contacto
-                 
-                 Alamofire.request(URL, method: .put, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in
-                            if response.result.isSuccess{
-                                
-                                if response.response?.statusCode == 200 {
-                                    
-                                    print("Sucesso no envio do numero de telefone")
-                                    self.terminarProgresso()
-                                    self.performSegue(withIdentifier: "irCodigo", sender: self)
-                                    
-                                    
-                                } else  {
-                                    self.terminarProgresso()
-                                    self.showToast(controller: self, message: "Nº telefone não existe", seconds: 3)
-                                    print(response)
-                                    print("codigo errado 1")
-                                
-                                }
-                                
-                                //print(response.response?.statusCode)
-                                //print("Sucesso no autenticaçao")
-                            } else {
-                                let erro: JSON = JSON(response.result.value!)
-                                print(erro)
-                                self.terminarProgresso()
-                                 print("codigo errado 2")
-                                self.showToast(controller: self, message: "Não pode criar a conta agora tenta mais tarde!", seconds: 3)
-                            }
-                        }
+              
        
     }
     

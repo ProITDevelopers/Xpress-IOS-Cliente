@@ -47,15 +47,25 @@ class EditarPerfilViewController: UIViewController,UIImagePickerControllerDelega
         // Do any additional setup after loading the view.
      
         verPickerProvincia()
-        obterPerfil()
         HideKeyboard()
         mostrarButtonEditar()
+        if VerificarInternet.Connection() {
+             obterPerfil()
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mostrarPopUpInternet()
+        if VerificarInternet.Connection() {
+             
+        } else {
+            print("nao esta conectado")
+           showPopUpInternet()
+        }
     }
     
     

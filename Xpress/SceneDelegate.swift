@@ -56,45 +56,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     
-   func irPaginaInicial() {
-    
-    
-           // MARK: Verificar se esta logado e salta para tela principal
-                 // pegar e formatar a data actual
-                        let date = Date()
-                        let format = DateFormatter()
-                        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                        let formattedDate = format.string(from: date)
-                        print(formattedDate)
-                        
-                       // buscar o tokem na memoria do telefone
-                         _ = UserDefaults.standard.string(forKey: "token")
-                        //data de expiracao
-                        let dataexpiracao = UserDefaults.standard.string(forKey: "dataExpiracao")
-                        //formatar data de expiracao
-                        var dataConvertida = ""
-                         var converteData = date
-                        if dataexpiracao != nil {
-                            let format1 = DateFormatter()
-                            format1.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-                            converteData = format1.date(from: dataexpiracao!)!
-                            format1.timeZone = TimeZone.current
-                            format1.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                            dataConvertida = format1.string(from: converteData)
-                         print(dataConvertida)
-                        }
-                 
-                 
-                 let token1 = UserDefaults.standard.string(forKey: "token")
-                 if (token1 != nil && formattedDate > dataConvertida) || token1 == "convidado"  {
 
-                         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                            let homeViewController = mainStoryboard.instantiateViewController(withIdentifier: StoryboardID.pricipal) as! PrincipalViewController
-                         
-                         window!.rootViewController = homeViewController
-                        }
-       
-      }
 
 }
 

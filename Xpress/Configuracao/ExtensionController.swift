@@ -264,12 +264,12 @@ extension UIViewController {
        }
     
      //MARK: FUNCAO QUE MOSTRA O POPUP DA FALTA DE INTERNET
-    func mostrarPopUpInternet(){
+    func mostrarPopUpInternet() -> Bool {
         if VerificarInternet.Connection() {
-            print("conectado")
+            return true
         } else {
             print("nao esta conectado")
-            showPopUpInternet()
+            return false
         }
     }
     

@@ -20,8 +20,7 @@ class RecuperarSenha2ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mostrarPopUpInternet()
-               
+       
         codigoTextField.setLeftView(image: UIImage(named:"icons8-forgot-password-30")!)
         senhaTextField.setLeftView(image: UIImage(named: "icons8-forgot-password-30")!)
         mostrarPassWord(button: buttonPassword, textField: senhaTextField)
@@ -35,7 +34,7 @@ class RecuperarSenha2ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mostrarPopUpInternet()
+       
     }
     
     
@@ -81,10 +80,15 @@ class RecuperarSenha2ViewController: UIViewController {
                        return
                                    
                                }
-               
-               
-                      redifinirSenha(codigo: codigo, password: senha)
         
+        
+        if VerificarInternet.Connection() {
+                  redifinirSenha(codigo: codigo, password: senha)
+                      } else {
+                          print("nao esta conectado")
+                         showPopUpInternet()
+                      }
+    
     }
     
 
