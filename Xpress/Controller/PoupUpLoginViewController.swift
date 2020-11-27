@@ -128,7 +128,7 @@ class PoupUpLoginViewController: UIViewController {
         if VerificarInternet.Connection() {
             
              mostrarProgresso()
-            let URL = "https://apixpress.lengueno.com/authenticate2"
+            let URL = "\(linkPrincipal.urlLink)/authenticate2"
                          
                          Alamofire.request(URL, method: .post, parameters: parametros, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in
                                    

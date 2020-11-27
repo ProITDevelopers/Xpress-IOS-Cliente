@@ -39,7 +39,8 @@ class ItemCarrinhoTableViewCell: UITableViewCell {
     var urlImagemProduto = ""
     var emStock1: Int = 0
      var observacoes: String = "Obrigado"
-    
+    var latitude = 0.0
+    var longitude = 0.0
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -58,10 +59,17 @@ class ItemCarrinhoTableViewCell: UITableViewCell {
    
     @IBAction func brnSubtrair(_ sender: UIButton) {
         SubtrairProdutoCarrinho()
+        
     }
     @IBAction func btnSomar(_ sender: UIButton) {
         adicionarCarrinho()
     }
+    
+    @IBAction func btnEliminarItem(_ sender: Any) {
+        SubtrairProdutoCarrinho2()
+    }
+    
+    
 }
 
 
@@ -173,7 +181,7 @@ extension ItemCarrinhoTableViewCell {
                                        }
                                    
                                    quantidadeProduto.text =   "\(itemresto)"
-                                   
+                                   eliminarEstabelecimento()
                                    } catch{
                                        
                                        print("Erro ao Eliminar o produto do carrinho, \(error)")
@@ -203,5 +211,124 @@ extension ItemCarrinhoTableViewCell {
                 delegate?.didAtualizarTotalCarrinho()
             
     }
+    
+    
+     func SubtrairProdutoCarrinho2()  {
+            
+            
+                         let item = ItemsCarrinho()
+
+                         item.itemId = "\(idEstabelecimento1!)-\(idProduto!)"
+                         item.produtoId = idProduto!
+                         item.quantidade = quantidade
+                         item.ideStabelecimento = idEstabelecimento1!
+                         item.nomeItem = produtoNome
+                         item.estabelecimento = nomeEstabelecimento
+                         item.precoUnitario = precoUnidade
+                         item.imagemProduto = urlImagemProduto
+
+
+                         do {
+                             
+                             let realm = try Realm()
+                             let itens = realm.objects(ItemsCarrinho.self).filter("itemId == %@", item.itemId)
+                             
+                             if itens.isEmpty == false {
+                                 print(itens)
+                               
+                             
+                                   do {
+                                       let itemresto = itens[0].quantidade - 1
+                                           try realm.write {
+                                               realm.delete(itens[0])
+                                       
+                                           }
+                                       
+                                       quantidadeProduto.text =   "\(itemresto)"
+                                       eliminarEstabelecimento()
+                                       } catch{
+                                           
+                                           print("Erro ao Eliminar o produto do carrinho, \(error)")
+                                       }
+                                        
+                                 
+                             }
+    //                         print(Realm.Configuration.defaultConfiguration.fileURL)
+                             //showToast(message: "adicionado", seconds: 1)
+                         } catch let error {
+                             print(error)
+                         }
+                   
+                   delegate?.didListarProduto()
+                    delegate?.didAtualizarTotalCarrinho()
+                
+        }
+    
+    
+    
+    func guardarEstabelecimento() {
+              
+          let item = EstabCarrinho()
+          item.ideStabelecimento = idEstabelecimento1!
+          item.nomeEstab = nomeEstabelecimento
+        item.latitude = latitude
+        item.longitude = longitude
+          do {
+              let realm = try Realm()
+              let itens = realm.objects(EstabCarrinho.self).filter("ideStabelecimento == %@", item.ideStabelecimento)
+              if itens.isEmpty == true {
+                  print(itens)
+                  try realm.write {
+                      realm.add(item)
+                      print("estabelecimento adicionada ")
+                      
+                  }
+                  
+              }
+              //print(Realm.Configuration.defaultConfiguration.fileURL)
+              // showToast( message: "adicionado", seconds: 3)
+              
+          } catch let error {
+              print(error)
+              
+          }
+          
+      }
+      
+        func eliminarEstabelecimento()  {
+         
+          do {
+              let realm = try Realm()
+              let itens = realm.objects(ItemsCarrinho.self).filter("ideStabelecimento == %@", idEstabelecimento1!)
+              let estabelecimento = realm.objects(EstabCarrinho.self).filter("ideStabelecimento == %@", idEstabelecimento1!)
+
+              if itens.isEmpty == true {
+                  print(itens)
+                 
+                      
+                      do {
+                          
+                          try realm.write {
+                          realm.delete(estabelecimento[0])
+                          print("estabelecimento removido")
+                          }
+                          
+                      } catch {
+                          print("Erro ao Eliminar o produto do carrinho, \(error)")
+                          
+                      }
+                      
+                
+                  
+              }
+              //print(Realm.Configuration.defaultConfiguration.fileURL)
+              //showToast(message: "adicionado", seconds: 1)
+              
+          } catch let error {
+              print(error)
+              
+          }
+          
+      }
     
 }

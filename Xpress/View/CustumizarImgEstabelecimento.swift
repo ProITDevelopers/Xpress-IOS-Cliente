@@ -31,6 +31,7 @@ class CustumizarImgEstabelecimento: UIImageView {
         layer.cornerRadius = 20 //layer.borderWidth = 0.3
         clipsToBounds = true
         
+        
     }
     
     override func layoutSubviews() {

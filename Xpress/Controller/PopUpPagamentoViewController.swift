@@ -13,8 +13,8 @@ class PopUpPagamentoViewController: UIViewController {
 
   
      var tipoPagamento = ""
-    var longitude = ""
-    var latitude = ""
+    var longitude = 0.0
+    var latitude = 0.0
     var telemovel = ""
     var referencia = ""
     var produtoComprar = Produto()

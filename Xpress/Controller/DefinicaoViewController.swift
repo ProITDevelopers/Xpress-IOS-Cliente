@@ -140,12 +140,28 @@ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> U
                   cell.detalheLabel.text = text
                      cell.imgDetalhe.image =  UIImage(named:"sair.png")
             return cell
-           } else {
-  
-     let cell = tableView.dequeueReusableCell(withIdentifier: "cellDefinicao", for: indexPath) as! DefinicaoTableViewCell
+            
+        } else
+           
+           if indexPath.section == 2 && indexPath.row == 0 {
+            
 
+           let cell = tableView.dequeueReusableCell(withIdentifier: "cellDefinicao", for: indexPath) as! DefinicaoTableViewCell
+           // let text = data[indexPath.section][indexPath.row]
+            
+            if let text = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+                print(text)
+                  cell.detalhesLabel1.text = text
+            }
+          
+            return cell
+                
+              }
+           else  {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellDefinicao", for: indexPath) as! DefinicaoTableViewCell
             let text = data[indexPath.section][indexPath.row]
-                 cell.detalhesLabel1.text = text
+            cell.detalhesLabel1.text = text
                 
           
             return cell

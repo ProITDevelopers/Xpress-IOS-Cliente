@@ -109,11 +109,16 @@
 		5B622909254C38AC0061A179 /* LoginTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B622907254C38AB0061A179 /* LoginTableViewCell.xib */; };
 		5B62290C254C3C1C0061A179 /* Sair2TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B62290A254C3C1C0061A179 /* Sair2TableViewCell.swift */; };
 		5B62290D254C3C1C0061A179 /* Sair2TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B62290B254C3C1C0061A179 /* Sair2TableViewCell.xib */; };
+		5B6C68D82563C6B30012AA9E /* DetalheEstabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6C68D62563C6B30012AA9E /* DetalheEstabTableViewCell.swift */; };
+		5B6C68D92563C6B30012AA9E /* DetalheEstabTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B6C68D72563C6B30012AA9E /* DetalheEstabTableViewCell.xib */; };
 		5B74EE4E252C70A400110601 /* CustumizarImgProduto1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B74EE4D252C70A400110601 /* CustumizarImgProduto1.swift */; };
 		5B74EE50252C7F6B00110601 /* PopupErroPedidoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B74EE4F252C7F6B00110601 /* PopupErroPedidoViewController.swift */; };
 		5B7979522529C03E006BD258 /* ShowPopUpInternetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7979512529C03E006BD258 /* ShowPopUpInternetViewController.swift */; };
 		5B7979542529C31B006BD258 /* VerificarInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7979532529C31B006BD258 /* VerificarInternet.swift */; };
+		5B7B1CF52570FC410097D337 /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B1CF42570FC410097D337 /* MapPin.swift */; };
+		5B7C349325650FFD00404E55 /* DetalhePedidoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7C349225650FFD00404E55 /* DetalhePedidoViewController.swift */; };
 		5BCC65F32547007800528154 /* PoupUpLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCC65F22547007800528154 /* PoupUpLoginViewController.swift */; };
+		5BF1EEC2255975E800AE4DF3 /* EstabCarrinho.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF1EEC1255975E800AE4DF3 /* EstabCarrinho.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -222,11 +227,16 @@
 		5B622907254C38AB0061A179 /* LoginTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginTableViewCell.xib; sourceTree = "<group>"; };
 		5B62290A254C3C1C0061A179 /* Sair2TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sair2TableViewCell.swift; sourceTree = "<group>"; };
 		5B62290B254C3C1C0061A179 /* Sair2TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Sair2TableViewCell.xib; sourceTree = "<group>"; };
+		5B6C68D62563C6B30012AA9E /* DetalheEstabTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalheEstabTableViewCell.swift; sourceTree = "<group>"; };
+		5B6C68D72563C6B30012AA9E /* DetalheEstabTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetalheEstabTableViewCell.xib; sourceTree = "<group>"; };
 		5B74EE4D252C70A400110601 /* CustumizarImgProduto1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustumizarImgProduto1.swift; sourceTree = "<group>"; };
 		5B74EE4F252C7F6B00110601 /* PopupErroPedidoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupErroPedidoViewController.swift; sourceTree = "<group>"; };
 		5B7979512529C03E006BD258 /* ShowPopUpInternetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPopUpInternetViewController.swift; sourceTree = "<group>"; };
 		5B7979532529C31B006BD258 /* VerificarInternet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificarInternet.swift; sourceTree = "<group>"; };
+		5B7B1CF42570FC410097D337 /* MapPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
+		5B7C349225650FFD00404E55 /* DetalhePedidoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetalhePedidoViewController.swift; sourceTree = "<group>"; };
 		5BCC65F22547007800528154 /* PoupUpLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoupUpLoginViewController.swift; sourceTree = "<group>"; };
+		5BF1EEC1255975E800AE4DF3 /* EstabCarrinho.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstabCarrinho.swift; sourceTree = "<group>"; };
 		99F0A56C65F5A56E033F8ADA /* Pods_Xpress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xpress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -300,6 +310,7 @@
 				5BCC65F22547007800528154 /* PoupUpLoginViewController.swift */,
 				5B622902254C37450061A179 /* TableViewSairViewController.swift */,
 				5B622904254C37C40061A179 /* TableViewLoginViewController.swift */,
+				5B7C349225650FFD00404E55 /* DetalhePedidoViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -311,6 +322,8 @@
 				3F63F364251D2A7E00C47CEA /* ItemsCarrinho.swift */,
 				5B5BB4DE2526611F002D7795 /* FacturaActual.swift */,
 				5B5BB4E02526674C002D7795 /* FacturaActual1.swift */,
+				5BF1EEC1255975E800AE4DF3 /* EstabCarrinho.swift */,
+				5B7B1CF42570FC410097D337 /* MapPin.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -416,6 +429,8 @@
 				5B622907254C38AB0061A179 /* LoginTableViewCell.xib */,
 				5B62290A254C3C1C0061A179 /* Sair2TableViewCell.swift */,
 				5B62290B254C3C1C0061A179 /* Sair2TableViewCell.xib */,
+				5B6C68D62563C6B30012AA9E /* DetalheEstabTableViewCell.swift */,
+				5B6C68D72563C6B30012AA9E /* DetalheEstabTableViewCell.xib */,
 			);
 			path = CellController;
 			sourceTree = "<group>";
@@ -512,6 +527,7 @@
 				3FBA4E712519EB32003126C9 /* EstabelecimentoTableViewCell.xib in Resources */,
 				3F47244C2523E627008BB31A /* DefinicaoTableViewCell.xib in Resources */,
 				5B5DE87F25293FC00065820F /* ShowDetalheProdutoTableViewCell.xib in Resources */,
+				5B6C68D92563C6B30012AA9E /* DetalheEstabTableViewCell.xib in Resources */,
 				3F58C207251C978F0050B434 /* TableViewCell.xib in Resources */,
 				5B62290D254C3C1C0061A179 /* Sair2TableViewCell.xib in Resources */,
 				3F4724502523E63F008BB31A /* PerfilTableViewCell.xib in Resources */,
@@ -593,6 +609,7 @@
 				3F5E2C55252322950049E4EC /* CheckoutViewController.swift in Sources */,
 				3F45644A2515076F00DD2BCD /* RegistarViewController.swift in Sources */,
 				3F5547DF251E1B740000B02A /* PerfilViewController.swift in Sources */,
+				5B6C68D82563C6B30012AA9E /* DetalheEstabTableViewCell.swift in Sources */,
 				5B5DE87E25293FC00065820F /* ShowDetalheProdutoTableViewCell.swift in Sources */,
 				3F5E2C6025232ABA0049E4EC /* ItensCheckTableViewCell.swift in Sources */,
 				3FBA4E732519F7CB003126C9 /* CustumizarImgEstabelecimento.swift in Sources */,
@@ -601,6 +618,7 @@
 				5B74EE50252C7F6B00110601 /* PopupErroPedidoViewController.swift in Sources */,
 				5B5DE873252922F90065820F /* RecuperarSenha2ViewController.swift in Sources */,
 				3FBA0AD72521360E00537BA2 /* MapaLocalEntregaViewController.swift in Sources */,
+				5BF1EEC2255975E800AE4DF3 /* EstabCarrinho.swift in Sources */,
 				3F02AC2625176291007406F6 /* PrincipalViewController.swift in Sources */,
 				5B62290C254C3C1C0061A179 /* Sair2TableViewCell.swift in Sources */,
 				5B5DE86F252901680065820F /* CustumizarImgProduto.swift in Sources */,
@@ -631,6 +649,7 @@
 				3FBA0ACE2520D9D100537BA2 /* ItemCarrinhoTableViewCell.swift in Sources */,
 				3F560C0A2522085A00767F1C /* PopUpConfirmarEnderecoViewController.swift in Sources */,
 				3F5E2C6425232AD90049E4EC /* InfoPedidoTableViewCell.swift in Sources */,
+				5B7B1CF52570FC410097D337 /* MapPin.swift in Sources */,
 				3F913ED525169ABD00EB5BC5 /* RecuperarPavraPasse1ViewController.swift in Sources */,
 				3F47244B2523E627008BB31A /* DefinicaoTableViewCell.swift in Sources */,
 				5B5DE871252922D80065820F /* RecuperarSenhaViewController.swift in Sources */,
@@ -647,6 +666,7 @@
 				3F5547DD251E19E10000B02A /* ExtensionUsuario.swift in Sources */,
 				5BCC65F32547007800528154 /* PoupUpLoginViewController.swift in Sources */,
 				5B7979542529C31B006BD258 /* VerificarInternet.swift in Sources */,
+				5B7C349325650FFD00404E55 /* DetalhePedidoViewController.swift in Sources */,
 				5B5BB4EB25267D70002D7795 /* DetalhesFacturaViewController.swift in Sources */,
 				3F66F894251BE3910020820F /* ListarProdutosViewController.swift in Sources */,
 				3FBA4E7E251A456C003126C9 /* Menu2TableViewCell.swift in Sources */,

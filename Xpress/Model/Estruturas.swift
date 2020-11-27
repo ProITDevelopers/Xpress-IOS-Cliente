@@ -67,6 +67,9 @@ struct Produto: Codable {
     var estabelecimento: String?
     var tempo_de_preparacao: Int?
     var imagemProduto: String?
+    var idEstabelecimento: Int?
+    var longitude: String?
+    var latitude: String?
     
 }
 
@@ -100,9 +103,17 @@ struct ItensComprar: Codable {
     var quantidade: Int?
     var ideStabelecimento: Int?
     var observacoes: String?
+    var taxaEntrega: Double?
    
 }
 
+struct EstabComprar: Codable {
+    var ideStabelecimento: Int?
+    var nomeEstab: String?
+    var latitude: String?
+    var longitude: String?
+   
+}
 
 
 struct localEncomenda: Codable {
@@ -136,7 +147,7 @@ struct Factura: Codable {
      var clienteID: Int
      var dataPagamento: String
      var dataPedido: String
-     var taxaboy: Int
+     var taxaboy: Double
      var horaPedido: String
      var  latitude: String
      var longitude: String
@@ -154,4 +165,22 @@ struct Iten: Codable {
         var quantidade: Int?
         var observacoes: String?
   
+}
+
+
+struct CalculoTaxa: Codable {
+    var idEstabelecimento: String?
+    var latitudeDestino: Double?
+    var latitudeOrigem: Double?
+    var longitudeDestino: Double?
+    var longitudeOrigem: Double?
+}
+
+struct TaxaCalculada: Codable {
+    var raio: String?
+    var taxaFixa: String?
+    var idEstabelecimento: String?
+    var taxaVariavel: String?
+    var distanciaKm: String?
+    var valorTaxa: String?
 }

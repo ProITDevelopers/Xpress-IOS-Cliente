@@ -94,7 +94,7 @@ extension DetalhesFacturaViewController: UITableViewDataSource, UITableViewDeleg
                  
                  
                  cell.tipoPagamentoLabel?.text = pedido.metododPagamento
-                 cell.totalPagarLabel?.text = ("\(pedido.total),00 AKZ")
+                 cell.totalPagarLabel?.text = ("\(pedido.total)0 AKZ")
                  let data = converterData(dataConverter:  pedido.dataPagamento)
                   cell.dataLabel?.text = ("Data: \(data)")
                  

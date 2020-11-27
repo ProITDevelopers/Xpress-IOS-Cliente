@@ -257,7 +257,7 @@ extension RegistarViewController {
                                         
              let parametros = ["PrimeiroNome": nome, "UltimoNome": sobreNome, "ContactoMovel":telefone, "Sexo": genero, "Email":email, "Password": palavraPasse] as [String : String]
             
-       let URL = "https://apixpress.lengueno.com/cadastrarcliente"
+       let URL = "\(linkPrincipal.urlLink)/cadastrarcliente"
        
             
             if selecionouFoto == false {

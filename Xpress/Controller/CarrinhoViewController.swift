@@ -24,43 +24,59 @@ class CarrinhoViewController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var viewInformacao: UIView!
     @IBOutlet weak var btnConfirmar: UIButton!
-  
+    
+   let realm = try! Realm()
+     var verificador = true
+     var estabelecimentoCarrinho: Results<EstabCarrinho>!
+     
     var produtoCarrinho: Results<ItemsCarrinho>!
-    var intensCompra = [ItensComprar]()
-    let realm = try! Realm()
+    var intensCompra = [ItemsCarrinho]()
+   
     var token = UserDefaults.standard.string(forKey: "token")
     
+    var arrayEstabelecimento = [EstabCarrinho]()
+   
+    var arrayEstabelecimento1 = [String]()
+    var arrayProdutos = [[ItemsCarrinho]]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if VerificarInternet.Connection() {
-             
-        } else {
-            print("nao esta conectado")
-           showPopUpInternet()
-        }
-       
-        getRealm()
-        verificarCarrinho()
-        // Do any additional setup after loading the view.
-        tblView.register(UINib.init(nibName: "ItemCarrinhoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCarrinho")
-        atualizarTotalCarrinho()
-        mostrarButtonDelete()
-      
-        
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//
+//        if VerificarInternet.Connection() {
+//
+//        } else {
+//            print("nao esta conectado")
+//           showPopUpInternet()
+//        }
+//
+//        getRealm()
+//        verificarCarrinho()
+//        // Do any additional setup after loading the view.
+//        tblView.register(UINib.init(nibName: "ItemCarrinhoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCarrinho")
+//        atualizarTotalCarrinho()
+//        mostrarButtonDelete()
+//
+////         selecionarEstabelecimento ()
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+         getRealm()
+        preencherTodosArray()
        if VerificarInternet.Connection() {
             
        } else {
            print("nao esta conectado")
           showPopUpInternet()
        }
-        verificarCarrinho()
-       
+        
+               verificarCarrinho()
+               // Do any additional setup after loading the view.
+               tblView.register(UINib.init(nibName: "ItemCarrinhoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCarrinho")
+               atualizarTotalCarrinho()
+               mostrarButtonDelete()
+      
     }
     
     func showPopUpTelaLoguin() {
@@ -145,8 +161,10 @@ class CarrinhoViewController: UIViewController {
     @objc func rightButtonTouched() {
          print("right button touched")
         if quantidadeIten() != 0 {
+             arrayEstabelecimento1.removeAll()
             showPopUpFuncao1()
         } else {
+           
             showToast1(controller: self, message: "O carrinho está vazio!", seconds: 2)
         }
             
@@ -185,6 +203,60 @@ class CarrinhoViewController: UIViewController {
     }
     */
     
+    func preencherTodosArray() {
+        preencherEstabelecimento()
+        arrayProdutos.removeAll()
+        arrayProdutos = preenccherArraySessoes()
+    }
+    
+    func preencherEstabelecimento() {
+        arrayEstabelecimento1.removeAll()
+        arrayEstabelecimento.removeAll()
+       let EstabCarrinhoAtualizado = realm.objects(EstabCarrinho.self)
+             for item in  EstabCarrinhoAtualizado {
+                arrayEstabelecimento.append(item)
+                arrayEstabelecimento1.append(item.nomeEstab)
+                
+        }
+
+        
+        print(arrayEstabelecimento)
+    }
+    
+    func preencherItens(nomeEstab: String) -> [ItemsCarrinho] {
+           var arrayProduto = [ItemsCarrinho]()
+       
+          let produtoCarrinhoAtualizado = realm.objects(ItemsCarrinho.self)
+                for item in  produtoCarrinhoAtualizado {
+                    if item.estabelecimento == nomeEstab {
+                        arrayProduto.append(item)
+                    }
+                
+           }
+
+           print(arrayEstabelecimento)
+           return arrayProduto
+       }
+    
+    func preenccherArraySessoes() -> [[ItemsCarrinho]] {
+         var arrayProdutos1 = [[ItemsCarrinho]]()
+       
+         let produtoCarrinhoAtualizado = realm.objects(ItemsCarrinho.self)
+        for item1 in arrayEstabelecimento {
+            var arrayProduto = [ItemsCarrinho]()
+             for item in  produtoCarrinhoAtualizado {
+                if item.estabelecimento == item1.nomeEstab {
+                        arrayProduto.append(item)
+                    
+                }
+            }
+            arrayProdutos1.append(arrayProduto)
+        }
+        print(arrayProdutos1)
+         return arrayProdutos1
+    }
+
+    
     func quantidadePagar() -> Double {
           var valor : Double = 0.0
           
@@ -214,47 +286,151 @@ class CarrinhoViewController: UIViewController {
                     }
                 }
     }
+    
+    
+    
+    
+    
+    
+    
+    func selecionarEstabelecimento () {
+     
+        
+        
+        let arrayOrdenado = produtoCarrinho.sorted {
+            $0.ideStabelecimento < $1.ideStabelecimento
+        }
+
+        print(arrayOrdenado)
+       
+        let estab = EstabCarrinho()
+        var arrayEstab = [EstabCarrinho]()
+        for item in arrayOrdenado {
+            estab.ideStabelecimento = item.ideStabelecimento
+            estab.nomeEstab = item.estabelecimento
+            estab.longitude = 0.0
+             estab.latitude = 0.0
+        
+            arrayEstab.append(estab)
+            
+        }
+        
+        //let setArray = arrayEstab.unique()
+        
+       
+    }
+    
+    func eliminarEstabelecimento(idEstab: Int)  {
+              
+//          let item = EstabCarrinho()
+//          item.ideStabelecimento = idEstabelecimento!
+//          item.nomeEstab = nomeEstabelecimento
+//          item.latitude = latitude
+//          item.longitude = longitude
+          do {
+              let realm = try Realm()
+              let itens = realm.objects(ItemsCarrinho.self).filter("ideStabelecimento == %@", idEstab)
+              let estabelecimento = realm.objects(EstabCarrinho.self).filter("ideStabelecimento == %@", idEstab)
+
+              if itens.isEmpty == true {
+                  print(itens)
+                 
+                      
+                      do {
+                          
+                          try realm.write {
+                          realm.delete(estabelecimento[0])
+                          print("estabelecimento removido")
+                          }
+                          
+                      } catch {
+                          print("Erro ao Eliminar o produto do carrinho, \(error)")
+                          
+                      }
+                      
+                
+                  
+              }
+              print(Realm.Configuration.defaultConfiguration.fileURL)
+              //showToast(message: "adicionado", seconds: 1)
+              
+          } catch let error {
+              print(error)
+              
+          }
+          
+      }
 
 }
 
 
 extension CarrinhoViewController: UITableViewDelegate, UITableViewDataSource {
+    
+   
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return arrayProdutos.count
+    }
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let label = UILabel()
+//        label.text = arrayEstabelecimento1[section]
+//        return label
+//
+//    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section < arrayEstabelecimento1.count {
+            
+            
+            return arrayEstabelecimento1[section]
+        }
+
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let header = view as? UITableViewHeaderFooterView {
+            header.backgroundView?.backgroundColor = UIColor.white
+            header.textLabel?.textColor = UIColor(red: 28.0/255.0, green: 136.0/255.0, blue: 101.0/255.0, alpha: 1.0)
+        }
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return produtoCarrinho.count
+        
+        arrayProdutos[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        
+        
          let cell = tableView.dequeueReusableCell(withIdentifier: "cellCarrinho", for: indexPath) as! ItemCarrinhoTableViewCell
 
-             
                // enviar na class de celula
                //cell. = produtoCarrinho[indexPath.row].itemId
-               cell.idProduto = produtoCarrinho[indexPath.row].produtoId
-               cell.idEstabelecimento1 = produtoCarrinho[indexPath.row].ideStabelecimento
-               cell.nomeEstabelecimento = produtoCarrinho[indexPath.row].estabelecimento
-               cell.precoUnidade = produtoCarrinho[indexPath.row].precoUnitario
-               cell.urlImagemProduto = produtoCarrinho[indexPath.row].imagemProduto
-              cell.emStock1 = produtoCarrinho[indexPath.row].emStock
-               cell.observacoes = produtoCarrinho[indexPath.row].obseracoes
+                cell.idProduto = arrayProdutos[indexPath.section][indexPath.row].produtoId
+               cell.idEstabelecimento1 = arrayProdutos[indexPath.section][indexPath.row].ideStabelecimento
+               cell.nomeEstabelecimento = arrayProdutos[indexPath.section][indexPath.row].estabelecimento
+               cell.precoUnidade = arrayProdutos[indexPath.section][indexPath.row].precoUnitario
+               cell.urlImagemProduto = arrayProdutos[indexPath.section][indexPath.row].imagemProduto
+              cell.emStock1 = arrayProdutos[indexPath.section][indexPath.row].emStock
+               cell.observacoes = arrayProdutos[indexPath.section][indexPath.row].obseracoes
         
              
-               cell.nomeProduto?.text = ("\(produtoCarrinho[indexPath.row].nomeItem)")
-               cell.descricaoProduto?.text = ("\(produtoCarrinho[indexPath.row].estabelecimento)")
-               cell.precoProduto?.text = ("\(produtoCarrinho[indexPath.row].precoUnitario).00 AKZ x \(produtoCarrinho[indexPath.row].quantidade)")
-               cell.quantidadeProduto?.text = ("\(produtoCarrinho[indexPath.row].quantidade)")
+               cell.nomeProduto?.text = ("\(arrayProdutos[indexPath.section][indexPath.row].nomeItem)")
+               cell.descricaoProduto?.text = ("\(arrayProdutos[indexPath.section][indexPath.row].estabelecimento)")
+        
+               cell.precoProduto?.text = ("\(arrayProdutos[indexPath.section][indexPath.row].precoUnitario).00 AKZ x \(arrayProdutos[indexPath.section][indexPath.row].quantidade)")
+        
+               cell.quantidadeProduto?.text = ("\(arrayProdutos[indexPath.section][indexPath.row].quantidade)")
                
-               if produtoCarrinho[indexPath.row].imagemProduto == ""
+               if arrayProdutos[indexPath.section][indexPath.row].imagemProduto == ""
                {
                    cell.imgProduto.image = UIImage(named:"fota.jpg")
                } else {
                 cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-                   cell.imgProduto.sd_setImage(with: URL(string: produtoCarrinho[indexPath.row].imagemProduto ), placeholderImage: UIImage(named: "placeholder.phg"))
+                   cell.imgProduto.sd_setImage(with: URL(string: arrayProdutos[indexPath.section][indexPath.row].imagemProduto ), placeholderImage: UIImage(named: "placeholder.phg"))
                }
                
                //cell.qtdProdutoLabel?.text = ("\(produtoCarrinho[indexPath.row].quantidade)")
@@ -267,38 +443,12 @@ extension CarrinhoViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableView.automaticDimension
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        
-         if editingStyle == .delete {
-
-                    if let item = produtoCarrinho?[indexPath.row] {
-                        do {
-                            try realm.write {
-                                realm.delete(item)
-        //                        totalValorPagar.text = "00.0AKZ"
-        //                        labeTotalItens.text = " 0 Itens"
-                            }
-                        } catch{
-                            print("Erro ao Eliminar o produto, \(error)")
-                        }
-                    }
-                    //produtoCarrinho[indexP
-                   
-                    atualizarTotalCarrinho()
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
-                    //tableView.reloadData()
-        
-        
-        }
-       
-    }
-    
 }
 
 
 extension CarrinhoViewController: AtualizarListaCarrinhoDelegate {
     func didListarProduto() {
+         preencherTodosArray()
         tblView.reloadData()
     }
     
@@ -307,6 +457,7 @@ extension CarrinhoViewController: AtualizarListaCarrinhoDelegate {
         }
     
     func didAtualizarTotalCarrinho() {
+        preencherTodosArray()
          atualizarTotalCarrinho()
     }
     
@@ -314,11 +465,13 @@ extension CarrinhoViewController: AtualizarListaCarrinhoDelegate {
  
 extension CarrinhoViewController: atualizarCarrinhoDelegate {
     func didAtualizarCarrinho() {
-        atualizarTotalCarrinho()
+         preencherTodosArray()
         tblView.reloadData()
     }
     func didverificarCarrinho() {
+         preencherTodosArray()
         verificarCarrinho()
+         //preencherTodosArray()
     }
     
     
@@ -327,6 +480,7 @@ extension CarrinhoViewController: atualizarCarrinhoDelegate {
 extension CarrinhoViewController: atualizarTokenDelegate2 {
     
     func didAtualizarCarrinho2() {
+         preencherTodosArray()
         atualizarTotalCarrinho()
         tblView.reloadData()
         print("atualizado com sucesso!")

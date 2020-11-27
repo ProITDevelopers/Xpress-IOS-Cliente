@@ -18,6 +18,7 @@ class SucessoReferenciaViewController: UIViewController {
     @IBOutlet weak var referenciaLabel: UILabel!
     @IBOutlet weak var entidadeLabel: UILabel!
     @IBOutlet weak var valorLabel: UILabel!
+    var resposta1 = [[respostaReferencia]]()
     var resposta = [respostaReferencia]()
     var tipoPag = 0
     override func viewDidLoad() {

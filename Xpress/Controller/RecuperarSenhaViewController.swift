@@ -55,7 +55,7 @@ class RecuperarSenhaViewController: UIViewController {
             // let parametros = ["id": contacto] as [String : Any]
                           mostrarProgresso()
                            
-                           let URL = "https://apixpress.lengueno.com/SolicitarCodigoRecuperacao/\(contacto)"
+                           let URL = "\(linkPrincipal.urlLink)/SolicitarCodigoRecuperacao/\(contacto)"
                            telefone = contacto
                            
                            Alamofire.request(URL, method: .put, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in

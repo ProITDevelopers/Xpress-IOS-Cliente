@@ -33,7 +33,7 @@ class ListarProdutosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+         print(Realm.Configuration.defaultConfiguration.fileURL)
         tblView.register(UINib.init(nibName: "ProdutoTableViewCell", bundle: nil), forCellReuseIdentifier: "CellProdudo")
         
         tblView.register(UINib.init(nibName: "DetalheShowProdutoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellEstab")
@@ -141,7 +141,7 @@ class ListarProdutosViewController: UIViewController {
 
     func obterProdutos(idEstabelecimentoF: Int ) {
            
-           let URL = "https://apixpress.lengueno.com/ListarProdutosEstab/\(idEstabelecimentoF)"
+           let URL = "\(linkPrincipal.urlLink)/ListarProdutosEstab/\(idEstabelecimentoF)"
            
            let token = UserDefaults.standard.string(forKey: "token")
            let headrs: HTTPHeaders = ["Accept": "application/json", "Content-Type" : "application/json"]
@@ -244,13 +244,15 @@ extension ListarProdutosViewController: UITableViewDataSource, UITableViewDelega
                    
                    // enviar na class de celula
                    cell.idProduto = produtos[indexPath.row - 1].idProduto
-                   cell.idEstabelecimento = estabelecimento.estabelecimentoID
+                   cell.idEstabelecimento = produtos[indexPath.row - 1].idEstabelecimento
                    cell.nomeEstabelecimento = produtos[indexPath.row - 1].estabelecimento!
                    cell.produtoNome = produtos[indexPath.row - 1].descricaoProdutoC!
                    cell.precoUnidade = produtos[indexPath.row - 1].precoUnid!
                    cell.urlImagemProduto = produtos[indexPath.row - 1].imagemProduto!
                    cell.emStock1 = (produtos[indexPath.row - 1].emStock!)
-                   
+             cell.longitude = produtos[indexPath.row - 1].longitude!
+             cell.latitude = produtos[indexPath.row - 1].latitude!
+             
                    let url = produtos[indexPath.row - 1].imagemProduto
                               if url != "Sem Imagem" && url != nil {
                                cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge

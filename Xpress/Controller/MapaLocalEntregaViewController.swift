@@ -22,8 +22,13 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
     var longitudeM: Double = 0.0
     var latitudeM : Double = 0.0
       
-      var longitude = ""
-      var latitude = ""
+     var estabelecimentoCarrinho1: Results<EstabCarrinho>!
+    var arrayCalcularTaxa = [CalculoTaxa]()
+    var arrayTaxaCalculada = [TaxaCalculada]()
+     var realm = try! Realm()
+    
+    var longitude: Double = 1.0
+    var latitude: Double = 1.0
       var telemovel = ""
       var referencia = ""
     var tipoPagamento = ""
@@ -33,6 +38,7 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
     var verifica = true
     
     @IBOutlet weak var mapa: MKMapView!
+    @IBOutlet weak var btnMinhaLocalizacao: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,17 +55,10 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
         mapa.delegate = self
         mapa.showsUserLocation = true
         mapa.userTrackingMode = .follow
-               
+
                enableLocationServices()
                handleRequesteLocation()
-               
-              let looCoord = CLLocationCoordinate2D(latitude: 25.123, longitude: 55.123)
-               let annotation = MKPointAnnotation()
-               annotation.coordinate = looCoord
-               annotation.title = "My Location"
-               annotation.subtitle = "Location of store"
-               mapa.addAnnotation(annotation)
-       
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,25 +90,20 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
     @IBAction func piAdd(_ sender: Any) {
         
         let location = (sender as AnyObject).location(in: mapa)
-                      
-                      let looCoord = mapa.convert(location, toCoordinateFrom: mapa)
-                      
-                      let annotation = MKPointAnnotation()
-                      annotation.coordinate = looCoord
-                      annotation.title = "Localização entrega"
-                      annotation.subtitle = "Location of store"
-                      //localizacaoEntrega.addAnnotation(annotation)
-                      latitude = ("\(looCoord.latitude)")
-                      longitude = ("\(looCoord.longitude)")
+        let looCoord = mapa.convert(location, toCoordinateFrom: mapa)
+        latitude = looCoord.latitude
+        longitude = looCoord.longitude
+        let looCoord1 = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        mapa.removeAnnotations(mapa.annotations)
+        setPinUsandoMKAnnotation(location: looCoord1)
+        print("Lat: \(latitude), Long: \(longitude)")
+        print(vv)
+        print(telemovel)
+        desdobrarEstabelecimento()
+        //print(referencia)
+        //showToast(controller: self, message: "localizacao selecionada click em seguinte.", seconds: 2)
+        mostrarEndereco(latitude: Double("\(latitude)")!, withLongitude: Double("\(longitude)")!)
        
-                      print("Lat: \(latitude), Long: \(longitude)")
-                      mapa.removeAnnotations(mapa.annotations)
-                      mapa.addAnnotation(annotation)
-                     print(vv)
-                      print(telemovel)
-                      //print(referencia)
-               //showToast(controller: self, message: "localizacao selecionada click em seguinte.", seconds: 2)
-                    mostrarEndereco(latitude: Double("\(latitude)")!, withLongitude: Double("\(longitude)")!)
     }
 
     /*
@@ -132,6 +126,35 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
         showPopUpFuncao1()
     }
     
+    
+    @IBAction func buttomMostrarLocalizacaoMapa(_ sender: UIButton) {
+        
+        print("ja click")
+        
+       
+        mapa.showsUserLocation = true
+        mapa.userTrackingMode = .follow
+        enableLocationServices()
+        handleRequesteLocation()
+         let looCoord = CLLocationCoordinate2D(latitude: 25.123, longitude: 55.123)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = looCoord
+        annotation.title = "Você está aqui"
+        annotation.subtitle = "\(referencia)"
+        mapa.removeAnnotations(mapa.annotations)
+        mapa.addAnnotation(annotation)
+        
+        
+//               mapa.delegate = self
+//               mapa.showsUserLocation = true
+//               mapa.userLocation.title = "Você está aqui"
+               //mapa.setUserTrackingMode(.follow, animated: true, completionHandler: nil)
+             //  mapa.tintColor = UIColor.init(named: "XPCorInicial")
+    }
+    
+    
+    
+    
     @IBAction func buttonMinhaLocalizacao(_ sender: UIButton) {
         print(verifica)
         if verifica == true {
@@ -139,9 +162,13 @@ class MapaLocalEntregaViewController: UIViewController, MKMapViewDelegate {
                 showToast(controller: self, message:  "Não foi possivel pegar a localização!", seconds: 3)
                 
             } else {
-                latitude = ("\(latitudeM)")
-                longitude = ("\(longitudeM)")
-                mostrarEndereco(latitude: Double("\(latitude)")!, withLongitude: Double("\(longitude)")!)
+                
+                latitude = latitudeM
+                longitude = longitudeM
+                
+                desdobrarEstabelecimento()
+                mapa.removeAnnotations(mapa.annotations)
+                mostrarEndereco(latitude: latitude, withLongitude: longitude)
                 print("lat: \(latitude)  log:\(longitude)")
                 print("endereco: \(referencia)")
                 
@@ -170,9 +197,8 @@ extension MapaLocalEntregaViewController: CLLocationManagerDelegate {
             print("Got Location \(location.coordinate.latitude) , \(location.coordinate.longitude)")
                     myPosition = location.coordinate
                     locationManager.stopUpdatingLocation()
-                  // print("Got Location \(locations.coordinate.latitude) , \(locations.coordinate.longitude)")
-            
-                    let span = MKCoordinateSpan(latitudeDelta: 0.008, longitudeDelta: 0.008)
+                  
+                    let span = MKCoordinateSpan(latitudeDelta: 0.0275, longitudeDelta: 0.0275)
                    let region = MKCoordinateRegion(center: myPosition, span: span)
                     mapa.setRegion(region, animated: true)
                     locationManager.stopUpdatingLocation()
@@ -223,6 +249,38 @@ extension MapaLocalEntregaViewController: CLLocationManagerDelegate {
         
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let Identificador = "pin"
+        let anotacaoView = mapView.dequeueReusableAnnotationView(withIdentifier: Identificador) ?? MKAnnotationView(annotation: annotation, reuseIdentifier: Identificador)
+        
+        anotacaoView.canShowCallout = true
+        
+         if annotation is MKUserLocation {
+           
+          // anotacaoView.image = UIImage(imageLiteralResourceName:"pin_green")
+          // return anotacaoView
+            return nil
+
+           } else if annotation is MapPin {
+               // handle other annotations
+            anotacaoView.image = UIImage(imageLiteralResourceName:"icons8-place-marker-50")
+            return anotacaoView
+
+         }
+             return nil
+     
+    }
+    
+    func setPinUsandoMKAnnotation(location: CLLocationCoordinate2D) {
+        
+       // mostrarEndereco(latitude: location.latitude, withLongitude: location.longitude)
+        let pin1 = MapPin(title: referencia, locationName: referencia, coordinate: location)
+        let coordinateRegion = MKCoordinateRegion(center: pin1.coordinate, latitudinalMeters: 800, longitudinalMeters: 800)
+        
+       // mapa.setRegion(coordinateRegion, animated: true)
+        mapa.addAnnotations([pin1])
+    }
     
 }
 
@@ -294,8 +352,8 @@ extension MapaLocalEntregaViewController {
         
            popOverVC.delegate5 = self
            popOverVC.endereco = referencia
-           popOverVC.longitude = longitude
-           popOverVC.latitude = latitude
+        popOverVC.longitude = longitude
+        popOverVC.latitude = latitude
        
         if produtoCompra.idProduto != nil {
                 popOverVC.produtoComprar = produtoCompra
@@ -394,3 +452,259 @@ extension MapaLocalEntregaViewController: atualizarVerificarDelegate {
     
 }
 
+extension MapaLocalEntregaViewController {
+    
+    func desdobrarEstabelecimento() {
+            estabelecimentoCarrinho1 = realm.objects(EstabCarrinho.self)
+           var calcularTaxa = CalculoTaxa()
+           var arrayCalcularTaxa2 = [CalculoTaxa]()
+        
+           for item in estabelecimentoCarrinho1 {
+            
+            calcularTaxa.idEstabelecimento = "\(item.ideStabelecimento)"
+            
+            calcularTaxa.latitudeDestino = latitude
+            calcularTaxa.longitudeDestino = longitude
+            
+            calcularTaxa.latitudeOrigem = item.latitude
+            calcularTaxa.longitudeOrigem = item.longitude
+         
+            
+          
+            
+               arrayCalcularTaxa2.append(calcularTaxa)
+           }
+           print(arrayCalcularTaxa2)
+           //arrayCalcularTaxa = arrayCalcularTaxa2
+        CalcularTaxa(arrayList: arrayCalcularTaxa2)
+       }
+       
+       
+    func CalcularTaxa(arrayList:[CalculoTaxa]) {
+
+           
+           
+           var itensTaxa: [String:Any] = [:]
+           var arrayItem = [[String:Any]]()
+        
+           for i in 0..<arrayList.count {
+              
+               itensTaxa.updateValue(arrayList[i].idEstabelecimento!, forKey: "idEstabelecimento")
+            
+             itensTaxa.updateValue(arrayList[i].latitudeDestino!, forKey: "latitudeDestino")
+            
+          
+               itensTaxa.updateValue(arrayList[i].latitudeOrigem!, forKey: "latitudeOrigem")
+            
+            itensTaxa.updateValue(arrayList[i].longitudeDestino!, forKey: "longitudeDestino")
+            
+               itensTaxa.updateValue(arrayList[i].longitudeOrigem!, forKey: "longitudeOrgin")
+            
+              
+               
+               print(itensTaxa)
+               arrayItem.append(itensTaxa)
+               
+           }
+           
+        let url = "\(linkPrincipal.urlLinkTaxa)"
+
+                  var request = URLRequest(url: URL.init(string: url)!)
+                  request.httpMethod = "POST"
+                  
+
+                  
+                 
+                  // let headrs: HTTPHeaders = ["Key": "PIq12oaO9opUyE482pgrY"]
+                  
+                  request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                  request.setValue("PIq12oaO9opUyE482pgrY", forHTTPHeaderField: "Key")
+                  request.setValue("application/json", forHTTPHeaderField: "Accept")
+                 
+                  let dataToSync = arrayItem
+                  
+                  request.httpBody = try! JSONSerialization.data(withJSONObject: dataToSync)
+
+                  Alamofire.request(request).responseJSON{ (response) in
+
+                      print("Success: \(response)")
+                      switch response.result{
+                      case .success:
+                          let statusCode: Int = (response.response?.statusCode)!
+                          switch statusCode{
+                          case 200:
+                              //completionHandler(true)
+                              do {
+                                  let jsonDecoder = JSONDecoder()
+                                  print(response.response?.statusCode ?? "")
+                                  self.arrayTaxaCalculada = try jsonDecoder.decode([TaxaCalculada].self, from: response.data!)
+                                 // print(self.arrayTaxaCalculada)
+                               self.adicionarTaxaEntrega(listaTaxa:self.arrayTaxaCalculada)
+                               self.adicionarTaxaEntregaEstab(listaTaxa: self.arrayTaxaCalculada)
+                                
+                                print(" dicionario enviado:\(itensTaxa)")
+                               
+                              } catch {
+                                  print(response.response?.statusCode ?? "")
+                                  print("erro inesperado: \(error)")
+                                  
+                              }
+                              break
+                          default:
+                             // completionHandler(false)
+                              break
+                          }
+                          break
+                      case .failure:
+                         // completionHandler(false)
+                          print("erro 1")
+                          break
+                      }
+                  }
+           
+       }
+    
+    
+//    func adicionarPontoDestino() {
+//        let estabCarrinhoAtualizado = realm.objects(EstabCarrinho.self)
+//        let long = longitude
+//        let lat = latitude
+//
+//                  for estabTaxa in estabCarrinhoAtualizado {
+//
+//                    do {
+//
+//                        try realm.write {
+//                              //realm.add(item)
+//                              estabTaxa.longitudeD = long
+//                              estabTaxa.latitudeD = lat
+//                              print("taxa adicionada ")
+//
+//                              }
+//
+//
+//                        } catch let error {
+//                            print(error)
+//                        }
+//
+//
+//                  }
+//    }
+//
+//
+    
+    func adicionarTaxaEntrega(listaTaxa: [TaxaCalculada]) {
+           
+           let produtoCarrinhoAtualizado = realm.objects(ItemsCarrinho.self)
+           
+           for estabTaxa in listaTaxa {
+               
+               for item in produtoCarrinhoAtualizado {
+                   
+                   let idEsta = Int(estabTaxa.idEstabelecimento!)
+                   
+                   if item.ideStabelecimento == idEsta {
+                      
+                      
+                       do {
+                              
+                              let realm = try Realm()
+                              let itens = realm.objects(ItemsCarrinho.self).filter("itemId == %@", item.itemId)
+                              
+                              if itens.isEmpty == false {
+                                  print(itens)
+                              
+                               try realm.write {
+                                       //realm.add(item)
+                                       
+                                   itens[0].taxaEntrega1 = Double(estabTaxa.valorTaxa!)!
+                                       print("taxa adicionada ")
+                                   }
+                               
+                              }
+                          } catch let error {
+                              print(error)
+                          }
+                   }
+               }
+           }
+       }
+       
+//       func quantidadePagarPorEstab() {
+//           var valor : Double = 0.0
+//           var posicao = 0
+//
+//           let estabCarrinhoAtualizado = realm.objects(EstabCarrinho.self)
+//           for estabTaxa in estabCarrinhoAtualizado {
+//
+//               let itens = realm.objects(ItemsCarrinho.self).filter("ideStabelecimento == %@", estabTaxa.ideStabelecimento)
+//
+//               for item in itens {
+//                   valor = valor + Double(item.precoUnitario)
+//
+//               }
+//
+//               do {
+//
+//                     let realm = try Realm()
+//                   let itens1 = realm.objects(EstabCarrinho.self)
+//
+//                     if itens.isEmpty == false {
+//                         print(itens)
+//
+//                      try realm.write {
+//                       //realm.add(item)
+//                       itens1[posicao].valorItens = valor
+//                       print("taxa adicionada ")
+//
+//                       }
+//                       valor = 0
+//                       posicao += 1
+//                   }
+//                 } catch let error {
+//                     print(error)
+//                 }
+//
+//
+//           }
+//
+//       }
+       
+       
+       func adicionarTaxaEntregaEstab(listaTaxa: [TaxaCalculada]) {
+              
+              let estabCarrinhoAtualizado = realm.objects(EstabCarrinho.self)
+              
+              for estabTaxa in listaTaxa {
+                  
+                  for item in estabCarrinhoAtualizado {
+                      
+                      let idEsta = Int(estabTaxa.idEstabelecimento!)
+                      
+                      if item.ideStabelecimento == idEsta {
+                         
+                         
+                          do {
+                                 
+                                 let realm = try Realm()
+                           let itens = realm.objects(EstabCarrinho.self).filter("ideStabelecimento == %@", item.ideStabelecimento)
+                                 
+                                 if itens.isEmpty == false {
+                                     print(itens)
+                                 
+                                  try realm.write {
+                                          //realm.add(item)
+                                          
+                                      itens[0].taxaEntrega = Double(estabTaxa.valorTaxa!)!
+                                          print("taxa adicionada ")
+                                      }
+                                  
+                                 }
+                             } catch let error {
+                                 print(error)
+                             }
+                      }
+                  }
+              }
+          }
+}

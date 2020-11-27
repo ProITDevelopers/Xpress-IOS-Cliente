@@ -169,6 +169,47 @@ extension ProdutoShowViewController {
                     }
             
          }
+    
+    func eliminarEstabelecimento()  {
+                 
+             let item = EstabCarrinho()
+              item.ideStabelecimento = estabelecimentoId
+             item.nomeEstab = nomeEstabelecimento
+             item.latitude = 0.0
+             item.longitude = 0.0
+             do {
+                 let realm = try Realm()
+                 let itens = realm.objects(ItemsCarrinho.self).filter("ideStabelecimento == %@", item.ideStabelecimento)
+                 let estabelecimento = realm.objects(EstabCarrinho.self).filter("ideStabelecimento == %@", item.ideStabelecimento)
+
+                 if itens.isEmpty == true {
+                     print(itens)
+                    
+                         
+                         do {
+                             
+                             try realm.write {
+                             realm.delete(estabelecimento[0])
+                             print("estabelecimento removido")
+                             }
+                             
+                         } catch {
+                             print("Erro ao Eliminar o produto do carrinho, \(error)")
+                             
+                         }
+                         
+                   
+                     
+                 }
+                 //print(Realm.Configuration.defaultConfiguration.fileURL)
+                 //showToast(message: "adicionado", seconds: 1)
+                 
+             } catch let error {
+                 print(error)
+                 
+             }
+             
+         }
 }
 
 
@@ -241,6 +282,8 @@ extension ProdutoShowViewController: UITableViewDelegate, UITableViewDataSource 
                     cell.urlImagemProduto = produto.imagemProduto!
                     cell.emStock1 = produto.emStock!
                     cell.observacoes = "Obrigado"
+                    cell.longitude = 0.0
+                    cell.latitude = 0.0
                     
                 return cell
                }

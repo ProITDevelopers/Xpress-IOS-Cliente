@@ -23,9 +23,9 @@ class FacturaActual1: Codable {
     var dataPedido: String = ""
     var itens = [Iten]()
     var total: Double = 0.0
-    var taxaboy: Int = 0
+    var taxaboy: Double = 0.0
    
-    init(open: Bool, identificacaoPagamento: String, entidade: String, idFactura: Int, metododPagamento: String, horaEntregueMotoboy: String, horaRecebidoCliente: String, estado: String, estadoPagamento: String, clienteID: Int, dataPagamento: String, dataPedido: String, itens: [Iten], total: Double, taxaboy: Int) {
+    init(open: Bool, identificacaoPagamento: String, entidade: String, idFactura: Int, metododPagamento: String, horaEntregueMotoboy: String, horaRecebidoCliente: String, estado: String, estadoPagamento: String, clienteID: Int, dataPagamento: String, dataPedido: String, itens: [Iten], total: Double, taxaboy: Double) {
         self.open = open
         self.idFactura = idFactura
         self.metododPagamento = metododPagamento

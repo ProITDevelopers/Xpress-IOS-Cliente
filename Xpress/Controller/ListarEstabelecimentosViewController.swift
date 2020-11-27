@@ -45,7 +45,7 @@ class ListarEstabelecimentosViewController: UIViewController, HubConnectionDeleg
     var label = UILabel()
      var perfil = [Perfil]()
     //Dados para a notificacao
-    private let serverUrl = "https://apixpress.lengueno.com/eventhub"
+    private let serverUrl = "\(linkPrincipal.urlLink)/eventhub"
      let token = UserDefaults.standard.string(forKey: "token")
     
     
@@ -127,7 +127,7 @@ class ListarEstabelecimentosViewController: UIViewController, HubConnectionDeleg
 
     func obterEstabelecimentos() {
                 
-              let URL = "https://apixpress.lengueno.com/ListagemEstabelecimentoA"
+        let URL = "\(linkPrincipal.urlLink)/ListagemEstabelecimentoA"
            
                 mostrarProgresso()
           
@@ -221,7 +221,9 @@ extension ListarEstabelecimentosViewController: UITableViewDelegate, UITableView
                            
                            cell.estadoLabel.text =  estabelecimentos[indexPath.row].estadoEstabelecimento
                        } else {
-                           cell.estadoLabel.text = estabelecimentos[indexPath.row].estadoEstabelecimento
+                           cell.estadoLabel.text = "Fechado"
+                cell.estadoLabel.textColor = UIColor(red: 255.0/255.0, green: 38.0/255.0, blue: 0.0/255.0, alpha: 1.0)
+                //estabelecimentos[indexPath.row].estadoEstabelecimento
                        }
             
             
@@ -369,7 +371,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
 extension ListarEstabelecimentosViewController {
   func obterPerfil() {
          
-           let URL = "https://apixpress.lengueno.com/PerfilCliente"
+           let URL = "\(linkPrincipal.urlLink)/PerfilCliente"
          
           let token = UserDefaults.standard.string(forKey: "token")
         

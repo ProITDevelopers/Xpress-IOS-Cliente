@@ -4,7 +4,7 @@
 //
 //  Created by rpandrade2005 on 9/18/20.
 //  Copyright © 2020 Proit-Consulting. All rights reserved.
-//https://apixpress.lengueno.com
+//https://teste.lengueno.com
 
 import UIKit
 import Alamofire
@@ -106,7 +106,7 @@ class ViewController: UIViewController {
          // fazerLogin(usuario: usuario, senha: password)
          
         
-          let URL = "https://apixpress.lengueno.com/authenticate2"
+          let URL = "\(linkPrincipal.urlLink)/authenticate2"
           
           Alamofire.request(URL, method: .post, parameters: parametros, encoding: JSONEncoding.default, headers: ["Content-Type" :"application/json"]).responseString { response in
                     

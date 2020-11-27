@@ -37,7 +37,7 @@ class CustumizarImgProduto: UIView {
         clipsToBounds = true
          layer.masksToBounds = false
         layer.shadowRadius = 10
-        layer.shadowOpacity = 0.8
+        layer.shadowOpacity = 0.10
         layer.shadowOffset = CGSize(width: CGFloat(3), height: CGFloat(3))
          layer.shadowOffset = CGSize(width: CGFloat(3), height: CGFloat(3))
          if #available(iOS 13.0, *) {

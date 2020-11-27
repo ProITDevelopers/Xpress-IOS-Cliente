@@ -18,8 +18,8 @@ class ItemsCarrinho: Object {
    @objc dynamic var nomeItem: String = ""
    @objc dynamic var estabelecimento: String = ""
    @objc dynamic var precoUnitario: Int = 0
-    @objc dynamic var imagemProduto: String = ""
-    @objc dynamic var emStock: Int = 0
-    @objc dynamic var obseracoes: String = ""
-    
+   @objc dynamic var imagemProduto: String = ""
+   @objc dynamic var emStock: Int = 0
+   @objc dynamic var obseracoes: String = ""
+    @objc dynamic var taxaEntrega1: Double = 0.0
 }

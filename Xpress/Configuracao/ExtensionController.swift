@@ -348,7 +348,8 @@ extension UIViewController {
        
            if  formattedDate > dataConvertida  {
             //showPopUpSessao()
-            showToast1(controller: self, message: "a sua sessão expirou!", seconds: 2)
+            //showToast1(controller: self, message: "a sua sessão expirou!", seconds: 2)
+            print("a sua sessão expirou!")
             UserDefaults.standard.setValue("", forKey: "token")
             print("terminou a sessao")
             }
@@ -357,3 +358,10 @@ extension UIViewController {
     
 }
     
+
+extension Sequence where Iterator.Element: Hashable {
+    func unique() -> [Iterator.Element] {
+        var seen: Set<Iterator.Element> = []
+        return filter { seen.insert($0).inserted }
+    }
+}

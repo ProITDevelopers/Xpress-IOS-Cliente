@@ -68,7 +68,7 @@ class EncomendasViewController: UIViewController {
                  } else {
                      btnLogin.isHidden = true
                     tblView.separatorStyle = .singleLine
-                    obterFacturas( URL: "https://apixpress.lengueno.com/FacturasActualCliente")
+                    obterFacturas( URL: "\(linkPrincipal.urlLink)/FacturasActualCliente")
 
 
                  }
@@ -111,13 +111,13 @@ class EncomendasViewController: UIViewController {
 //
 //               switch getIndex {
 //               case 0:
-//                   obterFacturas(URL: "https://apixpress.lengueno.com/FacturasActualCliente")
+//                   obterFacturas(URL: "\(linkPrincipal.urlLink)/FacturasActualCliente")
 //               case 1:
-//                   obterFacturas(URL: "https://apixpress.lengueno.com/api/listagemFactura/v1/cliente/FacturaAcaminho")
+//                   obterFacturas(URL: "\(linkPrincipal.urlLink)/api/listagemFactura/v1/cliente/FacturaAcaminho")
 //               case 2:
-//                   obterFacturas(URL: "https://apixpress.lengueno.com/api/listagemFactura/v1/cliente/FacturaEntregue")
+//                   obterFacturas(URL: "\(linkPrincipal.urlLink)/api/listagemFactura/v1/cliente/FacturaEntregue")
 //                case 3:
-//                obterFacturas(URL: "https://apixpress.lengueno.com/HistoricoFacturasCliente")
+//                obterFacturas(URL: "\(linkPrincipal.urlLink)/HistoricoFacturasCliente")
 //               default:
 //                   print("Erro nenhuma selecionada!")
 //               }
@@ -125,7 +125,7 @@ class EncomendasViewController: UIViewController {
     
     func obterFacturas( URL: String) {
            
-           //let URL = "http://3.18.194.189/FacturasActualCliente"
+           //let URL = "\(linkPrincipal.urlLink)/FacturasActualCliente"
            
          
            
@@ -144,11 +144,7 @@ class EncomendasViewController: UIViewController {
                        let jsonDecoder = JSONDecoder()
                        self.pedidos = try jsonDecoder.decode([FacturaActual].self, from: response.data!)
                     self.terminarProgresso()
-                    
-                    
-                    
-                    
-                     if response.response?.statusCode == 200 {
+                    if response.response?.statusCode == 200 {
                       
                          print("veja a lista")
                         // print("\(self.pedidos[0].clienteID ?? "" )")
@@ -172,6 +168,7 @@ class EncomendasViewController: UIViewController {
                              pedido.dataPedido = item.dataPedido
                              pedido.itens = item.itens
                              pedido.total = item.total
+                            pedido.taxaboy = item.taxaboy
                              self.pedidos1.append(pedido)
                          }
                          }

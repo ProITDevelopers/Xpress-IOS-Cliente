@@ -40,6 +40,9 @@ class ProdutoTableViewCell: UITableViewCell {
     var urlImagemProduto = ""
     var emStock1: Int = 0
     var observacoes: String = "Obrigado"
+    var longitude = ""
+    var latitude = ""
+    
     var produtoCarrinho: Results<ItemsCarrinho>!
     
     var NoCarrinhoquantidade: Int?
@@ -66,9 +69,11 @@ class ProdutoTableViewCell: UITableViewCell {
     @IBAction func ButtonAddCarrinho(_ sender: UIButton) {
         print("Carrinho")
         adicionarCarrinho()
+        guardarEstabelecimento()
         carrinhoAddProduto.isHidden = true
         stackViewButton.isHidden = false
           delegate?.didListarProduto()
+          
     }
     
     @IBAction func ButtonMaisProduto(_ sender: UIButton) {
@@ -147,16 +152,21 @@ extension ProdutoTableViewCell {
                                }
                            }
                        }
-                   
+                 
                        qtdProduto.text =   "\(item.quantidade)"
                    }
-//                   print(Realm.Configuration.defaultConfiguration.fileURL)
+                   print(Realm.Configuration.defaultConfiguration.fileURL)
                // showToast( message: "adicionado", seconds: 3)
                } catch let error {
                    print(error)
                }
       
     }
+    
+    
+    
+    
+    
     
     func SubtrairProdutoCarrinho()  {
         
@@ -193,7 +203,7 @@ extension ProdutoTableViewCell {
                                    carrinhoAddProduto.isHidden = false
                                    stackViewButton.isHidden = true
                                    qtdProduto.text =   "\(itemresto)"
-                                    
+                                    eliminarEstabelecimento()
                                 
                                    } catch{
                                        
@@ -254,4 +264,75 @@ extension ProdutoTableViewCell {
            
                   return retorno
                }
+    
+    
+    func guardarEstabelecimento() {
+            
+        let item = EstabCarrinho()
+        item.ideStabelecimento = idEstabelecimento!
+        item.nomeEstab = nomeEstabelecimento
+        item.latitude = Double(latitude)!
+        item.longitude = Double(longitude)!
+        do {
+            let realm = try Realm()
+            let itens = realm.objects(EstabCarrinho.self).filter("ideStabelecimento == %@", item.ideStabelecimento)
+            if itens.isEmpty == true {
+                print(itens)
+                try realm.write {
+                    realm.add(item)
+                    print("estabelecimento adicionada ")
+                    
+                }
+                
+            }
+            //print(Realm.Configuration.defaultConfiguration.fileURL)
+            // showToast( message: "adicionado", seconds: 3)
+            
+        } catch let error {
+            print(error)
+            
+        }
+        
+    }
+    
+      func eliminarEstabelecimento()  {
+            
+        let item = EstabCarrinho()
+        item.ideStabelecimento = idEstabelecimento!
+        item.nomeEstab = nomeEstabelecimento
+        item.latitude = Double(latitude)!
+        item.longitude = Double(longitude)!
+        do {
+            let realm = try Realm()
+            let itens = realm.objects(ItemsCarrinho.self).filter("ideStabelecimento == %@", item.ideStabelecimento)
+            let estabelecimento = realm.objects(EstabCarrinho.self).filter("ideStabelecimento == %@", item.ideStabelecimento)
+
+            if itens.isEmpty == true {
+                print(itens)
+               
+                    
+                    do {
+                        
+                        try realm.write {
+                        realm.delete(estabelecimento[0])
+                        print("estabelecimento removido")
+                        }
+                        
+                    } catch {
+                        print("Erro ao Eliminar o produto do carrinho, \(error)")
+                        
+                    }
+                    
+              
+                
+            }
+            print(Realm.Configuration.defaultConfiguration.fileURL)
+            //showToast(message: "adicionado", seconds: 1)
+            
+        } catch let error {
+            print(error)
+            
+        }
+        
+    }
 }

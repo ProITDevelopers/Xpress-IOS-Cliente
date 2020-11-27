@@ -275,7 +275,7 @@ extension EditarPerfilViewController {
         
        
         
-             let URL = "https://apixpress.lengueno.com/PerfilCliente"
+             let URL = "\(linkPrincipal.urlLink)/PerfilCliente"
            
             let token = UserDefaults.standard.string(forKey: "token")
         
@@ -409,7 +409,7 @@ extension EditarPerfilViewController {
                                          }
       
         
-     let URL = "https://apixpress.lengueno.com/UpdateDadosPessoaisCliente"
+     let URL = "\(linkPrincipal.urlLink)/UpdateDadosPessoaisCliente"
         
         var parametros = [String:String]()
        
@@ -480,7 +480,7 @@ extension EditarPerfilViewController {
            Alamofire.upload(multipartFormData: { (multipartFormData) in
                
                multipartFormData.append(imageData!, withName: "FotoCapa", fileName: "image.jpeg", mimeType: "image/jpeg")//FILEURL IN APPEND
-           }, usingThreshold: UInt64.init(), to: "https://apixpress.lengueno.com/AlterarFotoPerfilCliente", method: .post, headers: headrs) { (result) in switch result {
+           }, usingThreshold: UInt64.init(), to: "\(linkPrincipal.urlLink)/AlterarFotoPerfilCliente", method: .post, headers: headrs) { (result) in switch result {
                
            case .success(let upload, _, _):
                upload.responseData(completionHandler: { response in

@@ -38,6 +38,8 @@ class ShowDetalheProdutoTableViewCell: UITableViewCell {
       var emStock1: Int = 0
       var observacoes: String = "Obrigado"
       var produtoCarrinho: Results<ItemsCarrinho>!
+      var longitude = 0.0
+      var latitude = 0.0
       
       var NoCarrinhoquantidade: Int?
     
@@ -59,6 +61,7 @@ class ShowDetalheProdutoTableViewCell: UITableViewCell {
     
     @IBAction func buttonAdicionar(_ sender: UIButton) {
         adicionarCarrinho()
+       
             //delegate?.mostrarItensCarrinho()
     }
     
@@ -145,7 +148,7 @@ extension ShowDetalheProdutoTableViewCell {
                                }
                            }
                        }
-                   
+                    guardarEstabelecimento()
                     qtdLabel.text = "\(mostrarQtdIten(idItem: idProduto!))"
                    }
 //                   print(Realm.Configuration.defaultConfiguration.fileURL)
@@ -189,6 +192,7 @@ extension ShowDetalheProdutoTableViewCell {
                                            realm.delete(itens[0])
                                    
                                        }
+                                eliminarEstabelecimento()
                                 btnAdicionar2.backgroundColor = UIColor(red: 28.0/255.0, green: 136.0/255.0, blue: 101.0/255.0, alpha: 1.0)
                                 staButton.isHidden = true
                                    qtdLabel.text = "\(mostrarQtdIten(idItem: idProduto!))"
@@ -223,6 +227,76 @@ extension ShowDetalheProdutoTableViewCell {
              
            
     }
+    
+    func guardarEstabelecimento() {
+              
+          let item = EstabCarrinho()
+          item.ideStabelecimento = idEstabelecimento!
+          item.nomeEstab = nomeEstabelecimento
+          item.latitude = latitude
+          item.longitude = longitude
+          do {
+              let realm = try Realm()
+              let itens = realm.objects(EstabCarrinho.self).filter("ideStabelecimento == %@", item.ideStabelecimento)
+              if itens.isEmpty == true {
+                  print(itens)
+                  try realm.write {
+                      realm.add(item)
+                      print("estabelecimento adicionada ")
+                      
+                  }
+                  
+              }
+              //print(Realm.Configuration.defaultConfiguration.fileURL)
+              // showToast( message: "adicionado", seconds: 3)
+              
+          } catch let error {
+              print(error)
+              
+          }
+          
+      }
+      
+        func eliminarEstabelecimento()  {
+              
+          let item = EstabCarrinho()
+          item.ideStabelecimento = idEstabelecimento!
+          item.nomeEstab = nomeEstabelecimento
+          item.latitude = latitude
+          item.longitude = longitude
+          do {
+              let realm = try Realm()
+              let itens = realm.objects(ItemsCarrinho.self).filter("ideStabelecimento == %@", item.ideStabelecimento)
+              let estabelecimento = realm.objects(EstabCarrinho.self).filter("ideStabelecimento == %@", item.ideStabelecimento)
+
+              if itens.isEmpty == true {
+                  print(itens)
+                 
+                      
+                      do {
+                          
+                          try realm.write {
+                          realm.delete(estabelecimento[0])
+                          print("estabelecimento removido")
+                          }
+                          
+                      } catch {
+                          print("Erro ao Eliminar o produto do carrinho, \(error)")
+                          
+                      }
+                      
+                
+                  
+              }
+              //print(Realm.Configuration.defaultConfiguration.fileURL)
+              //showToast(message: "adicionado", seconds: 1)
+              
+          } catch let error {
+              print(error)
+              
+          }
+          
+      }
     
    
 }

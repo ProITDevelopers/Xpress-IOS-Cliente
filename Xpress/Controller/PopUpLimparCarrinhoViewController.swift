@@ -30,6 +30,12 @@ class PopUpLimparCarrinhoViewController: UIViewController {
     
     @IBAction func buttoLimpar(_ sender: UIButton) {
         limparCarrinho()
+//        let realm = try! Realm()
+//
+//        try! realm.write {
+//            realm.deleteAll()
+//        }
+        
         delegate1?.didAtualizarCarrinho()
         delegate1?.didverificarCarrinho()
         self.view.removeFromSuperview()

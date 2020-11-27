@@ -15,47 +15,60 @@ import SDWebImage
 
 class CheckoutViewController: UIViewController {
     
-    
-    var longitude = ""
-    var latitude = ""
+   
+    var longitude = 0.0
+    var latitude = 0.0
     var telemovel = ""
     var referencia = ""
     var tipoPagamento = ""
+     var resposta1 = [[respostaReferencia]]()
     var resposta = [respostaReferencia]()
     var produtoComprar = Produto()
     var tipoCompra = 0
     var estabelecimentoId = 0
+    var indici = 0
+    var realm = try! Realm()
     var produtoCarrinho: Results<ItemsCarrinho>!
+    var estabelecimentoCarrinho: Results<EstabCarrinho>!
     var intensCompra = [ItensComprar]()
-    let realm = try! Realm()
+    var arrayCalcularTaxa = [CalculoTaxa]()
+    var arrayTaxaCalculada = [TaxaCalculada]()
+   
    
     var itensParaComprar = [ItensComprar]()
     @IBOutlet weak var itensLabel: UILabel!
     @IBOutlet weak var totalPagarLabel: UILabel!
     @IBOutlet weak var tblView: UITableView!
     var itemConprar = ItemsCarrinho.self
+     var arrayEstabelecimento = [EstabCarrinho]()
+    var arrayEstabelecimento1 = [String]()
+    var arrayProdutos = [[ItemsCarrinho]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+         //desdobrarEstabelecimento()
+        //CalcularTaxa()
+      estabelecimentoCarrinho = realm.objects(EstabCarrinho.self)
+      
+      preencherTodosArray()
+     //  quantidadePagarPorEstab()
+        
         // Do any additional setup after loading the view.
         tblView.register(UINib.init(nibName: "ItensCheckTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCheck1")
-        
         tblView.register(UINib.init(nibName: "InfoPedidoTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCheck2")
-        
-      
-        
-        
+        tblView.register(UINib.init(nibName: "DetalheEstabTableViewCell", bundle: nil), forCellReuseIdentifier: "cellCheck3")
         //carregar o array de itens
         if produtoComprar.idProduto != nil {
             
         } else {
              getRealm()
         }
-       
+
          itensLabel?.text = "  \(quantidadeIten()) Items"
-        totalPagarLabel?.text = "Total: \(quantidadePagar())0 AKZ"
-       
+        totalPagarLabel?.text = "Total: \(quantidadePagar() + quantidadePagarTaxa() )0 AKZ"
+        //mostrarDetalhes()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +80,22 @@ class CheckoutViewController: UIViewController {
            showPopUpInternet()
         }
     }
+    
+    @IBAction func buttonInfo(_ sender: UIButton) {
+       
+    }
+    
+    func mostrarDetalhes() {
+         let popOverVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "infoDetalheId") as! DetalhePedidoViewController
+               self.addChild(popOverVC)
+               popOverVC.endereco = referencia
+               popOverVC.telefone = telemovel
+               popOverVC.tipoPagamento = tipoPagamento
+               popOverVC.view.frame = self.view.frame
+               self.view.addSubview(popOverVC.view)
+               popOverVC.didMove(toParent: self)
+    }
+    
     
     @IBAction func buttonEnviarPedido(_ sender: UIButton) {
         if VerificarInternet.Connection() {
@@ -106,6 +135,27 @@ class CheckoutViewController: UIViewController {
         }
           
        }
+    func quantidadePagarEstab(idEstab: Int) -> Double {
+        var valor : Double = 0.0
+           for item in  produtoCarrinho {
+                
+                if item.ideStabelecimento == idEstab {
+                 valor = valor + Double(item.quantidade * item.precoUnitario)
+                }
+             }
+             return valor
+        
+        }
+    
+    
+    func quantidadePagarTaxa() -> Double {
+        var valor : Double = 0.0
+     
+             for item in  estabelecimentoCarrinho {
+                valor = valor + item.taxaEntrega
+             }
+             return valor
+    }
        
        func quantidadeIten() -> Int {
            var valor : Int = 0
@@ -153,99 +203,102 @@ class CheckoutViewController: UIViewController {
 
 
 extension CheckoutViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return arrayEstabelecimento1.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+         if section < arrayEstabelecimento1.count {
+          
+            return arrayEstabelecimento1[section]
+            
+        }
+
+               return nil
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+           if let header = view as? UITableViewHeaderFooterView {
+               header.backgroundView?.backgroundColor = UIColor.white
+               header.textLabel?.textColor = UIColor(red: 28.0/255.0, green: 136.0/255.0, blue: 101.0/255.0, alpha: 1.0)
+           }
+       }
+    
   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tipoCompra == 1 {
-            return 2
+         
+        if section == 0 {
+            return 1
         } else {
-        return produtoCarrinho.count + 1
+            return arrayProdutos[section - 1].count + 1
         }
+    
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
-       
-        
-        
-        
-        
-        
-        print(indexPath.row)
-               switch indexPath.row {
-               
-               case 0:
-                   let cell = tableView.dequeueReusableCell(withIdentifier: "cellCheck2", for: indexPath) as! InfoPedidoTableViewCell
-                          
-                         
-                   cell.enderecoLabel?.text = referencia
-                   cell.telefoneLabel?.text = telemovel
-                   cell.tipoPagamento?.text = tipoPagamento
-                   return cell
-                   
-               default:
-                   let cell = tableView.dequeueReusableCell(withIdentifier: "cellCheck1", for: indexPath) as! ItensCheckTableViewCell
-                   
-                   
-                   
-                   if tipoCompra == 1 {
-                                  // enviar na class de celula
-                    cell.nomeProduto?.text = produtoComprar.descricaoProdutoC
-                    cell.estabelecimentoProduto?.text = produtoComprar.estabelecimento
-                    cell.precoProduto?.text = "\( produtoComprar.precoUnid!)x\( 1)"
-                    
-                                      
-                            if  produtoComprar.imagemProduto == nil {
-                                          
-                                cell.imgProduto.image = UIImage(named:"fota.jpg")
-                                          
-                            } else {
-                        
-                                cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-                                cell.imgProduto.sd_setImage(with: URL(string:  produtoComprar.imagemProduto!), placeholderImage: UIImage(named: "placeholder.phg"))
-                                }
-                    
-                     } else {
-                                 // enviar na class de celula
-                                 cell.nomeProduto?.text = produtoCarrinho[indexPath.row - 1].nomeItem
-                                 cell.estabelecimentoProduto?.text = produtoCarrinho[indexPath.row - 1].estabelecimento
-                                 cell.precoProduto?.text = "\( produtoCarrinho[indexPath.row - 1].precoUnitario)x\( produtoCarrinho[indexPath.row - 1].quantidade)"
-                                 
-                                 //cell.imgProducto =  produtoCarrinho[indexPath.row - 1].
-                                         
-                                  
-                                 if  produtoCarrinho[indexPath.row - 1].imagemProduto == "" {
-                                      
-                                             cell.imgProduto.image = UIImage(named:"fota.jpg")
-                                      
-                                  } else {
-                                      cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-                                      cell.imgProduto.sd_setImage(with: URL(string:  produtoCarrinho[indexPath.row - 1].imagemProduto), placeholderImage: UIImage(named: "placeholder.phg"))
-                                  }
-                                 }
-                   
-                   
-                   
-                return cell
-               }
-        
-        
-        
-        
-        
+            switch indexPath.section {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "cellCheck2", for: indexPath) as! InfoPedidoTableViewCell
+
+
+                              cell.enderecoLabel?.text = referencia
+                              cell.telefoneLabel?.text = telemovel
+                              cell.tipoPagamento?.text = tipoPagamento
+                              return cell
+            default :
+            
+            let indici = arrayProdutos[indexPath.section - 1].count + 1
+        if (indexPath.row + 1)  == indici {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellCheck3", for: indexPath) as! DetalheEstabTableViewCell
+
+            let estab = estabelecimentoCarrinho[indexPath.section - 1]
+
+            let valor = quantidadePagarEstab(idEstab: estab.ideStabelecimento)
+                        cell.valorTaxaLabel?.text = ("\(estab.taxaEntrega)0 AKZ")
+                        cell.valorItemLabel?.text = ("\(valor)0 AKZ")
+                        let total = String(estab.taxaEntrega + valor)
+                        cell.totalLabel?.text = "\(total)0 AKZ"
+                        return cell
+            
+        } else {
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cellCheck1", for: indexPath) as! ItensCheckTableViewCell
+            cell.nomeProduto?.text = ("\(arrayProdutos[indexPath.section - 1][indexPath.row].nomeItem)")
+            cell.estabelecimentoProduto?.text = ("\(arrayProdutos[indexPath.section - 1][indexPath.row].estabelecimento)")
+            cell.precoProduto?.text = ("\(arrayProdutos[indexPath.section - 1][indexPath.row].precoUnitario).00 AKZ x \(arrayProdutos[indexPath.section - 1][indexPath.row].quantidade)")
+            //cell.imgProducto =  produtoCarrinho[indexPath.row].
+            if  arrayProdutos[indexPath.section - 1][indexPath.row].imagemProduto == "" {
+                cell.imgProduto.image = UIImage(named:"fota.jpg")
+                
+            } else {
+                cell.imgProduto.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
+                cell.imgProduto.sd_setImage(with: URL(string:  arrayProdutos[indexPath.section - 1][indexPath.row].imagemProduto), placeholderImage: UIImage(named: "placeholder.phg"))
+                
+            }
+         
+            return cell
+            
+            }
+            
+       }
         
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.row == 0 {
+        if indexPath.section == 0 && indexPath.row == 0 {
              return 200
         } else {
-             return 150
+            
+        return UITableView.automaticDimension
+            
         }
-        
-        
-      }
+    }
     
     
     
@@ -257,83 +310,49 @@ extension CheckoutViewController  {
     
     
     func chamarEnviarPedido() {
-          
-              if tipoCompra == 1 {
+        do {
+            //            let realm = try Realm()
+            let produtoCarrinhoAtualizado = realm.objects(ItemsCarrinho.self)
+            if produtoCarrinhoAtualizado.isEmpty == true {
+                showToast(controller: self, message: "O carrinho está vazio!", seconds: 2)
                 
-                  do {
-                              
-                  //
-                    print("Já pode o local de entrega ")
-                    if tipoPagamento == "Referência"  {
-                        enviarItensPedidosReferencia()
-                                                    
-                    } else {
-                        enviarItensPedidosTPA()
-                                                   
+            } else {
+                if produtoCarrinhoAtualizado.count > 0 {
+                    for item in produtoCarrinhoAtualizado {
+                        //print(" IdPro: \(item.produtoId) - Qtd: \(item.quantidade) - Esta: \(item.ideStabelecimento)")
+                        var itemCompra = ItensComprar()
+                        itemCompra.produtoId = item.produtoId
+                        itemCompra.quantidade = item.quantidade
+                        itemCompra.ideStabelecimento = item.ideStabelecimento
+                        itemCompra.observacoes = item.obseracoes
+                        itemCompra.taxaEntrega = item.taxaEntrega1
+                        itensParaComprar.append(itemCompra)
+                        
                     }
                     
-                  } catch let error {
-                        print(error)
+                    for item in intensCompra {
+                        print(item)
+                        
+                    }
+                    if tipoPagamento == "Referência"  {
+                        enviarItensPedidosReferencia()
+                        
+                    }
+                    if tipoPagamento == "Multicaixa" {
+                        enviarItensPedidosTPA()
+                        
+                    }
                     
                 }
                 
-              } else {
-                
-                            do {
-                                    
-                        //            let realm = try Realm()
-                                  let produtoCarrinhoAtualizado = realm.objects(ItemsCarrinho.self)
-                                    
-                                    if produtoCarrinhoAtualizado.isEmpty == true {
-                                        
-                                      showToast(controller: self, message: "O carrinho está vazio!", seconds: 2)
-                                        
-                                    } else {
-                                        
-                                            if produtoCarrinhoAtualizado.count > 0 {
-                                                
-                                                for item in produtoCarrinhoAtualizado {
-                                                    //print(" IdPro: \(item.produtoId) - Qtd: \(item.quantidade) - Esta: \(item.ideStabelecimento)")
-                                                    var itemCompra = ItensComprar()
-                                                    itemCompra.produtoId = item.produtoId
-                                                    itemCompra.quantidade = item.quantidade
-                                                    itemCompra.ideStabelecimento = item.ideStabelecimento
-                                                  itemCompra.observacoes = item.obseracoes
-                                                    
-                                                    itensParaComprar.append(itemCompra)
-                                                    
-                                                }
-                                                
-                                                for item in intensCompra {
-                                                    print(item)
-                                                }
-                                               
-                                               if tipoPagamento == "Referência"  {
-                                                enviarItensPedidosReferencia()
-                                                
-                                               }
-                                               
-                                               if tipoPagamento == "Multicaixa" {
-                                                enviarItensPedidosTPA()
-                                                
-                                                }
-                                                
-                                        }
-                                        
-                                }
-                                
-                            } catch let error {
-                                    print(error)
-                                
-                }
-                
+            }
+            
+        } catch let error {
+            print(error)
+            
         }
         
     }
-    
-    
-    
-    
     
     
     
@@ -344,42 +363,28 @@ extension CheckoutViewController  {
   
             
                var itensFactura: [String:Any] = [:]
-               var arrayItem = [[String:Any]]()
-              // mudar array para dicionario ideStabelecimento
-               
-               
-               
-               
-                if tipoCompra == 1 {
-
-                    itensFactura.updateValue(produtoComprar.idProduto!, forKey: "produtoId")
-                    itensFactura.updateValue(produtoComprar.emStock!, forKey: "quantidade")
-                    itensFactura.updateValue("Obrigado", forKey: "observacoes")
-                    itensFactura.updateValue(estabelecimentoId, forKey: "ideStabelecimento")
-                    arrayItem.append(itensFactura)
-                   
-                    } else  {
-                    
-                    
-                    for i in 0..<itensParaComprar.count {
-                        
-                        itensFactura.updateValue(itensParaComprar[i].produtoId!, forKey: "produtoId")
-                        itensFactura.updateValue(itensParaComprar[i].quantidade!, forKey: "quantidade")
-                        itensFactura.updateValue(itensParaComprar[i].ideStabelecimento!, forKey: "ideStabelecimento")
-                        itensFactura.updateValue(itensParaComprar[i].observacoes!, forKey: "observacoes")
-                                  arrayItem.append(itensFactura)
+                             var arrayItem = [[String:Any]]()
+                            // mudar array para dicionario ideStabelecimento
+                          
+                              
+                                  for i in 0..<itensParaComprar.count {
+                                                    
+                                      itensFactura.updateValue(itensParaComprar[i].produtoId!, forKey: "produtoId")
+                                      itensFactura.updateValue(itensParaComprar[i].quantidade!, forKey: "quantidade")
+                                      itensFactura.updateValue(itensParaComprar[i].ideStabelecimento!, forKey: "ideStabelecimento")
+                                      itensFactura.updateValue(itensParaComprar[i].observacoes!, forKey: "observacoes")
+                                       itensFactura.updateValue(itensParaComprar[i].taxaEntrega!, forKey: "taxaEntrega")
+                                      arrayItem.append(itensFactura)
+                                      
                               }
-                          }
+                          // fazerLogin(usuario: usuario, senha: password)
+                             let entrega = ["longitude" : String(longitude), "latitude" : String(latitude), "pontodeReferencia": referencia, "nTelefone": telemovel]
+                             
+                             
+                             
+                             let parametros = ["itensFacturaos": arrayItem, "localEncomenda": entrega] as [String : Any]
                
-              
-              
-               let entrega = ["longitude" : longitude, "latitude" : latitude, "pontodeReferencia": referencia, "nTelefone": telemovel]
-               
-               
-               
-               let parametros = ["localEncomenda": entrega, "itensFacturaos": arrayItem] as [String : Any]
-               
-                let URL = "https://apixpress.lengueno.com/FacturaReferencia"
+                let URL = "\(linkPrincipal.urlLink)/FacturaReferencia"
           
               
                mostrarProgresso()
@@ -406,8 +411,9 @@ extension CheckoutViewController  {
                                   
                                   do {
                                       let jsonDecoder = JSONDecoder()
-                                      self.resposta = try jsonDecoder.decode([respostaReferencia].self, from: response.data!)
+                                      self.resposta1 = try jsonDecoder.decode([[respostaReferencia]].self, from: response.data!)
                                       print(self.tipoPagamento)
+                                    self.resposta = self.resposta1[0]
                                     print(self.resposta[0])
                                    
                                     if self.tipoCompra == 0 {
@@ -419,7 +425,7 @@ extension CheckoutViewController  {
                                     
                                   } catch {
                                      self.terminarProgresso()
-                                   
+                                    print(response.response?.statusCode)
                                       print("erro inesperado: \(error)")
                                       self.showToast(controller: self, message: "Não foi possivel enviar o pedido!", seconds: 1)
                                   }
@@ -447,16 +453,7 @@ extension CheckoutViewController  {
                var itensFactura: [String:Any] = [:]
                var arrayItem = [[String:Any]]()
               // mudar array para dicionario ideStabelecimento
-               
-               if tipoCompra == 1 {
-                
-                    itensFactura.updateValue(produtoComprar.idProduto!, forKey: "produtoId")
-                    itensFactura.updateValue(1, forKey: "quantidade")
-                    itensFactura.updateValue("Obrigado", forKey: "observacoes")
-                    itensFactura.updateValue(estabelecimentoId, forKey: "ideStabelecimento")
-                    arrayItem.append(itensFactura)
-                                 
-                } else  {
+            
                 
                     for i in 0..<itensParaComprar.count {
                                       
@@ -464,20 +461,17 @@ extension CheckoutViewController  {
                         itensFactura.updateValue(itensParaComprar[i].quantidade!, forKey: "quantidade")
                         itensFactura.updateValue(itensParaComprar[i].ideStabelecimento!, forKey: "ideStabelecimento")
                         itensFactura.updateValue(itensParaComprar[i].observacoes!, forKey: "observacoes")
+                         itensFactura.updateValue(itensParaComprar[i].taxaEntrega!, forKey: "taxaEntrega")
                         arrayItem.append(itensFactura)
                         
                 }
-                
-            }
-   
-              
-               // fazerLogin(usuario: usuario, senha: password)
-               let entrega = ["longitude" : longitude, "latitude" : latitude, "pontodeReferencia": referencia, "nTelefone": telemovel]
+            // fazerLogin(usuario: usuario, senha: password)
+               let entrega = ["longitude" : String(longitude), "latitude" : String(latitude), "pontodeReferencia": referencia, "nTelefone": telemovel]
                
                
                
                let parametros = ["itensFacturaos": arrayItem, "localEncomenda": entrega] as [String : Any]
-               let URL = "https://apixpress.lengueno.com/FacturaTpa"
+               let URL = "\(linkPrincipal.urlLink)/FacturaTpa"
                
                let jsonData = try! JSONSerialization.data(withJSONObject: parametros, options: .prettyPrinted)
 
@@ -577,4 +571,97 @@ extension CheckoutViewController {
                         popOverVC.didMove(toParent: self)
           }
     
+    
+   
+    
+//    func quantidadePagarPorEstab() {
+//        var valor : Double = 0.0
+//        var posicao = 0
+//
+//        let estabCarrinhoAtualizado = realm.objects(EstabCarrinho.self)
+//        for estabTaxa in estabCarrinhoAtualizado {
+//
+//            let itens = realm.objects(ItemsCarrinho.self).filter("ideStabelecimento == %@", estabTaxa.ideStabelecimento)
+//
+//            for item in itens {
+//                valor = valor + Double(item.precoUnitario)
+//
+//            }
+//
+//            do {
+//
+//                  let realm = try Realm()
+//                let itens1 = realm.objects(EstabCarrinho.self)
+//
+//                  if itens.isEmpty == false {
+//                      print(itens)
+//
+//                   try realm.write {
+//                    //realm.add(item)
+//                    itens1[posicao].valorItens = valor
+//                    print("taxa adicionada ")
+//
+//                    }
+//                    valor = 0
+//                    posicao += 1
+//                }
+//              } catch let error {
+//                  print(error)
+//              }
+//
+//
+//        }
+//
+//    }
+    
+    
+   
+    func preencherTodosArray() {
+           preencherEstabelecimento()
+           arrayProdutos.removeAll()
+           arrayProdutos = preenccherArraySessoes()
+       }
+    
+    
+    func preencherEstabelecimento() {
+        arrayEstabelecimento1.removeAll()
+        arrayEstabelecimento.removeAll()
+         arrayEstabelecimento1.append("Dados Encomenda")
+       let EstabCarrinhoAtualizado = realm.objects(EstabCarrinho.self)
+             for item in  EstabCarrinhoAtualizado {
+                arrayEstabelecimento.append(item)
+                arrayEstabelecimento1.append(item.nomeEstab)
+                
+        }
+
+       
+        
+        print(arrayEstabelecimento)
+    }
+    
+    func preenccherArraySessoes() -> [[ItemsCarrinho]] {
+            var arrayProdutos1 = [[ItemsCarrinho]]()
+          
+            let produtoCarrinhoAtualizado = realm.objects(ItemsCarrinho.self)
+           for item1 in arrayEstabelecimento {
+               var arrayProduto = [ItemsCarrinho]()
+                for item in  produtoCarrinhoAtualizado {
+                   if item.estabelecimento == item1.nomeEstab {
+                           arrayProduto.append(item)
+                       
+                   }
+               }
+               arrayProdutos1.append(arrayProduto)
+           }
+           print(arrayProdutos1)
+            return arrayProdutos1
+       }
+  
+    
 }
+    
+    
+    
+
+
+

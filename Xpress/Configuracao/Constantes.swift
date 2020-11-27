@@ -26,3 +26,8 @@ enum StoryboardID {
     static let navigatioLogin = "inicioId"
     static let recuperarSenha = "recuperarSenhaId"
 }
+
+enum linkPrincipal {
+    static let urlLink = "https://apixpress.lengueno.com"
+    static let urlLinkTaxa = "https://apitaxas.lengueno.com/api/taxas/calculadora"
+}

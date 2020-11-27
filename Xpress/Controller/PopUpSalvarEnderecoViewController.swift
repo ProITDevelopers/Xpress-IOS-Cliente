@@ -27,8 +27,8 @@ protocol atualizarBotaoDelegate {
 class PopUpSalvarEnderecoViewController: UIViewController, UITextFieldDelegate {
     var delegate5: atualizarBotaoDelegate?
     var endereco = ""
-    var longitude = ""
-    var latitude = ""
+    var longitude = 0.0
+    var latitude = 0.0
     var telemovel = ""
     var referencia = ""
     var produtoComprar = Produto()
@@ -123,7 +123,7 @@ extension PopUpSalvarEnderecoViewController {
     
     func obterPerfil() {
           
-          let URL = "https://apixpress.lengueno.com/PerfilCliente"
+          let URL = "\(linkPrincipal.urlLink)/PerfilCliente"
           
           let token = UserDefaults.standard.string(forKey: "token")
         
