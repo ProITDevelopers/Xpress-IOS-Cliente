@@ -282,9 +282,11 @@ extension ProdutoShowViewController: UITableViewDelegate, UITableViewDataSource 
                     cell.urlImagemProduto = produto.imagemProduto!
                     cell.emStock1 = produto.emStock!
                     cell.observacoes = "Obrigado"
-                    cell.longitude = 0.0
-                    cell.latitude = 0.0
+                    let long = Double(produto.longitude!)
+                    let lat =  Double(produto.latitude!)
                     
+                    cell.longitude = long!
+                    cell.latitude = lat!
                 return cell
                }
     }

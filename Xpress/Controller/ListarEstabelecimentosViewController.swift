@@ -217,14 +217,15 @@ extension ListarEstabelecimentosViewController: UITableViewDelegate, UITableView
             
             
             if estabelecimentos[indexPath.row].estadoEstabelecimento == "Aberto" {
-                           cell.estadoLabel.textColor = UIColor(red: 28.0/255.0, green: 136.0/255.0, blue: 101.0/255.0, alpha: 1.0)
-                           
-                           cell.estadoLabel.text =  estabelecimentos[indexPath.row].estadoEstabelecimento
-                       } else {
-                           cell.estadoLabel.text = "Fechado"
+                cell.estadoLabel.textColor = UIColor(red: 28.0/255.0, green: 136.0/255.0, blue: 101.0/255.0, alpha: 1.0)
+                cell.estadoLabel.text =  estabelecimentos[indexPath.row].estadoEstabelecimento
+                
+            } else {
+                cell.estadoLabel.text = "Fechado"
                 cell.estadoLabel.textColor = UIColor(red: 255.0/255.0, green: 38.0/255.0, blue: 0.0/255.0, alpha: 1.0)
                 //estabelecimentos[indexPath.row].estadoEstabelecimento
-                       }
+                
+            }
             
             
             let url = estabelecimentos[indexPath.row].logotipo
